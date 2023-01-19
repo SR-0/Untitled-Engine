@@ -1,0 +1,1 @@
+PATH=$(SolutionDir)Dependencies\Binaries\$(Platform);%PATH%
