@@ -37,7 +37,7 @@ private: // operator overloading
 
 private: // core
 
-	void update(); // for use within Engine.cpp only
+	void update(float deltaTime); // for use within Engine.cpp only
 
 public: // sound buffers
 

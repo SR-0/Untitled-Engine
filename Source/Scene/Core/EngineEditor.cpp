@@ -3,7 +3,7 @@
 
 EngineEditor::EngineEditor() // warning, this must be created/initialized after System scene creation/initialization
 	:
-	Scene("EngineEditor", true)
+	Scene("sceneEngineEditor", true)
 {
 	auto& window	= *global::getWindow();
 	auto& cm		= *global::getClockManager();
@@ -13,11 +13,11 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 
 	this->setInitialize([&]
 	{
-		#pragma region CREATE
+		#pragma region CREATE/REFERENCE
 
-		///////////////////////////
-		// create window port(s) //
-		///////////////////////////
+		/////////////////////////////////////
+		// create/reference window port(s) //
+		/////////////////////////////////////
 		//////
 		////
 		//
@@ -27,9 +27,9 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 		auto& portEditor	= *window.createPort(Port("portEditor", portExplorer.getViewport().width, portExplorer.getViewport().top, 1.0f - (portExplorer.getViewport().width * 2), portExplorer.getViewport().height, window.getRenderLayerCount(), true));
 
 
-		/////////////////////
-		// create sound(s) //
-		/////////////////////
+		///////////////////////////////
+		// create/reference sound(s) //
+		///////////////////////////////
 		//////
 		////
 		//
@@ -38,9 +38,9 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 		auto& soundEditorCancel	= *am.createSound<Sound>("soundEngineCancel",	&*am.getSoundBuffer(1), this); // sound buffer index 1 is always system/engine cancel
 
 
-		/////////////////////////////////////////
-		// create global system/engine font(s) //
-		/////////////////////////////////////////
+		///////////////////////////////////////////////////
+		// create/reference global system/engine font(s) //
+		///////////////////////////////////////////////////
 		//////
 		////
 		//
@@ -50,9 +50,9 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 		auto& fontUnispaceBold			= *am.getFont(2); // 0 will always be system/engine font unispace bold
 		auto& fontUnispaceBoldItalic	= *am.getFont(3); // 0 will always be system/engine font unispace bold italic
 
-		///////////////////////
-		// create texture(s) //
-		///////////////////////
+		/////////////////////////////////
+		// create/reference texture(s) //
+		/////////////////////////////////
 		//////
 		////
 		//
@@ -66,9 +66,9 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 		const auto	textureTilesSelectorColumn	= 0;
 		const auto	textureTilesSelectorRow		= 2;
 
-		/////////////////////
-		// create shape(s) //
-		/////////////////////
+		///////////////////////////////
+		// create/reference shape(s) //
+		///////////////////////////////
 		//////
 		////
 		//
@@ -77,14 +77,13 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 		auto& rectangleEditorTileCuller		= *am.createShape<Rectangle>("rectangleEditorTileCuller",	sf::Vector2f(),																										sf::Vector2f(0, 0),	this, &portEditor);
 		auto& rectangleEditorSplashScreen	= *am.createShape<Rectangle>("rectangleEditorSplashScreen", sf::Vector2f(window.getWidth(), window.getHeight()),																sf::Vector2f(0, 0),	this, &portEditor);
 		
-		/////////////////////
-		// create tilemaps // temp
-		/////////////////////
+		///////////////////////////////
+		// create/reference tilemaps // @TODO temp for testing
+		///////////////////////////////
 		//////
 		////
 		//
 
-		// temp for testing
 		auto& tilemapMain = *am.createTilemap<Tilemap>
 		(
 			"tilemapMain",				// id 
@@ -104,7 +103,7 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			&portEditor					// port
 		);
 
-		#pragma endregion CREATE
+		#pragma endregion CREATE/REFERENCE
 
 
 
@@ -167,10 +166,10 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 		rectangleEditorSplashScreen.setRenderLayer(window.getRenderLayerCount() - 1);
 
 		// splash screen update
-		rectangleEditorSplashScreen.setUpdate([&](float)
+		rectangleEditorSplashScreen.setUpdate([&](float deltaTime)
 		{
 			if (!rectangleEditorSplashScreen.isTransparent())
-				rectangleEditorSplashScreen.fadeOut(1 * cm.getDeltaTime().asSeconds());
+				rectangleEditorSplashScreen.fadeOut(1 * deltaTime);
 			if (rectangleEditorSplashScreen.getRenderLayer() != (window.getRenderLayerCount() - 1))
 				rectangleEditorSplashScreen.setRenderLayer(window.getRenderLayerCount() - 1);
 		});
@@ -319,9 +318,9 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 		static float currentZoomFactor = 1.f;
 
 		// mouse wheel zoom
-		em.createBinding(
+		auto& bindingSystemMouseWheelZoom = *em.createBinding(
 		{
-			"mouse-wheel-zoom-in-x2",
+			"bindingSystemMouseWheelZoom",
 			{ sf::Event::MouseWheelScrolled },
 			{},
 			{},
@@ -330,7 +329,7 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			this,
 			[&](float)
 			{
-				if (auto* binding = em.getBinding("mouse-wheel-zoom-in-x2"))
+				if (auto* binding = em.getBinding("bindingMouseWheelZoom"))
 				{
 					// zoom in
 					if (binding->getMouseScrollDelta() > 0.0f)
@@ -375,10 +374,12 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			}
 		});
 
+		bindingSystemMouseWheelZoom.setMouseEnteredRequired(true);
+
 		// TEMP
-		em.createBinding(Binding
+		auto& bindingSystemScrollLeft = *em.createBinding(Binding
 		(
-			"scroll-left",
+			"bindingSystemScrollLeft",
 			{ sf::Event::KeyPressed },
 			{ sf::Keyboard::Left },
 			{},
@@ -387,7 +388,7 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			this,
 			[&](float deltaTime)
 			{
-				const auto modifier = 1200.f * deltaTime;
+				const auto modifier = 1200.000f * deltaTime;
 				auto viewport = portEditor.getViewport();
 				portEditor.setView(portEditor.getCenter().x - modifier, portEditor.getCenter().y, portEditor.getSize().x, portEditor.getSize().y);
 				if (portEditor.getCenter().x - (portEditor.getSize().x / 2) < 0)
@@ -401,9 +402,11 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			}
 		));
 
-		em.createBinding(Binding
+		bindingSystemScrollLeft.setMouseEnteredRequired(true);
+
+		auto& bindingSystemScrollRight = *em.createBinding(Binding
 		(
-			"scroll-right",
+			"bindingSystemScrollRight",
 			{ sf::Event::KeyPressed },
 			{ sf::Keyboard::Right },
 			{},
@@ -412,7 +415,7 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			this,
 			[&](float deltaTime)
 			{
-				const auto modifier = 1200.f * deltaTime;
+				const auto modifier = 1200.000f * deltaTime;
 				rectangleEditorTileCuller.move(sf::Vector2f(modifier, 0));
 				auto viewport = portEditor.getViewport();
 				portEditor.setView(portEditor.getCenter().x + modifier, portEditor.getCenter().y, portEditor.getSize().x, portEditor.getSize().y);
@@ -420,9 +423,11 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			}
 		));
 
-		em.createBinding(Binding
+		bindingSystemScrollRight.setMouseEnteredRequired(true);
+
+		auto& bindingSystemScrollUp = *em.createBinding(Binding
 		(
-			"scroll-up",
+			"bindingSystemScrollUp",
 			{ sf::Event::KeyPressed },
 			{ sf::Keyboard::Up },
 			{},
@@ -431,7 +436,7 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			this,
 			[&](float deltaTime)
 			{
-				const auto modifier = 1200.f * deltaTime;
+				const auto modifier = 1200.000f * deltaTime;
 				auto viewport = portEditor.getViewport();
 				portEditor.setView(portEditor.getCenter().x, portEditor.getCenter().y - modifier, portEditor.getSize().x, portEditor.getSize().y);
 				if (portEditor.getCenter().y - (portEditor.getSize().y / 2) < 0)
@@ -446,9 +451,11 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			}
 		));
 
-		em.createBinding(Binding
+		bindingSystemScrollUp.setMouseEnteredRequired(true);
+
+		auto& bindingSystemScrollDown = *em.createBinding(Binding
 		(
-			"scroll-down",
+			"bindingSystemScrollDown",
 			{ sf::Event::KeyPressed },
 			{ sf::Keyboard::Down },
 			{},
@@ -457,13 +464,15 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 			this,
 			[&](float deltaTime)
 			{
-				const auto modifier = 1200.f * deltaTime;
+				const auto modifier = 1200.000f * deltaTime;
 				rectangleEditorTileCuller.move(sf::Vector2f(0, modifier));
 				auto viewport = portEditor.getViewport();
 				portEditor.setView(portEditor.getCenter().x, portEditor.getCenter().y + modifier, portEditor.getSize().x, portEditor.getSize().y);
 				portEditor.setViewport(viewport);
 			}
 		));
+
+		bindingSystemScrollDown.setMouseEnteredRequired(true);
 
 		#pragma endregion EVENT BINDING(S)
 	});

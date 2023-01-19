@@ -11,8 +11,8 @@ class SceneManager
 {
 private: // data
 
-	std::vector<std::shared_ptr<Scene>>	scenes			= {};
-	std::mutex							mutex			= std::mutex{};
+	std::vector<std::shared_ptr<Scene>>	scenes	 = {};
+	std::mutex							mutex	 = std::mutex{};
 
 public: // ctor(s)/dtor(s)
 
@@ -28,7 +28,7 @@ private: // operator overloading
 
 private: // core
 
-	void update(); // for use within Engine.cpp only
+	void update(float deltaTime); // for use within Engine.cpp only
 
 public: // scenes
 

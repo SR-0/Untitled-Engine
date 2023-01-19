@@ -4,7 +4,7 @@
 
 EngineSystem::EngineSystem()
 	:
-	Scene("EngineSystem", true)
+	Scene("sceneEngineSystem", true)
 {
 	auto& window	= *global::getWindow();
 	auto& cm		= *global::getClockManager();
@@ -12,11 +12,11 @@ EngineSystem::EngineSystem()
 	auto& sm		= *global::getSceneManager();
 	auto& am		= *global::getAssetManager();
 
-	#pragma region CREATE
+	#pragma region CREATE/REFERENCE
 
-	/////////////////////////////////////////////////
-	// create global system/engine sound buffer(s) //
-	/////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////
+	// create/reference global system/engine sound buffer(s) //
+	///////////////////////////////////////////////////////////
 	//////
 	////
 	//
@@ -25,9 +25,9 @@ EngineSystem::EngineSystem()
 	auto& soundBufferEngineCancel	= *am.createSoundBuffer<SoundBuffer>("soundBufferEngineCancel",	"Resources/Sounds/ok2.wav", this);
 
 
-	/////////////////////////////////////////
-	// create global system/engine font(s) //
-	/////////////////////////////////////////
+	///////////////////////////////////////////////////
+	// create/reference global system/engine font(s) //
+	///////////////////////////////////////////////////
 	//////
 	////
 	//
@@ -37,16 +37,16 @@ EngineSystem::EngineSystem()
 	auto& fontUnispaceBold			= *am.createFont<Font>("fontUnispaceBold",			"Resources/Fonts/Monospaced/unispace_bold.ttf",			this);	// (monospaced)
 	auto& fontUnispaceBoldItalic	= *am.createFont<Font>("fontUnispaceBoldItalic",	"Resources/Fonts/Monospaced/unispace_bold_italic.ttf",	this);	// (monospaced)
 
-	//////////////////////////////////////////
-	// create global system/engine shape(s) //
-	//////////////////////////////////////////
+	////////////////////////////////////////////////////
+	// create/reference global system/engine shape(s) //
+	////////////////////////////////////////////////////
 	//////
 	////
 	//
 	
 	auto& textWindowResizer = *am.createText<Text>("textWindowResizer", &fontUnispaceBold, nullptr);
 
-	#pragma endregion CREATE
+	#pragma endregion CREATE/REFERENCE
 
 
 

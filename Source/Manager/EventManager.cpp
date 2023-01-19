@@ -21,13 +21,13 @@ EventManager::~EventManager()
 
 #pragma region CORE
 
-void EventManager::update()
+void EventManager::update(float deltaTime)
 {
-	auto window	= global::getWindow();
-	auto event	= sf::Event{};
-	auto local	= Binding{};
+	auto&	window	= *global::getWindow();
+	auto	event	= sf::Event{};
+	auto	local	= Binding{};
 
-	while (window->pollEvent(event))
+	while (window.pollEvent(event))
 
 	{
 		///////////////////////////////////
@@ -45,21 +45,33 @@ void EventManager::update()
 			}
 			break;
 
-			case sf::Event::Resized:
+			case sf::Event::Resized: // @TODO resize with scaling
 			{
-				//window->resizePorts();
+				//window.resizePorts();
 			}
 			break;
 
 			case sf::Event::GainedFocus:
 			{
-				debug::printLine("gained focus");
+				window.setFocused(true);
 			}
 			break;
 
 			case sf::Event::LostFocus:
 			{
-				debug::printLine("lost focus");
+				window.setFocused(false);
+			}
+			break;
+
+			case sf::Event::MouseEntered:
+			{
+				window.setMouseEntered(true);
+			}
+			break;
+
+			case sf::Event::MouseLeft:
+			{
+				window.setMouseEntered(false);
 			}
 			break;
 			
@@ -118,7 +130,7 @@ void EventManager::update()
 					local.getTypes().push_back(sf::Event::MouseWheelScrolled);
 					local.setMouseScrollDelta(event.mouseWheelScroll.delta);
 					local.setMouseScroll(sf::Vector2i(event.mouseWheelScroll.x, event.mouseWheelScroll.y));
-					local.setMousePosition(sf::Mouse::getPosition(*window->getInstance()));
+					local.setMousePosition(sf::Mouse::getPosition(*window.getInstance()));
 				}
 			}
 			break;
@@ -169,18 +181,6 @@ void EventManager::update()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
 		local.getModifiers().push_back(sf::Keyboard::Enter);
 
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-	//	local.getModifiers().push_back(sf::Keyboard::Up);
-	//
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	//	local.getModifiers().push_back(sf::Keyboard::Down);
-	//
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-	//	local.getModifiers().push_back(sf::Keyboard::Left);
-	//
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	//	local.getModifiers().push_back(sf::Keyboard::Right);
-
 	///////////////////////////////////////////////////
 	// call matching Binding object functions if any //
 	///////////////////////////////////////////////////
@@ -209,7 +209,7 @@ void EventManager::update()
 				}
 			}
 
-			binding->call();
+			binding->call(deltaTime);
 			break;
 		}
 	}

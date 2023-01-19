@@ -12,19 +12,21 @@ class Binding
 {
 private: // data
 	
-	std::string					uuid				= utility::get_uuid();
-	std::string					id					= "unidentified";
-	std::vector<int>			types				= {};
-	std::vector<int>			keys				= {};
-	std::vector<int>			buttons				= {};
-	std::vector<int>			modifiers			= {};
-	float						mouseScrollDelta	= 0;
-	sf::Vector2i				mouseScroll			= {};
-	sf::Vector2i				mousePosition		= {};
-	sf::Uint32					unicode				= 0;
-	bool						active				= false;
-	class Scene*				parentScene			= nullptr;
-	std::function<void(float)>	function			= [](float){};
+	std::string					uuid					= utility::get_uuid();
+	std::string					id						= "unidentified";
+	std::vector<int>			types					= {};
+	std::vector<int>			keys					= {};
+	std::vector<int>			buttons					= {};
+	std::vector<int>			modifiers				= {};
+	float						mouseScrollDelta		= 0;
+	sf::Vector2i				mouseScroll				= {};
+	sf::Vector2i				mousePosition			= {};
+	sf::Uint32					unicode					= 0;
+	bool						active					= false;
+	bool						focusRequired			= false;
+	bool						mouseEnteredRequired	= false;
+	class Scene*				parentScene				= nullptr;
+	std::function<void(float)>	function				= [](float){};
 
 public: // ctor(s)/dtor(s)
 
@@ -32,11 +34,11 @@ public: // ctor(s)/dtor(s)
 
 	Binding
 	(
-		const std::string&						id,
-		const std::vector<int>&					types,
-		bool									active		= false,
-		class Scene*							parentScene = nullptr,
-		std::function<void(float deltaTime)>&&	function	= [](float){}
+		const std::string&				id,
+		const std::vector<int>&			types,
+		bool							active		= false,
+		class Scene*					parentScene = nullptr,
+		std::function<void(float)>&&	function	= [](float){}
 	);
 
 	Binding
@@ -58,7 +60,7 @@ public: // operator overloading
 
 public: // core
 
-	void call();
+	void call(float deltaTime);
 
 public: // getter(s)
 
@@ -73,6 +75,8 @@ public: // getter(s)
 	std::vector<int>&		getModifiers();
 	sf::Uint32				getUnicode() const;
 	bool					isActive() const;
+	bool					isFocusRequired() const;
+	bool					isMouseEnteredRequired() const;
 	class Scene*			getParentScene() const;
 
 private: // setter(s) (for use in EventManager only)
@@ -85,7 +89,9 @@ private: // setter(s) (for use in EventManager only)
 public: // setter(s)
 
 	void setId(const std::string& id);
-	void setActive();
+	void setActive(bool active);
+	void setFocusRequired(bool focusRequired); // @TODO make global/window *as well as* local port focus check
+	void setMouseEnteredRequired(bool mouseEnteredRequired); // @TODO make global/window *as well as* local port focus check
 	void setFunction(std::function<void(float deltaTime)>&& function);
 	void setParentScene(class Scene* parentScene);
 

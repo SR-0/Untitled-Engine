@@ -29,6 +29,8 @@ private: // data
 	sf::Color							clearColor			= sf::Color::Black;
 	std::size_t							framerateLimit		= 0;
 	bool								renderingPaused		= false;
+	bool								focused				= true;
+	bool								mouseEntered		= false;
 	std::vector<std::shared_ptr<Port>>	ports				= {};
 	std::mutex							mutex				= std::mutex{};
 
@@ -59,7 +61,7 @@ private: // core
 public: // getters(s)
 
 	static constexpr std::size_t	getMinimumWidth();
-	static constexpr std::size_t	getMinimuHeight();
+	static constexpr std::size_t	getMinimumHeight();
 	sf::RenderWindow*				getInstance() const;
 	sf::Vector2u					getResolution() const;
 	sf::String						getTitle() const;
@@ -78,6 +80,8 @@ public: // getters(s)
 	sf::Vector2f					getScroll() const;
 	float							getRotation() const;
 	bool							isRenderingPaused() const;
+	bool							isFocused() const;
+	bool							isMouseEntered() const;
 
 public: // setter(s)
 
@@ -116,6 +120,11 @@ public: // setter(s)
 	void setRotation(float rotation);
 	void setRenderingPaused(bool renderingPaused);
 
+private:
+
+	void setFocused(bool focused);
+	void setMouseEntered(bool mouseEntered);
+
 public: // ports
 
 	Port*								createPort(Port&& Port);
@@ -137,6 +146,7 @@ private: // friend(s)
 
 	friend class Engine;
 	friend class EventManager;
+	friend class Binding;
 
 };
 

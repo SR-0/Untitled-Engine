@@ -19,7 +19,7 @@ SceneManager::~SceneManager()
 
 #pragma region CORE
 
-void SceneManager::update()
+void SceneManager::update(float deltaTime)
 {
 	for (auto& scene : this->scenes)
 	{
@@ -36,7 +36,7 @@ void SceneManager::update()
 
 				case Scene::State::Update:
 				{
-					scene->update(global::getClockManager()->getDeltaTime().asSeconds() * (scene->isTimeScaled() ? scene->getTimeScale() : 1.0f));
+					scene->update(deltaTime);
 				}
 				break;
 

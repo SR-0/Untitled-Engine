@@ -1,4 +1,5 @@
 #include "Core/Scene.h"
+#include "Core/Global.h"
 
 Scene::Scene()
 {
@@ -43,17 +44,22 @@ void Scene::setId(const std::string& id)
 
 bool Scene::isActive() const
 {
-	return this->active;
+	return bool
+	(
+		this->active &&
+		(!this->isFocusRequired() ? true : global::getWindow()->isFocused()) &&
+		(!this->isMouseEnteredRequired() ? true : global::getWindow()->isMouseEntered())
+	);
 }
 
-bool Scene::isTimeScaled() const
+bool Scene::isFocusRequired() const
 {
-	return this->timeScaled;
+	return this->focusRequired;
 }
 
-float Scene::getTimeScale() const
+bool Scene::isMouseEnteredRequired() const
 {
-	return this->timeScale;
+	return this->mouseEnteredRequired;
 }
 
 const Scene::State& Scene::getState() const
@@ -81,14 +87,14 @@ void Scene::setActive(bool active)
 	this->active = active;
 }
 
-void Scene::setTimeScaled(bool timeScaled)
+void Scene::setFocusRequired(bool focusRequired)
 {
-	this->timeScaled = timeScaled;
+	this->focusRequired = focusRequired;
 }
 
-void Scene::setTimeScale(float timeScale)
+void Scene::setMouseEnteredRequired(bool mouseEnteredRequired)
 {
-	this->timeScale = timeScale;
+	this->mouseEnteredRequired = mouseEnteredRequired;
 }
 
 void Scene::setState(const Scene::State& state)

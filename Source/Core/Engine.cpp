@@ -12,6 +12,7 @@ std::size_t	Engine::maxTicksPerSecond		= 0;
 std::size_t	Engine::maxFramesPerSecond		= 0;
 sf::Time	Engine::timeSinceLastUpdate		= sf::Time::Zero;
 sf::Time	Engine::timeSinceLastRender		= sf::Time::Zero;
+sf::Time	Engine::deltaTimeBuildUp		= sf::Time::Zero;
 bool		Engine::updating				= false;
 bool		Engine::rendering				= false;
 
@@ -19,20 +20,20 @@ bool		Engine::rendering				= false;
 
 Engine::Engine()
 	:
-	Window(sf::Vector2u(1920, 1080), "Untitled Engine", sf::Style::None, sf::ContextSettings()),
+	Window(sf::Vector2u(1920, 1080), "Untitled Engine", sf::Style::None, sf::ContextSettings(0, 0, 4)),
 	ClockManager(),
 	EventManager(),
 	SceneManager(),
 	AssetManager()
 {
-	///////////////////////
-	// global references //
-	///////////////////////
+	////////////////////////////
+	// global core references //
+	////////////////////////////
 	//////
 	////
 	//
 	
-	global::reference
+	global::referenceCore
 	(
 		*this,
 		*this,
@@ -48,13 +49,47 @@ Engine::Engine()
 	////
 	//
 
-	this->createScene<EngineSystem>();
-	this->createScene<EngineConsole>();
-	this->createScene<EngineMenu>();
-	this->createScene<EngineFooter>();
-	this->createScene<EngineExplorer>();
-	this->createScene<EngineModifier>();
-	this->createScene<EngineEditor>();
+	auto& sceneEngineSystem		= *this->createScene<EngineSystem>();
+	auto& sceneEngineConsole	= *this->createScene<EngineConsole>();
+	auto& sceneEngineMenu		= *this->createScene<EngineMenu>();
+	auto& sceneEngineFooter		= *this->createScene<EngineFooter>();
+	auto& sceneEngineExplorer	= *this->createScene<EngineExplorer>();
+	auto& sceneEngineModifier	= *this->createScene<EngineModifier>();
+	auto& sceneEngineEditor		= *this->createScene<EngineEditor>();
+
+	/////////////////////////////
+	// global scene references //
+	/////////////////////////////
+	//////
+	////
+	//
+
+	global::referenceScenes
+	(
+		sceneEngineSystem,
+		sceneEngineConsole,
+		sceneEngineMenu,
+		sceneEngineFooter,
+		sceneEngineExplorer,
+		sceneEngineModifier,
+		sceneEngineEditor
+	);
+
+	///////////////////////////////////////////
+	// initial check for mouse within window //
+	///////////////////////////////////////////
+	//////
+	////
+	//
+
+	if (
+		(this->getGlobalMousePosition().x >= this->getPosition().x)						&&
+		(this->getGlobalMousePosition().y >= this->getPosition().y)						&&
+		(this->getGlobalMousePosition().y <= this->getPosition().x + this->getSize().x) &&
+		(this->getGlobalMousePosition().y <= this->getPosition().y + this->getSize().y) )
+	{
+		this->setMouseEntered(true);
+	}
 }
 
 #pragma endregion CTOR(S)/DTOR(S)
@@ -72,9 +107,9 @@ bool Engine::isRunning()
 
 void Engine::update()
 {
-	this->timeSinceLastUpdate += this->getDeltaTime();
-
 	ClockManager::update();
+
+	this->timeSinceLastUpdate += this->getDeltaTime();
 
 	switch (this->maxTicksPerSecond)
 	{
@@ -86,22 +121,20 @@ void Engine::update()
 
 		default: // tick limit
 		{
-			if (this->timeSinceLastUpdate.asSeconds() >= (1.f / static_cast<float>(maxTicksPerSecond)))
-			{
+			if (this->timeSinceLastUpdate.asSeconds() >= (1.000000f / static_cast<float>(maxTicksPerSecond)))
 				this->updating = true;
-				this->timeSinceLastUpdate = sf::Time::Zero;
-			}
 		}
 		break;
 	}
 
 	if (this->updating)
 	{
-		EventManager::update();
-		SceneManager::update();
-		AssetManager::update();
+		EventManager::update(this->timeSinceLastUpdate.asSeconds());
+		SceneManager::update(this->timeSinceLastUpdate.asSeconds());
+		AssetManager::update(this->timeSinceLastUpdate.asSeconds());
 
-		this->updating = false;
+		this->timeSinceLastUpdate	= sf::Time::Zero;
+		this->updating				= false;
 	}
 }
 
@@ -119,11 +152,8 @@ void Engine::render()
 
 		default: // frame limit
 		{
-			if (this->timeSinceLastRender.asSeconds() >= (1.f / static_cast<float>(maxFramesPerSecond)))
-			{
+			if (this->timeSinceLastRender.asSeconds() >= (1.000000f / static_cast<float>(maxFramesPerSecond)))
 				this->rendering = true;
-				this->timeSinceLastRender = sf::Time::Zero;
-			}
 		}
 		break;
 	}
@@ -134,7 +164,8 @@ void Engine::render()
 		this->draw();
 		this->display();
 
-		this->rendering = false;
+		this->timeSinceLastRender	= sf::Time::Zero;
+		this->rendering				= false;
 	}
 }
 

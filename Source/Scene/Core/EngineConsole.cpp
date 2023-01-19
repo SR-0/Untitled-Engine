@@ -4,7 +4,7 @@
 
 EngineConsole::EngineConsole()
 	:
-	Scene("EngineConsole", true)
+	Scene("sceneEngineConsole", true)
 {
 	auto& window	= *global::getWindow();
 	auto& cm		= *global::getClockManager();
@@ -14,20 +14,20 @@ EngineConsole::EngineConsole()
 
 	this->setInitialize([&]
 	{
-		#pragma region CREATE
+		#pragma region CREATE/REFERENCE
 
-		/////////////////////////
-		// create general data //
-		/////////////////////////
+		///////////////////////////////////
+		// create/reference general data //
+		///////////////////////////////////
 		//////
 		////
 		//
 
 		static std::vector<Text*> lines = std::vector<Text*>();
 
-		////////////////////////////////////////////
-		// reference global system/engine font(s) //
-		////////////////////////////////////////////
+		///////////////////////////////////////////////////
+		// create/reference global system/engine font(s) //
+		///////////////////////////////////////////////////
 		//////
 		////
 		//
@@ -37,9 +37,9 @@ EngineConsole::EngineConsole()
 		auto& fontUnispaceBold			= *am.getFont("fontUnispaceBold");
 		auto& fontUnispaceBoldItalic	= *am.getFont("fontUnispaceBoldItalic");
 
-		//////////////////////
-		// create shapes(s) //
-		//////////////////////
+		////////////////////////////////
+		// create/reference shapes(s) //
+		////////////////////////////////
 		//////
 		////
 		//
@@ -48,9 +48,9 @@ EngineConsole::EngineConsole()
 		auto& rectangleConsoleCursor		= *am.createShape<Rectangle>("rectangleConsoleCursor",		sf::Vector2f(window.getHeight() / 256, window.getHeight() / 48),	sf::Vector2f(rectangleConsolePanel.getPosition() + sf::Vector2f(window.getWidth() / 16, window.getWidth() / 16)),			this, nullptr);
 		//auto& rectangleConsoleHighlighter	= *am.createShape<Rectangle>("rectangleConsoleHighlighter", sf::Vector2f(window.getHeight() / 96, window.getHeight() / 48),		sf::Vector2f(rectangleConsolePanel.getPosition() + sf::Vector2f(window.getWidth() / 16, window.getWidth() / 16)),			this, nullptr);
 
-		////////////////////
-		// create text(s) //
-		////////////////////
+		//////////////////////////////
+		// create/reference text(s) //
+		//////////////////////////////
 		//////
 		////
 		//
@@ -58,7 +58,7 @@ EngineConsole::EngineConsole()
 		auto& textHeader	= *am.createText<Text>("textHeader",	&fontUnispaceBold, this, nullptr);
 		//auto& textDetails	= *am.createText<Text>("textDetails",	&fontUnispaceBold, this, nullptr);
 		
-		#pragma endregion CREATE
+		#pragma endregion CREATE/REFERENCE
 
 
 
@@ -124,7 +124,7 @@ EngineConsole::EngineConsole()
 			static float		timeSinceLastBlink	= 0.0f;
 			static const float	interval			= 0.3f;
 
-			timeSinceLastBlink += cm.getDeltaTime().asSeconds();
+			timeSinceLastBlink += deltaTime;
 
 			if (timeSinceLastBlink >= interval)
 			{

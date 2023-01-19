@@ -18,6 +18,7 @@ private:
 	static std::size_t				maxFramesPerSecond;
 	static sf::Time					timeSinceLastUpdate;
 	static sf::Time					timeSinceLastRender;
+	static sf::Time					deltaTimeBuildUp;
 	static bool						updating;
 	static bool						rendering;
 

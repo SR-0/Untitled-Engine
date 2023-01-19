@@ -63,9 +63,9 @@ bool operator != (const Binding& first, const Binding& second)
 	return !(first == second);
 }
 
-void Binding::call()
+void Binding::call(float deltaTime)
 {
-	this->function(global::getClockManager()->getDeltaTime().asSeconds());
+	this->function(deltaTime);
 }
 
 sf::Vector2i Binding::getMouseScroll() const
@@ -120,7 +120,23 @@ sf::Uint32 Binding::getUnicode() const
 
 bool Binding::isActive() const
 {
-	return this->active && (static_cast<bool>(this->getParentScene()) ? this->getParentScene()->isActive() : true);
+	return bool
+	(
+		this->active &&
+		(!this->isFocusRequired() ? true : global::getWindow()->isFocused()) &&
+		(!this->isMouseEnteredRequired() ? true : global::getWindow()->isMouseEntered()) &&
+		(static_cast<bool>(this->getParentScene()) ? this->getParentScene()->isActive() : true)
+	);
+}
+
+bool Binding::isFocusRequired() const
+{
+	return this->focusRequired;
+}
+
+bool Binding::isMouseEnteredRequired() const
+{
+	return this->mouseEnteredRequired;
 }
 
 Scene* Binding::getParentScene() const
@@ -153,9 +169,19 @@ void Binding::setId(const std::string& id)
 	this->id = id;
 }
 
-void Binding::setActive()
+void Binding::setActive(bool active) // LOL no one saw that
 {
 	this->active = active;
+}
+
+void Binding::setFocusRequired(bool focusRequired)
+{
+	this->focusRequired = focusRequired;
+}
+
+void Binding::setMouseEnteredRequired(bool mouseEnteredRequired)
+{
+	this->mouseEnteredRequired = mouseEnteredRequired;
 }
 
 void Binding::setFunction(std::function<void(float)>&& function)

@@ -247,7 +247,7 @@ constexpr std::size_t Window::getMinimumWidth()
 	return Window::minimumWidth;
 }
 
-constexpr std::size_t Window::getMinimuHeight()
+constexpr std::size_t Window::getMinimumHeight()
 {
 	return Window::minimumHeight;
 }
@@ -348,6 +348,16 @@ float Window::getRotation() const
 bool Window::isRenderingPaused() const
 {
 	return this->renderingPaused;
+}
+
+bool Window::isFocused() const
+{
+	return this->focused;
+}
+
+bool Window::isMouseEntered() const
+{
+	return this->mouseEntered;
 }
 
 #pragma endregion GETTER(S)
@@ -565,6 +575,16 @@ void Window::setRotation(float rotation)
 void Window::setRenderingPaused(bool renderingPaused)
 {
 	this->renderingPaused = renderingPaused;
+}
+
+void Window::setFocused(bool focused)
+{
+	this->focused = focused;
+}
+
+void Window::setMouseEntered(bool mouseEntered)
+{
+	this->mouseEntered = mouseEntered;
 }
 
 #pragma endregion SETTER(S)

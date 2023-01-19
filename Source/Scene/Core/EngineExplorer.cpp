@@ -12,7 +12,7 @@ ExplorerTab currentTab = ExplorerTab::Events;
 
 EngineExplorer::EngineExplorer()
 	:
-	Scene("EngineExplorer", true)
+	Scene("sceneEngineExplorer", true)
 {
 	auto& window	= *global::getWindow();
 	auto& cm		= *global::getClockManager();
@@ -22,11 +22,11 @@ EngineExplorer::EngineExplorer()
 
 	this->setInitialize([&]
 	{
-		#pragma region CREATE
+		#pragma region CREATE/REFERENCE
 
-		///////////////////////////
-		// create window port(s) //
-		///////////////////////////
+		/////////////////////////////////////
+		// create/reference window port(s) //
+		/////////////////////////////////////
 		//////
 		////
 		//
@@ -34,9 +34,9 @@ EngineExplorer::EngineExplorer()
 		auto& portMenu		= *window.getPort("portMenu");
 		auto& portExplorer	= *window.createPort(Port("portExplorer", 0.0f, portMenu.getViewport().height, 0.20f, 1.0f - (portMenu.getViewport().height * 2.0f), window.getRenderLayerCount(), true));
 
-		////////////////////
-		// create text(s) //
-		////////////////////
+		//////////////////////////////
+		// create/reference text(s) //
+		//////////////////////////////
 		//////
 		////
 		//
@@ -45,9 +45,9 @@ EngineExplorer::EngineExplorer()
 		auto& textExplorerScenes = *am.createText<Text>("textExplorerScenes", &*am.getFont(0), this, &portExplorer); // font at index 0 is system regular
 		auto& textExplorerAssets = *am.createText<Text>("textExplorerAssets", &*am.getFont(0), this, &portExplorer); // font at index 0 is system regular
 
-		/////////////////////
-		// create shape(s) //
-		/////////////////////
+		///////////////////////////////
+		// create/reference shape(s) //
+		///////////////////////////////
 		//////
 		////
 		//
@@ -57,7 +57,7 @@ EngineExplorer::EngineExplorer()
 		auto& rectangleExplorerAssets		= *am.createShape<Rectangle>("rectangleExplorerAssets", sf::Vector2f((static_cast<float>(window.getSize().x) * portExplorer.getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * portExplorer.getViewport().width) * 0.333f * 2.0f), 0.0f),																					this, &portExplorer); // font at index 0 is system regular
 		auto& rectangleExplorerTabConnector = *am.createShape<Rectangle>("rectangleExplorerAssets", sf::Vector2f(rectangleExplorerEvents.getSize().x - 2, 2),																								sf::Vector2f(((static_cast<float>(window.getSize().x) * portExplorer.getViewport().width) * 0.333f * 0.0f) + 1, rectangleExplorerEvents.getPosition().y + rectangleExplorerEvents.getSize().y - 1), this, &portExplorer); // font at index 0 is system regular
 
-		#pragma endregion CREATE
+		#pragma endregion CREATE/REFERENCE
 		
 
 

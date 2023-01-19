@@ -21,35 +21,33 @@ AssetManager::~AssetManager()
 
 #pragma region CORE
 
-void AssetManager::update()
+void AssetManager::update(float deltaTime)
 {
-	auto deltaTime = global::getClockManager()->getDeltaTime().asSeconds();
-
 	for (auto& sound : this->sounds)
 		if (sound->isActive())
-			sound->callUpdate(deltaTime * (sound->isTimeScaled() ? sound->getTimeScale() : 1.0f));
+			sound->callUpdate(deltaTime);
 
 	for (auto& track : this->music)
 		if (track->isActive())
-			track->callUpdate(deltaTime * (track->isTimeScaled() ? track->getTimeScale() : 1.0f));
+			track->callUpdate(deltaTime);
 
 	for (auto& text : this->texts)
 		if (text->isActive())
-			text->callUpdate(deltaTime * (text->isTimeScaled() ? text->getTimeScale() : 1.0f));
+			text->callUpdate(deltaTime);
 
 	for (auto& shape : this->shapes)
 	{
 		if (shape->isActive())
 		{
 			if (shape->isAnimated())
-				shape->updateAnimation(deltaTime * (shape->isTimeScaled() ? shape->getTimeScale() : 1.0f));
-			shape->callUpdate(deltaTime * (shape->isTimeScaled() ? shape->getTimeScale() : 1.0f));
+				shape->updateAnimation(deltaTime);
+			shape->callUpdate(deltaTime);
 		}
 	}
 
 	for (auto& tilemap : this->tilemaps)
 		if (tilemap->isActive())
-			tilemap->callUpdate(deltaTime * (tilemap->isTimeScaled() ? tilemap->getTimeScale() : 1.0f));
+			tilemap->callUpdate(deltaTime);
 }
 
 #pragma endregion CORE
@@ -820,12 +818,12 @@ void AssetManager::removeAssets(Scene* scene)
 {
 	this->removeTilemaps(scene);
 	this->removeShapes(scene);
-	this->removeSoundBuffers(scene);
+	this->removeTextures(scene);
 	this->removeTexts(scene);
 	this->removeFonts(scene);
 	this->removeMusics(scene);
 	this->removeSounds(scene);
-	this->removeTextures(scene);
+	this->removeSoundBuffers(scene);
 }
 
 #pragma endregion GENERAL

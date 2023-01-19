@@ -12,7 +12,7 @@ ModifierTab currentTab = ModifierTab::Tab1;  // @TODO update
 
 EngineModifier::EngineModifier()
 	:
-	Scene("EngineExplorer", true)
+	Scene("sceneEngineExplorer", true)
 {
 	auto& window	= *global::getWindow();
 	auto& cm		= *global::getClockManager();
@@ -22,11 +22,11 @@ EngineModifier::EngineModifier()
 
 	this->setInitialize([&]
 	{
-		#pragma region CREATE
+		#pragma region CREATE/REFERENCE
 
-		///////////////////////////
-		// create window port(s) //
-		///////////////////////////
+		/////////////////////////////////////
+		// create/reference window port(s) //
+		/////////////////////////////////////
 		//////
 		////
 		//
@@ -35,9 +35,9 @@ EngineModifier::EngineModifier()
 		auto& portExplorer	= *window.getPort("portExplorer");
 		auto& portModifier	= *window.createPort(Port("portModifier", 1.0f - portExplorer.getViewport().width, portExplorer.getViewport().top, portExplorer.getViewport().width, portExplorer.getViewport().height, window.getRenderLayerCount(), true));
 
-		////////////////////
-		// create text(s) //
-		////////////////////
+		//////////////////////////////
+		// create/reference text(s) //
+		//////////////////////////////
 		//////
 		////
 		//
@@ -46,9 +46,9 @@ EngineModifier::EngineModifier()
 		auto& textModifierTab2 = *am.createText<Text>("textModifierTab2", &*am.getFont(0), this, &portModifier); // font at index 0 is system regular
 		auto& textModifierTab3 = *am.createText<Text>("textModifierTab3", &*am.getFont(0), this, &portModifier); // font at index 0 is system regular
 
-		/////////////////////
-		// create shape(s) //
-		/////////////////////
+		///////////////////////////////
+		// create/reference shape(s) //
+		///////////////////////////////
 		//////
 		////
 		//
@@ -58,7 +58,7 @@ EngineModifier::EngineModifier()
 		auto& rectangleModifierTab3			= *am.createShape<Rectangle>("rectangleModifierTab3",			sf::Vector2f((static_cast<float>(window.getSize().x) * portExplorer.getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * portExplorer.getViewport().width) * 0.333f * 2.0f), 0.0f),																				this, &portModifier); // font at index 0 is system regular
 		auto& rectangleModifierTabConnector = *am.createShape<Rectangle>("rectangleModifierTabConnector",	sf::Vector2f(rectangleModifierTab1.getSize().x - 2, 2),																									sf::Vector2f(((static_cast<float>(window.getSize().x) * portExplorer.getViewport().width) * 0.333f * 0.0f) + 1, rectangleModifierTab1.getPosition().y + rectangleModifierTab1.getSize().y - 1),	this, &portModifier); // font at index 0 is system regular
 
-		#pragma endregion CREATE
+		#pragma endregion CREATE/REFERENCE
 		
 
 

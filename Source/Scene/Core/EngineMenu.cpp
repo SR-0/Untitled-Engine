@@ -3,7 +3,7 @@
 
 EngineMenu::EngineMenu()
 	:
-	Scene("EngineMenu", true)
+	Scene("sceneEngineMenu", true)
 {
 	auto& window	= *global::getWindow();
 	auto& cm		= *global::getClockManager();
@@ -13,36 +13,36 @@ EngineMenu::EngineMenu()
 
 	this->setInitialize([&]
 	{
-		#pragma region CREATE
+		#pragma region CREATE/REFERENCE
 
-		///////////////////////////
-		// create window port(s) //
-		///////////////////////////
+		/////////////////////////////////////
+		// create/reference window port(s) //
+		/////////////////////////////////////
 		//////
 		////
 		//
 		
 		auto& portMenu = *window.createPort(Port("portMenu", 0.0f, 0.0f, 1.0f, 0.025f, window.getRenderLayerCount(), true));
 
-		/////////////////////
-		// create shape(s) //
-		/////////////////////
+		///////////////////////////////
+		// create/reference shape(s) //
+		///////////////////////////////
 		//////
 		////
 		//
 	
 		auto& rectangleMenuClose = *am.createShape<Rectangle>("rectangleMenuClose", sf::Vector2f(window.getHeight() * portMenu.getViewport().height * 0.65f, window.getHeight() * portMenu.getViewport().height * 0.65f), sf::Vector2f(0, 0), this, &portMenu);
 		
-		////////////////////
-		// create text(s) //
-		////////////////////
+		//////////////////////////////
+		// create/reference text(s) //
+		//////////////////////////////
 		//////
 		////
 		//
 
 		auto& textMenuClose = *am.createText<Text>("textMenuClose", &*am.getFont(2), this, &portMenu); // font at index 2 is system bold
 
-		#pragma endregion CREATE
+		#pragma endregion CREATE/REFERENCE
 
 
 

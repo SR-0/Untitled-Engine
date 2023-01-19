@@ -1,11 +1,10 @@
 #pragma once
 
 #include "Utility/Utility.h"
-#include "Utility/Debug.h"
 #include <functional>
 #include <SFML/System/Vector2.hpp>
 
-class Scene
+class Scene // @TODO Scene class needs to have Scene parent and Scene children pointers and functionality
 {
 public: // enum class(es)
 
@@ -18,19 +17,19 @@ public: // enum class(es)
 
 private: // data
 
-	std::string					uuid				= utility::get_uuid();
-	std::string					id					= std::string{};
-	bool						active				= false;
-	bool						timeScaled			= false;
-	float						timeScale			= 1.0f;
-	Scene::State				state				= Scene::State::Initialize;
-	sf::Vector2f				position			= sf::Vector2f(0.0f, 0.0f);
-	sf::Vector2f				size				= sf::Vector2f(0.0f, 0.0f);
-	std::size_t					renderLayer			= 0;
-	bool						renderEnabled		= true;
-	std::function<void()>		functionInitialize	= []{};
-	std::function<void(float)>	functionUpdate		= [](float){};
-	std::function<void()>		functionTerminate	= []{};
+	std::string					uuid					= utility::get_uuid();
+	std::string					id						= std::string{};
+	bool						active					= false;
+	bool						focusRequired			= false;
+	bool						mouseEnteredRequired	= false;
+	Scene::State				state					= Scene::State::Initialize;
+	sf::Vector2f				position				= sf::Vector2f(0.0f, 0.0f);
+	sf::Vector2f				size					= sf::Vector2f(0.0f, 0.0f);
+	std::size_t					renderLayer				= 0;
+	bool						renderEnabled			= true;
+	std::function<void()>		functionInitialize		= []{};
+	std::function<void(float)>	functionUpdate			= [](float){};
+	std::function<void()>		functionTerminate		= []{};
 
 public: // ctor(s)/dtor(s)
 
@@ -49,8 +48,8 @@ public: // getter(s)
 	const std::string&	getUuid() const;
 	const std::string&	getId() const;
 	bool				isActive() const;
-	bool				isTimeScaled() const;
-	float				getTimeScale() const;
+	bool				isFocusRequired() const;
+	bool				isMouseEnteredRequired() const;
 	const Scene::State& getState() const;
 	const sf::Vector2f& getPosition() const;
 	std::size_t			getRenderLayer() const;
@@ -60,8 +59,8 @@ public: // setter(s)
 
 	void setId(const std::string& id);
 	void setActive(bool active);
-	void setTimeScaled(bool timeScaled);
-	void setTimeScale(float timeScale);
+	void setFocusRequired(bool focusRequired); // @TODO make global/window *as well as* local port focus check
+	void setMouseEnteredRequired(bool mouseEnteredRequired); // @TODO make global/window *as well as* local port focus check
 	void setState(const Scene::State& state);
 	void setInitialize(std::function<void()>&& functionInitialize);
 	void setUpdate(std::function<void(float deltaTime)>&& functionUpdate);

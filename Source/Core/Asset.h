@@ -37,8 +37,6 @@ private: // data
 	std::string					uuid			= utility::get_uuid();
 	std::string					id				= std::string{};
 	bool						active			= false;
-	bool						timeScaled		= false; // not sure I like time scale
-	float						timeScale		= 1.0f;
 	Base*						base			= nullptr;
 	Scene*						parentScene		= nullptr;
 	Port*						port			= nullptr;
@@ -58,8 +56,6 @@ public: // getter(s)
 	const std::string&						getUuid() const;
 	const std::string&						getId() const;
 	bool									isActive() const;
-	bool									isTimeScaled() const;
-	float									getTimeScale() const;
 	Scene*									getParentScene() const;
 	Port*									getPort() const;
 	template <typename Derived> Derived*	as() const;
@@ -68,8 +64,6 @@ public: // setter(s)
 
 	void setId(const std::string& id);
 	void setActive(bool active);
-	void setTimeScaled(bool timeScaled);
-	void setTimeScale(float timeScale);
 	void setParentScene(Scene* parentScene);
 	void setPort(Port& port);
 	void setUpdate(std::function<void(float deltaTime)>&& functionUpdate);
@@ -145,18 +139,6 @@ inline bool Asset<Base>::isActive() const
 }
 
 template<typename Base>
-inline bool Asset<Base>::isTimeScaled() const
-{
-	return this->timeScaled;
-}
-
-template<typename Base>
-inline float Asset<Base>::getTimeScale() const
-{
-	return this->timeScale;
-}
-
-template<typename Base>
 inline Scene* Asset<Base>::getParentScene() const
 {
 	return this->parentScene;
@@ -198,18 +180,6 @@ template<typename Base>
 inline void Asset<Base>::setActive(bool active)
 {
 	this->active = active;
-}
-
-template<typename Base>
-inline void Asset<Base>::setTimeScaled(bool timeScaled)
-{
-	this->timeScaled = timeScaled;
-}
-
-template<typename Base>
-inline void Asset<Base>::setTimeScale(float timeScale)
-{
-	this->timeScale = timeScale;
 }
 
 template<typename Base>
