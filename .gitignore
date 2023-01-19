@@ -1,3 +1,4 @@
-Binaries/
+x64/
+Win32/
 Intermediates/
 .vs/
