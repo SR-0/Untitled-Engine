@@ -1,1 +1,1 @@
-PATH=$(SolutionDir)Dependencies\Binaries\$(Platform);%PATH%
+PATH=$(SolutionDir)Dependencies\Dynamic\$(Platform);%PATH%

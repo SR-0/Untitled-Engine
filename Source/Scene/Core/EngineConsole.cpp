@@ -114,11 +114,11 @@ EngineConsole::EngineConsole()
 			));
 		});
 
-		// highlighter basics
+		// cursor basics
 		rectangleConsoleCursor.setRenderLayer(window.getRenderLayerCount() - 1);
 		rectangleConsoleCursor.setFillColor(sf::Color(100, 100, 100, 100));
 
-		// highlighter auto update
+		// cursor auto update
 		rectangleConsoleCursor.setUpdate([&](float deltaTime)
 		{
 			static float		timeSinceLastBlink	= 0.0f;
@@ -304,7 +304,7 @@ EngineConsole::EngineConsole()
 							auto width = std::stoi(temp.substr(0, temp.find('x')));
 							auto height = std::stoi(temp.substr(temp.find('x') + 1, temp.size()));
 							window.setSize(width, height);
-							window.resizePorts();
+							//window.resizePorts(); @TODO
 						}
 
 						// max ticks per second

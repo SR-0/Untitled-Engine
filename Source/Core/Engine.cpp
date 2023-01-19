@@ -19,7 +19,7 @@ bool		Engine::rendering				= false;
 
 Engine::Engine()
 	:
-	Window(),
+	Window(sf::Vector2u(1920, 1080), "Untitled Engine", sf::Style::None, sf::ContextSettings()),
 	ClockManager(),
 	EventManager(),
 	SceneManager(),

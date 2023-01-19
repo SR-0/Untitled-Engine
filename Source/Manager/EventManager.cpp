@@ -215,7 +215,7 @@ void EventManager::update()
 	}
 }
 
-#pragma endregion core
+#pragma endregion CORE
 
 
 

@@ -11,13 +11,25 @@
 
 class Global
 {
-private:
+private: // data
 
 	static Window*			window;
 	static ClockManager*	clockManager;
 	static EventManager*	eventManager;
 	static SceneManager*	sceneManager;
 	static AssetManager*	assetManager;
+
+private: // ctor(s)/dtor(s)
+
+	Global() = default;
+	Global(const Global&) = delete;
+	Global(Global&&) = delete;
+	~Global() = default;
+
+private: // operator overloading
+
+	Global& operator = (const Global&) = delete;
+	Global& operator = (Global&&) = delete;
 
 private: // core (for use within Engine.cpp only)
 

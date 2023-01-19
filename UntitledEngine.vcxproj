@@ -53,6 +53,8 @@
     <ClCompile Include="Source\Asset\Text.cpp" />
     <ClCompile Include="Source\Scene\Core\EngineConsole.cpp" />
     <ClCompile Include="Source\Scene\Core\EngineSystem.cpp" />
+    <ClCompile Include="Source\Core\Stopwatch.cpp" />
+    <ClCompile Include="Source\Core\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Scene\Core\EngineModifier.h" />
@@ -89,6 +91,8 @@
     <ClInclude Include="Source\Asset\Text.h" />
     <ClInclude Include="Source\Scene\Core\EngineConsole.h" />
     <ClInclude Include="Source\Scene\Core\EngineSystem.h" />
+    <ClInclude Include="Source\Core\Stopwatch.h" />
+    <ClInclude Include="Source\Core\Timer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
