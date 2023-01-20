@@ -19,7 +19,7 @@
 	settings previously mentioned functionality
 	via lambdas and std::functions - and virtually
 	overriding previously mentioned functionality
-	within derived Scene classes - or with both
+	within derived chosen classes - or with both
 	via combination and priority code utilization
 	values
 */
