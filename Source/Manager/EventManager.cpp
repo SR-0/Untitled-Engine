@@ -209,7 +209,7 @@ void EventManager::update(float deltaTime)
 				}
 			}
 
-			binding->call(deltaTime);
+			binding->callUpdate(deltaTime);
 			break;
 		}
 	}
@@ -222,13 +222,6 @@ void EventManager::update(float deltaTime)
 
 
 #pragma region BINDINGS
-
-Binding* EventManager::createBinding(Binding&& binding)
-{
-	std::lock_guard<std::mutex> _(this->mutex);
-	this->bindings.emplace_back(std::make_shared<Binding>(std::move(binding)));
-	return this->bindings.back().get();
-}
 
 std::size_t EventManager::getBindingCount() const
 {

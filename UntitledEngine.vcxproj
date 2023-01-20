@@ -57,6 +57,7 @@
     <ClCompile Include="Source\Core\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Core\CodeUtilization.h" />
     <ClInclude Include="Source\Scene\Core\EngineModifier.h" />
     <ClInclude Include="Source\Scene\Core\EngineFooter.h" />
     <ClInclude Include="Source\Scene\Core\EngineMenu.h" />

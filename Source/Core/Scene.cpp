@@ -6,25 +6,143 @@ Scene::Scene()
 	//
 }
 
-Scene::Scene(const std::string& id, bool active)
+Scene::Scene(const std::string& id, bool active, const CodeUtilization& codeUtilization)
 {
-	this->id		= id;
-	this->active	= active;
+	this->id				= id;
+	this->active			= active;
+	this->codeUtilization	= codeUtilization;
 }
 
 void Scene::initialize()
 {
-	this->functionInitialize();
+	return;
 }
 
 void Scene::update(float deltaTime)
 {
-	this->functionUpdate(deltaTime);
+	return;
 }
 
 void Scene::terminate()
 {
-	this->functionTerminate();
+	return;
+}
+
+void Scene::callInitialize()
+{
+	switch (this->codeUtilization)
+	{
+		case CodeUtilization::DynamicFunction:
+		{
+			this->functionInitialize();
+		}
+		break;
+
+		case CodeUtilization::VirtualOverride:
+		{
+			this->initialize();
+		}
+		break;
+
+		case CodeUtilization::Combination:
+		{
+			switch (this->priorityCodeUtilization)
+			{
+				case CodeUtilization::DynamicFunction:
+				{
+					this->functionInitialize();
+					this->initialize();
+				}
+				break;
+
+				case CodeUtilization::VirtualOverride:
+				{
+					this->initialize();
+					this->functionInitialize();
+				}
+				break;
+			}
+		}
+		break;
+	}
+}
+
+void Scene::callUpdate(float deltaTime)
+{
+	switch (this->codeUtilization)
+	{
+		case CodeUtilization::DynamicFunction:
+		{
+			this->functionUpdate(deltaTime);
+		}
+		break;
+
+		case CodeUtilization::VirtualOverride:
+		{
+			this->update(deltaTime);
+		}
+		break;
+
+		case CodeUtilization::Combination:
+		{
+			switch (this->priorityCodeUtilization)
+			{
+				case CodeUtilization::DynamicFunction:
+				{
+					this->functionUpdate(deltaTime);
+					this->update(deltaTime);
+				}
+				break;
+
+				case CodeUtilization::VirtualOverride:
+				{
+					this->update(deltaTime);
+					this->functionUpdate(deltaTime);
+				}
+				break;
+			}
+		}
+		break;
+	}
+}
+
+void Scene::callTerminate()
+{
+	switch (this->codeUtilization)
+	{
+		case CodeUtilization::DynamicFunction:
+		{
+			this->functionTerminate();
+		}
+		break;
+
+		case CodeUtilization::VirtualOverride:
+		{
+			this->terminate();
+		}
+		break;
+
+		case CodeUtilization::Combination:
+		{
+			switch (this->priorityCodeUtilization)
+			{
+				case CodeUtilization::DynamicFunction:
+				{
+					this->functionInitialize();
+					this->initialize();
+				}
+				break;
+
+				case CodeUtilization::VirtualOverride:
+				{
+					this->initialize();
+					this->functionInitialize();
+				}
+				break;
+			}
+		}
+		break;
+	}
 }
 
 const std::string& Scene::getUuid() const
@@ -67,6 +185,16 @@ const Scene::State& Scene::getState() const
 	return this->state;
 }
 
+const CodeUtilization& Scene::getCodeUtilization() const
+{
+	return this->codeUtilization;
+}
+
+const CodeUtilization& Scene::getPriorityCodeUtilization() const
+{
+	return this->priorityCodeUtilization;
+}
+
 const sf::Vector2f& Scene::getPosition() const
 {
 	return this->position;
@@ -100,6 +228,42 @@ void Scene::setMouseEnteredRequired(bool mouseEnteredRequired)
 void Scene::setState(const Scene::State& state)
 {
 	this->state = state;
+}
+
+void Scene::setCodeUtilization(const CodeUtilization& codeUtilization)
+{
+	this->codeUtilization = codeUtilization;
+}
+
+void Scene::setPriorityCodeUtilization(const CodeUtilization& priorityCodeUtilization)
+{
+	if (priorityCodeUtilization == CodeUtilization::Combination)
+	{
+		this->priorityCodeUtilization = CodeUtilization::DynamicFunction; // default on "Combination" value attempt
+
+		debug::print
+		(
+			"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+			"#\n"
+			"#   [ WARNING ]\n"
+			"#\n"
+			"#   priority scene code utilization must a be value of either\n"
+			"#   \"CodeUtilization::DynamicFunction\" or\n"
+			"#   \"CodeUtilization::VirtualOverride\" - the value of\n"
+			"#   \"CodeUtilization::Combination\" is not accepted as\n"
+			"#   a priority code utilization - defaulted to value of\n"
+			"#   \"CodeUtilization::DynamicFunction\" - in which case\n"
+			"#   virutally overridden functions will automatically be called\n"
+			"#   before dynamically set functions of Scene class instance\n"
+			"#   \"", this->getId(), "\"\n"
+			"#\n"
+			"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+		);
+
+		return;
+	}
+
+	this->priorityCodeUtilization = priorityCodeUtilization;
 }
 
 void Scene::setInitialize(std::function<void()>&& functionInitialize)

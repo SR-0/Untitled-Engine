@@ -185,13 +185,13 @@ EngineConsole::EngineConsole()
 			em.setTextInputEnabled(false);
 		};
 
-		em.createBinding(
-		{
+		em.createBinding<Binding>
+		(
 			"conosle-toggle-on",
-			{ sf::Event::KeyPressed },
-			{ sf::Keyboard::Tilde },
-			{},
-			{},
+			std::vector<int>{ sf::Event::KeyPressed },
+			std::vector<int>{ sf::Keyboard::Tilde },
+			std::vector<int>{},
+			std::vector<int>{},
 			true,
 			nullptr, // this binding will happen rather console scene is active or not
 			[&](float)
@@ -200,7 +200,7 @@ EngineConsole::EngineConsole()
 				this->setRenderEnabled(true);
 				em.setTextInputEnabled(true);
 			}
-		});
+		);
 
 		/////////////////////////////
 		// text entered/toggle off //
@@ -209,13 +209,13 @@ EngineConsole::EngineConsole()
 		////
 		//
 
-		em.createBinding(
-		{
+		em.createBinding<Binding>
+		(
 			"console-text-entered-toggle-off",
-			{ sf::Event::TextEntered },
-			{},
-			{},
-			{},
+			std::vector<int>{ sf::Event::TextEntered },
+			std::vector<int>{},
+			std::vector<int>{},
+			std::vector<int>{},
 			true,
 			this,
 			[&](float)
@@ -235,7 +235,7 @@ EngineConsole::EngineConsole()
 					rectangleConsoleCursor.setPosition(text.getPosition().x + text.getGlobalBounds().width, text.getPosition().y);
 				}
 			}
-		});
+		);
 
 		///////////////////////////////////////////
 		// console entered input/command parsing //
@@ -244,13 +244,13 @@ EngineConsole::EngineConsole()
 		////
 		//
 
-		em.createBinding(
-		{
+		em.createBinding<Binding>
+		(
 			"console-input-enter",
-			{ sf::Event::TextEntered },
-			{},
-			{},
-			{ sf::Keyboard::Enter },
+			std::vector<int>{ sf::Event::TextEntered },
+			std::vector<int>{},
+			std::vector<int>{},
+			std::vector<int>{ sf::Keyboard::Enter },
 			true,
 			this,
 			[&](float)
@@ -419,7 +419,7 @@ EngineConsole::EngineConsole()
 					rectangleConsoleCursor.setPosition(text.getPosition().x + text.getGlobalBounds().width, text.getPosition().y);
 				}
 			}
-		});
+		);
 
 		////////////////////////
 		// console input "UP" //
@@ -428,13 +428,13 @@ EngineConsole::EngineConsole()
 		////
 		//
 
-		em.createBinding(
-		{
+		em.createBinding<Binding>
+		(
 			"console-input-up",
-			{ sf::Event::TextEntered },
-			{},
-			{},
-			{ sf::Keyboard::Up },
+			std::vector<int>{ sf::Event::TextEntered },
+			std::vector<int>{},
+			std::vector<int>{},
+			std::vector<int>{ sf::Keyboard::Up },
 			true,
 			this,
 			[&](float)
@@ -446,7 +446,7 @@ EngineConsole::EngineConsole()
 					rectangleConsoleCursor.setPosition(text.getPosition().x + text.getGlobalBounds().width, text.getPosition().y);
 				}
 			}
-		});
+		);
 
 		///////////////////////////////
 		// console input "BACKSPACE" //
@@ -455,13 +455,13 @@ EngineConsole::EngineConsole()
 		////
 		//
 
-		em.createBinding(
-		{
+		em.createBinding<Binding>
+		(
 			"console-input-backspace",
-			{ sf::Event::TextEntered },
-			{},
-			{},
-			{ sf::Keyboard::Backspace },
+			std::vector<int>{ sf::Event::TextEntered },
+			std::vector<int>{},
+			std::vector<int>{},
+			std::vector<int>{ sf::Keyboard::Backspace },
 			true,
 			this,
 			[&](float)
@@ -485,7 +485,7 @@ EngineConsole::EngineConsole()
 					}
 				}
 			}
-		});
+		);
 
 		toggleOff();
 

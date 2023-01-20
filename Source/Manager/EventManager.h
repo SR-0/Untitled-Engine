@@ -36,17 +36,17 @@ private: // core
 
 public: // bindings
 
-	Binding*								createBinding(Binding&& binding);
-	std::size_t								getBindingCount() const;
-	Binding*								getBinding(std::size_t index);
-	Binding*								getBinding(const std::string& id);
-	Binding*								getBindingFront();
-	Binding*								getBindingBack();
-	std::vector<std::shared_ptr<Binding>>&	getBindingData();
-	void									removeBinding(std::size_t index);
-	void									removeBinding(const std::string& id);
-	void									removeBindings(class Scene* scene = nullptr);
-	void									iterateBindings(const std::function<void(Binding&)>& function, bool reversed = false);
+	template <typename Derived, typename ... Args> Derived*	createBinding(Args ... args);
+	std::size_t												getBindingCount() const;
+	Binding*												getBinding(std::size_t index);
+	Binding*												getBinding(const std::string& id);
+	Binding*												getBindingFront();
+	Binding*												getBindingBack();
+	std::vector<std::shared_ptr<Binding>>&					getBindingData();
+	void													removeBinding(std::size_t index);
+	void													removeBinding(const std::string& id);
+	void													removeBindings(class Scene* scene = nullptr);
+	void													iterateBindings(const std::function<void(Binding&)>& function, bool reversed = false);
 
 public: // getter(s)
 
@@ -71,3 +71,16 @@ private: // friend(s)
 	friend class Engine;
 
 };
+
+template <typename Derived, typename ... Args>
+Derived* EventManager::createBinding(Args ... args)
+{
+	if (std::is_base_of<Binding, Derived>::value)
+	{
+		std::lock_guard<std::mutex> _(this->mutex);
+		this->bindings.emplace_back(std::move(std::make_shared<Derived>(args ...)));
+		return this->bindings.back().get()->as<Derived>();
+	}
+
+	return nullptr;
+}

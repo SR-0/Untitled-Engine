@@ -206,107 +206,107 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 		//////
 		////
 		//
-											//////////////////
-		em.createBinding(					// explaination //
-		{									//////////////////
-											//
-											//	////////
-			"editor-save-and-quit",			//	// id //
-											//	////////
-											//	//
-											//	//	each binding has 'id' and 'uuid' -  
-											//	//	'id' can be a duplicate and is 
-											//	//	accessable via public member getter
-											//	//	and setter, 'uuid' is automatically
-											//	//	assigned umique id and is accessable
-											//	//	via public member getter
-											//
-											//	///////////
-			{ sf::Event::KeyPressed },		//	// types //
-											//	///////////
-											//	//
-											//	//	containter of events types required
-											//	//	to trigger this binding's function
-											//	//	on every update/tick, assuming it
-											//	//	is active and parental restrictions
-											//	//	(or lack there of) allow it (e.g.
-											//	//	sf::Event::Closed, sf::Event::-
-											//	//	-KeyPressed, sf::Event::-
-											//	//	-MouseButtonReleased, etc...)
-											//
-											//	//////////
-			{ sf::Keyboard::Escape },		//	// keys //
-											//	//////////
-											//	//
-											//	//	containter of keyboard keys required
-											//	//	to trigger this binding's function
-											//	//	on every update/tick, assuming it
-											//	//	is active and parental restrictions
-											//	//	(or lack there of) allow it (e.g.
-											//	//	sf::Keyboard::A, sf::Keyboard::-
-											//	//	-T, sf::Keyboard::D, etc...)
-											//
-											//	/////////////
-			{},								//	// buttons //
-											//	/////////////
-											//	//
-											//	//	containter of mouse buttons required
-											//	//	to trigger this binding's function
-											//	//	on every update/tick, assuming it
-											//	//	is active and parental restrictions
-											//	//	(or lack there of) allow it (e.g.
-											//	//	sf::Mouse::Button::Left, sf::Mouse::-
-											//	//	-Button::Middle, sf::Mouse::Button::-
-											//	//	Right, etc...) "{}" for no inputs
-											//
-											//	///////////////
-			{ sf::Keyboard::LShift },		//	// modifiers //
-											//	///////////////
-											//	//
-											//	//	containter of modifiers required
-											//	//	to trigger this binding's function
-											//	//	on every update/tick, assuming it
-											//	//	is active and parental restrictions
-											//	//	(or lack there of) allow it (e.g. sf::-
-											//	//	Keyboard::LShift, sf::Keyboard::-
-											//	//	RControl, sf::Keyboard::LAlt,
-											//	//  sf::Keyboard::Space etc...) - 
-											//	//	tradition modifiers are a smaller
-											//	//	subset, this will be fixed soon
-											//	//	@TODO
-											//
-											//	////////////
-			true,							//	// active //
-											//	////////////
-											//	//
-											//	//	if active, function will automatically
-											//	//	be called each update/tick
-											//
-											//	//////////////////
-			this,							//	// parent scene //
-											//	//////////////////
-											//	//
-											//	//	pointer to parent Scene object, in
-											//	//	which case parent scene needs to be
-											//	//	active in addition to this binding
-											//	//	being active in order to call function
-											//	//	automatically each update/tick, leave
-											//	//	as nullptr to avoid parental
-											//	//	restrictions
-											//
-											//	//////////////
-			[&](float){ window.close(); }	//	// function // @TODO (far from finished)
-											//	//////////////
-											//	//
-											//	//	any functionality/lambda here will do
-											//	//	as long as it returns 'void' and has 
-											//	//	no parameters (possible expansion in
-											//	//	the future but so far I haven't felt
-											//	//	a need) - this will get called every
-											//	//	update/tick cycle if active and parental
-											//	//	restrictions (or lack there of) allow
-											//	//	it
-		});
+														//////////////////
+		auto& bindingClose = *em.createBinding<Binding>	// explaination //
+		(												//////////////////
+														//
+														//	////////
+			"bindingClose",								//	// id //
+														//	////////
+														//	//
+														//	//	each binding has 'id' and 'uuid' -  
+														//	//	'id' can be a duplicate and is 
+														//	//	accessable via public member getter
+														//	//	and setter, 'uuid' is automatically
+														//	//	assigned umique id and is accessable
+														//	//	via public member getter
+														//
+														//	///////////
+			std::vector<int>{ sf::Event::KeyPressed },	//	// types //
+														//	///////////
+														//	//
+														//	//	containter of events types required
+														//	//	to trigger this binding's function
+														//	//	on every update/tick, assuming it
+														//	//	is active and parental restrictions
+														//	//	(or lack there of) allow it (e.g.
+														//	//	sf::Event::Closed, sf::Event::-
+														//	//	-KeyPressed, sf::Event::-
+														//	//	-MouseButtonReleased, etc...)
+														//
+														//	//////////
+			std::vector<int>{ sf::Keyboard::Escape },	//	// keys //
+														//	//////////
+														//	//
+														//	//	containter of keyboard keys required
+														//	//	to trigger this binding's function
+														//	//	on every update/tick, assuming it
+														//	//	is active and parental restrictions
+														//	//	(or lack there of) allow it (e.g.
+														//	//	sf::Keyboard::A, sf::Keyboard::-
+														//	//	-T, sf::Keyboard::D, etc...)
+														//
+														//	/////////////
+			std::vector<int>{},							//	// buttons //
+														//	/////////////
+														//	//
+														//	//	containter of mouse buttons required
+														//	//	to trigger this binding's function
+														//	//	on every update/tick, assuming it
+														//	//	is active and parental restrictions
+														//	//	(or lack there of) allow it (e.g.
+														//	//	sf::Mouse::Button::Left, sf::Mouse::-
+														//	//	-Button::Middle, sf::Mouse::Button::-
+														//	//	Right, etc...) "{}" for no inputs
+														//
+														//	///////////////
+			std::vector<int>{ sf::Keyboard::LShift },	//	// modifiers //
+														//	///////////////
+														//	//
+														//	//	containter of modifiers required
+														//	//	to trigger this binding's function
+														//	//	on every update/tick, assuming it
+														//	//	is active and parental restrictions
+														//	//	(or lack there of) allow it (e.g. sf::-
+														//	//	Keyboard::LShift, sf::Keyboard::-
+														//	//	RControl, sf::Keyboard::LAlt,
+														//	//  sf::Keyboard::Space etc...) - 
+														//	//	tradition modifiers are a smaller
+														//	//	subset, this will be fixed soon
+														//	//	@TODO
+														//
+														//	////////////
+			true,										//	// active //
+														//	////////////
+														//	//
+														//	//	if active, function will automatically
+														//	//	be called each update/tick
+														//
+														//	//////////////////
+			this,										//	// parent scene //
+														//	//////////////////
+														//	//
+														//	//	pointer to parent Scene object, in
+														//	//	which case parent scene needs to be
+														//	//	active in addition to this binding
+														//	//	being active in order to call function
+														//	//	automatically each update/tick, leave
+														//	//	as nullptr to avoid parental
+														//	//	restrictions
+														//
+														//	//////////////
+			[&](float){ window.close(); }				//	// function // @TODO (far from finished)
+														//	//////////////
+														//	//
+														//	//	any functionality/lambda here will do
+														//	//	as long as it returns 'void' and has 
+														//	//	no parameters (possible expansion in
+														//	//	the future but so far I haven't felt
+														//	//	a need) - this will get called every
+														//	//	update/tick cycle if active and parental
+														//	//	restrictions (or lack there of) allow
+														//	//	it
+		);
 
 		/////////////////
 		// scroll/zoom //
@@ -318,13 +318,13 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 		static float currentZoomFactor = 1.f;
 
 		// mouse wheel zoom
-		auto& bindingSystemMouseWheelZoom = *em.createBinding(
-		{
+		auto& bindingSystemMouseWheelZoom = *em.createBinding<Binding>
+		(
 			"bindingSystemMouseWheelZoom",
-			{ sf::Event::MouseWheelScrolled },
-			{},
-			{},
-			{ sf::Keyboard::LControl },
+			std::vector<int>{ sf::Event::MouseWheelScrolled },
+			std::vector<int>{},
+			std::vector<int>{},
+			std::vector<int>{ sf::Keyboard::LControl },
 			true,
 			this,
 			[&](float)
@@ -372,18 +372,18 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 					}
 				}
 			}
-		});
+		);
 
 		bindingSystemMouseWheelZoom.setMouseEnteredRequired(true);
 
 		// TEMP
-		auto& bindingSystemScrollLeft = *em.createBinding(Binding
+		auto& bindingSystemScrollLeft = *em.createBinding<Binding>
 		(
 			"bindingSystemScrollLeft",
-			{ sf::Event::KeyPressed },
-			{ sf::Keyboard::Left },
-			{},
-			{},
+			std::vector<int>{ sf::Event::KeyPressed },
+			std::vector<int>{ sf::Keyboard::Left },
+			std::vector<int>{},
+			std::vector<int>{},
 			true,
 			this,
 			[&](float deltaTime)
@@ -400,17 +400,17 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 					rectangleEditorTileCuller.move(sf::Vector2f(-modifier, 0));
 				portEditor.setViewport(viewport);
 			}
-		));
+		);
 
 		bindingSystemScrollLeft.setMouseEnteredRequired(true);
 
-		auto& bindingSystemScrollRight = *em.createBinding(Binding
+		auto& bindingSystemScrollRight = *em.createBinding<Binding>
 		(
 			"bindingSystemScrollRight",
-			{ sf::Event::KeyPressed },
-			{ sf::Keyboard::Right },
-			{},
-			{},
+			std::vector<int>{ sf::Event::KeyPressed },
+			std::vector<int>{ sf::Keyboard::Right },
+			std::vector<int>{},
+			std::vector<int>{},
 			true,
 			this,
 			[&](float deltaTime)
@@ -421,17 +421,17 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 				portEditor.setView(portEditor.getCenter().x + modifier, portEditor.getCenter().y, portEditor.getSize().x, portEditor.getSize().y);
 				portEditor.setViewport(viewport);
 			}
-		));
+		);
 
 		bindingSystemScrollRight.setMouseEnteredRequired(true);
 
-		auto& bindingSystemScrollUp = *em.createBinding(Binding
+		auto& bindingSystemScrollUp = *em.createBinding<Binding>
 		(
 			"bindingSystemScrollUp",
-			{ sf::Event::KeyPressed },
-			{ sf::Keyboard::Up },
-			{},
-			{},
+			std::vector<int>{ sf::Event::KeyPressed },
+			std::vector<int>{ sf::Keyboard::Up },
+			std::vector<int>{},
+			std::vector<int>{},
 			true,
 			this,
 			[&](float deltaTime)
@@ -449,17 +449,17 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 					rectangleEditorTileCuller.move(sf::Vector2f(0, -modifier));
 				portEditor.setViewport(viewport);
 			}
-		));
+		);
 
 		bindingSystemScrollUp.setMouseEnteredRequired(true);
 
-		auto& bindingSystemScrollDown = *em.createBinding(Binding
+		auto& bindingSystemScrollDown = *em.createBinding<Binding>
 		(
 			"bindingSystemScrollDown",
-			{ sf::Event::KeyPressed },
-			{ sf::Keyboard::Down },
-			{},
-			{},
+			std::vector<int>{ sf::Event::KeyPressed },
+			std::vector<int>{ sf::Keyboard::Down },
+			std::vector<int>{},
+			std::vector<int>{},
 			true,
 			this,
 			[&](float deltaTime)
@@ -470,7 +470,7 @@ EngineEditor::EngineEditor() // warning, this must be created/initialized after 
 				portEditor.setView(portEditor.getCenter().x, portEditor.getCenter().y + modifier, portEditor.getSize().x, portEditor.getSize().y);
 				portEditor.setViewport(viewport);
 			}
-		));
+		);
 
 		bindingSystemScrollDown.setMouseEnteredRequired(true);
 

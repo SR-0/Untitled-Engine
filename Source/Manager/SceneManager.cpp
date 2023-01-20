@@ -29,20 +29,20 @@ void SceneManager::update(float deltaTime)
 			{
 				case Scene::State::Initialize:
 				{
-					scene->initialize();
+					scene->callInitialize();
 					scene->setState(Scene::State::Update);
 				}
 				break;
 
 				case Scene::State::Update:
 				{
-					scene->update(deltaTime);
+					scene->callUpdate(deltaTime);
 				}
 				break;
 
 				case Scene::State::Terminate:
 				{
-					scene->terminate();
+					scene->callTerminate();
 					scene->setState(Scene::State::Initialize);
 					scene->setActive(false);
 				}

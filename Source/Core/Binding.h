@@ -7,6 +7,7 @@
 #include <vector>
 #include <functional>
 #include "Utility/Utility.h"
+#include "Core/CodeUtilization.h"
 
 class Binding
 {
@@ -23,10 +24,12 @@ private: // data
 	sf::Vector2i				mousePosition			= {};
 	sf::Uint32					unicode					= 0;
 	bool						active					= false;
+	CodeUtilization				codeUtilization			= CodeUtilization::Combination;
+	CodeUtilization				priorityCodeUtilization	= CodeUtilization::VirtualOverride;
 	bool						focusRequired			= false;
 	bool						mouseEnteredRequired	= false;
 	class Scene*				parentScene				= nullptr;
-	std::function<void(float)>	function				= [](float){};
+	std::function<void(float)>	functionUpdate			= [](float){};
 
 public: // ctor(s)/dtor(s)
 
@@ -36,9 +39,9 @@ public: // ctor(s)/dtor(s)
 	(
 		const std::string&				id,
 		const std::vector<int>&			types,
-		bool							active		= false,
-		class Scene*					parentScene = nullptr,
-		std::function<void(float)>&&	function	= [](float){}
+		bool							active			= false,
+		class Scene*					parentScene		= nullptr,
+		std::function<void(float)>&&	functionUpdate	= [](float){}
 	);
 
 	Binding
@@ -48,19 +51,25 @@ public: // ctor(s)/dtor(s)
 		const std::vector<int>&			keys,
 		const std::vector<int>&			buttons,
 		const std::vector<int>&			modifiers,
-		bool							active		= false,
-		class Scene*					parentScene = nullptr,
-		std::function<void(float)>&&	function	= [](float){}
+		bool							active			= false,
+		class Scene*					parentScene		= nullptr,
+		std::function<void(float)>&&	functionUpdate	= [](float){}
 	);
+
+	virtual ~Binding();
 
 public: // operator overloading
 
 	friend bool operator == (const Binding& first, const Binding& second);
 	friend bool operator != (const Binding& first, const Binding& second);
 
+public:
+
+	virtual void update(float deltaTime);
+
 public: // core
 
-	void call(float deltaTime);
+	void callUpdate(float deltaTime);
 
 public: // getter(s)
 
@@ -75,6 +84,8 @@ public: // getter(s)
 	std::vector<int>&		getModifiers();
 	sf::Uint32				getUnicode() const;
 	bool					isActive() const;
+	const CodeUtilization&	getCodeUtilization() const;
+	const CodeUtilization&	getPriorityCodeUtilization() const;
 	bool					isFocusRequired() const;
 	bool					isMouseEnteredRequired() const;
 	class Scene*			getParentScene() const;
@@ -90,9 +101,11 @@ public: // setter(s)
 
 	void setId(const std::string& id);
 	void setActive(bool active);
+	void setCodeUtilization(const CodeUtilization& codeUtilization);
+	void setPriorityCodeUtilization(const CodeUtilization& priorityCodeUtilization);
 	void setFocusRequired(bool focusRequired); // @TODO make global/window *as well as* local port focus check
 	void setMouseEnteredRequired(bool mouseEnteredRequired); // @TODO make global/window *as well as* local port focus check
-	void setFunction(std::function<void(float deltaTime)>&& function);
+	void setUpdate(std::function<void(float deltaTime)>&& functionUpdate);
 	void setParentScene(class Scene* parentScene);
 
 	void set
@@ -116,8 +129,22 @@ public: // setter(s)
 		std::function<void(float)>&&	function	= [](float){}
 	);
 
+public: // utility
+
+	template <typename Derived> Derived* as() const;
+
 private:
 
 	friend class EventManager;
 };
 
+template<typename Derived>
+inline Derived* Binding::as() const
+{
+	if (std::is_base_of<Binding, Derived>::value)
+	{
+		return dynamic_cast<Derived*>(const_cast<Binding*>(this));
+	}
+
+	return nullptr;
+}

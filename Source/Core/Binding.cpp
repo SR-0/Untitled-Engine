@@ -47,6 +47,11 @@ Binding::Binding(
 	);
 }
 
+Binding::~Binding()
+{
+	//
+}
+
 bool operator == (const Binding& first, const Binding& second)
 {
 	return bool
@@ -63,9 +68,48 @@ bool operator != (const Binding& first, const Binding& second)
 	return !(first == second);
 }
 
-void Binding::call(float deltaTime)
+void Binding::update(float deltaTime)
 {
-	this->function(deltaTime);
+	return;
+}
+
+void Binding::callUpdate(float deltaTime)
+{
+	switch (this->codeUtilization)
+	{
+		case CodeUtilization::DynamicFunction:
+		{
+			this->functionUpdate(deltaTime);
+		}
+		break;
+
+		case CodeUtilization::VirtualOverride:
+		{
+			this->update(deltaTime);
+		}
+		break;
+
+		case CodeUtilization::Combination:
+		{
+			switch (this->priorityCodeUtilization)
+			{
+				case CodeUtilization::DynamicFunction:
+				{
+					this->functionUpdate(deltaTime);
+					this->update(deltaTime);
+				}
+				break;
+
+				case CodeUtilization::VirtualOverride:
+				{
+					this->update(deltaTime);
+					this->functionUpdate(deltaTime);
+				}
+				break;
+			}
+		}
+		break;
+	}
 }
 
 sf::Vector2i Binding::getMouseScroll() const
@@ -129,6 +173,16 @@ bool Binding::isActive() const
 	);
 }
 
+const CodeUtilization& Binding::getCodeUtilization() const
+{
+	return this->codeUtilization;
+}
+
+const CodeUtilization& Binding::getPriorityCodeUtilization() const
+{
+	return this->priorityCodeUtilization;
+}
+
 bool Binding::isFocusRequired() const
 {
 	return this->focusRequired;
@@ -174,6 +228,42 @@ void Binding::setActive(bool active) // LOL no one saw that
 	this->active = active;
 }
 
+void Binding::setCodeUtilization(const CodeUtilization& codeUtilization)
+{
+	this->codeUtilization = codeUtilization;
+}
+
+void Binding::setPriorityCodeUtilization(const CodeUtilization& priorityCodeUtilization)
+{
+	if (priorityCodeUtilization == CodeUtilization::Combination)
+	{
+		this->priorityCodeUtilization = CodeUtilization::DynamicFunction; // default on "Combination" value attempt
+
+		debug::print
+		(
+			"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+			"#\n"
+			"#   [ WARNING ]\n"
+			"#\n"
+			"#   priority scene code utilization must a be value of either\n"
+			"#   \"CodeUtilization::DynamicFunction\" or\n"
+			"#   \"CodeUtilization::VirtualOverride\" - the value of\n"
+			"#   \"CodeUtilization::Combination\" is not accepted as\n"
+			"#   a priority code utilization - defaulted to value of\n"
+			"#   \"CodeUtilization::DynamicFunction\" - in which case\n"
+			"#   virutally overridden functions will automatically be called\n"
+			"#   before dynamically set functions of Binding class instance\n"
+			"#   \"", this->getId(), "\"\n"
+			"#\n"
+			"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+		);
+
+		return;
+	}
+
+	this->priorityCodeUtilization = priorityCodeUtilization;
+}
+
 void Binding::setFocusRequired(bool focusRequired)
 {
 	this->focusRequired = focusRequired;
@@ -184,9 +274,9 @@ void Binding::setMouseEnteredRequired(bool mouseEnteredRequired)
 	this->mouseEnteredRequired = mouseEnteredRequired;
 }
 
-void Binding::setFunction(std::function<void(float)>&& function)
+void Binding::setUpdate(std::function<void(float)>&& functionUpdate)
 {
-	this->function = std::move(function);
+	this->functionUpdate = std::move(functionUpdate);
 }
 
 void Binding::setParentScene(Scene* parentScene)
@@ -199,13 +289,13 @@ void Binding::set(
 	const std::vector<int>&			types,
 	bool							active,
 	Scene*							parentScene,
-	std::function<void(float)>&&	function)
+	std::function<void(float)>&&	functionUpdate)
 {
-	this->id			= id;
-	this->types			= types;
-	this->active		= active;
-	this->parentScene	= parentScene;
-	this->function		= std::move(function);
+	this->id				= id;
+	this->types				= types;
+	this->active			= active;
+	this->parentScene		= parentScene;
+	this->functionUpdate	= std::move(functionUpdate);
 }
 
 void Binding::set(
@@ -216,14 +306,14 @@ void Binding::set(
 	const std::vector<int>&			modifiers,
 	bool							active,
 	Scene*							parentScene,
-	std::function<void(float)>&&	function)
+	std::function<void(float)>&&	functionUpdate)
 {
-	this->id			= id;
-	this->types			= types;
-	this->keys			= keys;
-	this->buttons		= buttons;
-	this->modifiers		= modifiers;
-	this->active		= active;
-	this->parentScene	= parentScene;
-	this->function		= std::move(function);
+	this->id				= id;
+	this->types				= types;
+	this->keys				= keys;
+	this->buttons			= buttons;
+	this->modifiers			= modifiers;
+	this->active			= active;
+	this->parentScene		= parentScene;
+	this->functionUpdate	= std::move(functionUpdate);
 }
