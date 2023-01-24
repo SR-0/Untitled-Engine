@@ -9,17 +9,17 @@ class Tilemap
 	:
 	public Asset<Tilemap>
 {
-public:
+public: // type alias
 
 	using Container = std::vector<std::vector<std::vector<std::shared_ptr<Tile>>>>;
 
-private:
+private: // data
 
 	sf::Vector2f	size				= sf::Vector2f(0.f, 0.f);
 	float			depth				= 0.f;
 	sf::Vector2f	origin				= sf::Vector2f(0.f, 0.f);
 	sf::Vector2f	scale				= sf::Vector2f(0.f, 0.f);
-	Tile::Type		type				= Tile::Type::Conventional;
+	TileType		tileType			= TileType::Isometric; // TileType::Conventional has little to no functionality right now
 	std::size_t		textureColumnCount	= 1;
 	std::size_t		textureRowCount		= 1;
 	std::size_t		textureStartColumn	= 0;
@@ -30,9 +30,9 @@ private:
 	class Port*		port				= nullptr;
 	bool			centeredOrigin		= false;
 
-public:
+public: // ctor(s)/dtor(s)
 
-	Tilemap(const std::string& id, class Scene* parentScene = nullptr, class Port* port = nullptr);
+	Tilemap(const std::string& id = "unidentified", class Scene* parentScene = nullptr, class Port* port = nullptr);
 
 	Tilemap(
 		const std::string&	id,
@@ -47,11 +47,11 @@ public:
 		std::size_t			textureStartColumn,
 		std::size_t			textureStartRow,
 		bool				centeredOrigin,
-		const Tile::Type&	type,
+		const TileType&		tileType,
 		class Scene*		parentScene			= nullptr,
 		class Port*			port				= nullptr);
 
-public:
+public: // core
 
 	void setup(
 		const std::string&	id,
@@ -66,15 +66,15 @@ public:
 		std::size_t			textureStartColumn,
 		std::size_t			textureStartRow,
 		bool				centeredOrigin,
-		const Tile::Type&	type,
+		const TileType&		tileType,
 		class Scene*		parentScene			= nullptr,
 		class Port*			port				= nullptr);
 
-public:
+public: // utility
 
 	void updateTilesRenderEnabled();
 
-public:
+public: // getter(s)
 
 	Port*				getPort() const;
 	Tile*				getTile(const sf::Vector3i& index);
@@ -84,7 +84,7 @@ public:
 	float				getTileDepth() const;
 	sf::Vector2f		getTileOrigin() const;
 	sf::Vector2f		getTileScale() const;
-	const Tile::Type&	getType() const;
+	const TileType&		getTileType() const;
 	bool				isConventional() const;
 	bool				isIsometric() const;
 	sf::Vector3i		getActiveIndex() const;
@@ -105,7 +105,7 @@ public:
 	Container&			getTileData();
 	void				iterateTiles(const std::function<void(Tile& tile)>& function, bool reversed = false);
 
-public:
+public: // setter(s)
 
 	void setPort(class Port& port);
 	void setActiveIndex(const sf::Vector3i& activeIndex);

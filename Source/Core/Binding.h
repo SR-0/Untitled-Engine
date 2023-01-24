@@ -133,9 +133,10 @@ public: // utility
 
 	template <typename Derived> Derived* as() const;
 
-private:
+private: // friend(s)
 
 	friend class EventManager;
+
 };
 
 template<typename Derived>

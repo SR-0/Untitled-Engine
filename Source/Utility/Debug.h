@@ -7,7 +7,9 @@ class Debug
 {
 private:
 
-	static std::stringstream logs;
+	static std::stringstream	logs;
+	static bool					reportingEventFocus;
+	static bool					reportingEventMouseEntered;
 
 private:
 
@@ -21,7 +23,7 @@ private:
 	Debug& operator = (const Debug&) = delete;
 	Debug& operator = (Debug&&) = delete;
 
-public:
+public: // core
 
 	static void										wait();
 	template <typename ... Parameters> static void	log(Parameters ... parameters);
@@ -35,6 +37,16 @@ public:
 	static bool										isShowing();
 	static void										setPosition(int x, int y);
 
+public: // getter(s)
+
+	static bool isReportingEventFocus();
+	static bool isReportingEventMouseEntered();
+
+public: // setter(s)
+
+	static void setReportingEventFocus(bool reportingEventFocus);
+	static void setReportingEventMouseEntered(bool reportingEventMouseEntered);
+
 };
 
 using debug = Debug;
@@ -42,7 +54,7 @@ using debug = Debug;
 template<typename ...Parameters>
 inline void Debug::log(Parameters ...parameters)
 {
-	((logs << parameters), ...);
+	((Debug::logs << parameters), ...);
 }
 
 template<typename ...Parameters>

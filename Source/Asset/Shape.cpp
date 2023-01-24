@@ -31,11 +31,6 @@ Shape::Shape(const std::string& id, const Texture* texture, Scene* parent, Port*
 		this->setPosition(parent->getPosition());
 }
 
-const Shape::Type& Shape::getType() const
-{
-	return this->type;
-}
-
 const std::size_t& Shape::getRenderLayer() const
 {
 	return this->renderLayer;
@@ -58,9 +53,9 @@ bool Shape::isAnimated() const
 
 bool Shape::isHoveredOver() const
 {
-	switch (this->type)
+	switch (this->getShapeType())
 	{
-		case Shape::Type::Rectangle: // @TODO include scale calculations
+		case ShapeType::Rectangle: // @TODO include scale calculations
 		{
 			sf::Vector2i position = sf::Mouse::getPosition(*global::getWindow()->getInstance());
 
@@ -74,25 +69,13 @@ bool Shape::isHoveredOver() const
 		}
 		break;
 
-		case Shape::Type::Circle: // @TODO
+		case ShapeType::Circle: // @TODO
 		{
 			return false;
 		}
 		break;
 
-		case Shape::Type::Convex: // @TODO
-		{
-			return false;
-		}
-		break;
-
-		case Shape::Type::Error: // @TODO
-		{
-			return false;
-		}
-		break;
-
-		default:
+		case ShapeType::Convex: // @TODO
 		{
 			return false;
 		}

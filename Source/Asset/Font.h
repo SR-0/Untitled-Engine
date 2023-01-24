@@ -8,21 +8,21 @@ class Font
 	public sf::Font,
 	public Asset<Font>
 {
-private:
+private: // data
 
 	std::string fileString = std::string{};
 
-public:
+public: // ctor(s)/dtor(s)
 
 	Font(const std::string& id = "unidentified", class Scene* parentScene = nullptr);
 	Font(const std::string& id, const std::string& path, class Scene* parentScene = nullptr);
 	virtual ~Font();
 
-public:
+public: // getter(s)
 
 	const std::string& getFileString() const;
 
-public:
+public: // utility
 
 	bool loadFromFile(const std::string& fileString);
 

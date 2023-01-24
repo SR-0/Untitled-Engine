@@ -4,18 +4,11 @@
 #include <functional>
 #include <SFML/System/Vector2.hpp>
 #include "Core/CodeUtilization.h"
+#include "Core/Common.h"
+#include "Core/Port.h"
 
 class Scene // @TODO Scene class needs to have Scene parent and Scene children pointers and functionality
 {
-public: // enum class(es)
-
-	enum class State
-	{
-		Initialize,
-		Update,
-		Terminate,
-	};
-
 private: // data
 
 	std::string					uuid					= utility::get_uuid();
@@ -23,7 +16,7 @@ private: // data
 	bool						active					= false;
 	bool						focusRequired			= false;
 	bool						mouseEnteredRequired	= false;
-	Scene::State				state					= Scene::State::Initialize;
+	SceneState					sceneState				= SceneState::Initialize;
 	CodeUtilization				codeUtilization			= CodeUtilization::Combination;
 	CodeUtilization				priorityCodeUtilization	= CodeUtilization::VirtualOverride;
 	sf::Vector2f				position				= sf::Vector2f(0.0f, 0.0f);
@@ -59,7 +52,7 @@ public: // getter(s)
 	bool					isActive() const;
 	bool					isFocusRequired() const;
 	bool					isMouseEnteredRequired() const;
-	const Scene::State&		getState() const;
+	const SceneState&		getSceneState() const;
 	const CodeUtilization&	getCodeUtilization() const;
 	const CodeUtilization&	getPriorityCodeUtilization() const;
 	const sf::Vector2f&		getPosition() const;
@@ -72,7 +65,7 @@ public: // setter(s)
 	void setActive(bool active);
 	void setFocusRequired(bool focusRequired); // @TODO make global/window *as well as* local port focus check
 	void setMouseEnteredRequired(bool mouseEnteredRequired); // @TODO make global/window *as well as* local port focus check
-	void setState(const Scene::State& state);
+	void setSceneState(const SceneState& sceneState);
 	void setCodeUtilization(const CodeUtilization& codeUtilization);
 	void setPriorityCodeUtilization(const CodeUtilization& priorityCodeUtilization);
 	void setInitialize(std::function<void()>&& functionInitialize); // only used with code utilization of "DynamicFunction/Combination"

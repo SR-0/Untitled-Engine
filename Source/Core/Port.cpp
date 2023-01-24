@@ -187,6 +187,13 @@ void Port::setActive(bool active)
 	if (this->background)
 	{
 		this->background->setRenderEnabled(active);
+		this->background->setActive(active);
+	}
+
+	if (this->border)
+	{
+		this->border->setRenderEnabled(active);
+		this->border->setActive(active);
 	}
 
 	this->active = active;

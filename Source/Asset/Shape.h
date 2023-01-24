@@ -2,41 +2,31 @@
 
 #include "Asset/Texture.h"
 #include "Core/Animation.h"
+#include "Core/Common.h"
 
 class Shape : public sf::Shape, public Asset<Shape>
 {
-public:
+private: // data
 
-	enum class Type
-	{
-		Error,
-		Rectangle,
-		Circle,
-		Convex
-	};
-
-private:
-
-	Shape::Type type			= Shape::Type::Error;
 	Animation	animation		= Animation{};
 	std::size_t renderLayer		= 0;
 	bool		renderEnabled	= true;
 	class Port* port			= nullptr;
 
-public:
+public: // ctor(s)/dtor(s)
 
 	Shape(const std::string& id = "unidentified", class Scene* parent = nullptr, class Port* port = nullptr);
 	Shape(const std::string& id, const Texture* texture, class Scene* parent = nullptr, class Port* port = nullptr);
 
-public:
+public: // collision
 
 	virtual bool intersects(const sf::FloatRect& floatRect) const = 0;
 	virtual bool intersects(const sf::Vector2f& point) const = 0;
 	virtual bool intersects(const sf::Vector2i& point) const = 0;
 
-public:
+public: // getter(s)
 
-	const Shape::Type&	getType() const;
+	virtual ShapeType	getShapeType() const = 0;
 	const std::size_t&	getRenderLayer() const;
 	bool				isRenderEnabled() const;
 	class Port*			getPort() const;
@@ -49,7 +39,7 @@ public:
 	bool				isTransparent() const;
 	bool				isOpaque() const;
 
-public:
+public: // setter(s)
 
 	void setRenderLayer(std::size_t renderLayer);
 	void setRenderLayerFront();
@@ -63,16 +53,13 @@ public:
 	void setOpaque();
 	void setTransparent();
 
-public:
+public: // utility
 
 	void fadeIn(float alphaIncrement, const sf::Uint8& max = 255);
 	void fadeOut(float alphaDecrement, const sf::Uint8& min = 0);
-
-public:
-
 	void updateAnimation(float deltaTime);
 
-private:
+private: // friend(s)
 
 	friend class Rectangle;
 	friend class Circle;

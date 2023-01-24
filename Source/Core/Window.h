@@ -60,28 +60,30 @@ private: // core
 
 public: // getters(s)
 
-	static constexpr std::size_t	getMinimumWidth();
-	static constexpr std::size_t	getMinimumHeight();
-	sf::RenderWindow*				getInstance() const;
-	sf::Vector2u					getResolution() const;
-	sf::String						getTitle() const;
-	sf::Uint32						getStyle() const;
-	sf::ContextSettings				getSettings() const;
-	std::size_t						getRenderLayerCount() const;
-	bool							isOpen() const;
-	sf::Vector2i					getPosition() const;
-	sf::Vector2u					getSize() const;
-	std::size_t						getWidth() const;
-	std::size_t						getHeight() const;
-	sf::View						getView() const;
-	sf::FloatRect					getViewport() const;
-	sf::Color						getClearColor() const;
-	sf::Vector2f					getZoom() const;
-	sf::Vector2f					getScroll() const;
-	float							getRotation() const;
-	bool							isRenderingPaused() const;
-	bool							isFocused() const;
-	bool							isMouseEntered() const;
+	inline static constexpr std::size_t	getMinimumWidth()	{ return Window::minimumWidth; }
+	inline static constexpr std::size_t	getMinimumHeight()	{ return Window::minimumHeight; }
+	sf::RenderWindow*					getInstance() const;
+	sf::Vector2u						getResolution() const;
+	std::size_t							getResolutionWidth() const;
+	std::size_t							getResolutionHeight() const;
+	sf::String							getTitle() const;
+	sf::Uint32							getStyle() const;
+	sf::ContextSettings					getSettings() const;
+	std::size_t							getRenderLayerCount() const;
+	bool								isOpen() const;
+	sf::Vector2i						getPosition() const;
+	sf::Vector2u						getSize() const;
+	std::size_t							getWidth() const;
+	std::size_t							getHeight() const;
+	sf::View							getView() const;
+	sf::FloatRect						getViewport() const;
+	sf::Color							getClearColor() const;
+	sf::Vector2f						getZoom() const;
+	sf::Vector2f						getScroll() const;
+	float								getRotation() const;
+	bool								isRenderingPaused() const;
+	bool								isFocused() const;
+	bool								isMouseEntered() const;
 
 public: // setter(s)
 
@@ -94,6 +96,7 @@ public: // setter(s)
 	);
 
 	void setResolution(const sf::Vector2u& resolution);
+	void setResolution(std::size_t width, std::size_t height);
 	void setTitle(const sf::String& title);
 	void setStyle(const sf::Uint32& style);
 	void setSettings(const sf::ContextSettings& settings);
@@ -120,14 +123,13 @@ public: // setter(s)
 	void setRotation(float rotation);
 	void setRenderingPaused(bool renderingPaused);
 
-private:
+private: // setter(s) (for friends only)
 
 	void setFocused(bool focused);
 	void setMouseEntered(bool mouseEntered);
 
 public: // ports
 
-	Port*								createPort(Port&& Port);
 	Port*								createPort(const std::string& id = "unidentified", const sf::FloatRect& viewport = sf::FloatRect(0.0f, 0.0f, 1.0f, 1.0f), std::size_t renderLayerCount = 1, bool active = true);
 	Port*								createPort(const std::string& id = "unidentified", float x = 0.0f, float y = 0.0f, float width = 1.0f, float height = 1.0f, std::size_t renderLayerCount = 1, bool active = true);
 	std::size_t							getPortCount() const;

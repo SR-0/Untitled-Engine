@@ -54,24 +54,44 @@ void EventManager::update(float deltaTime)
 			case sf::Event::GainedFocus:
 			{
 				window.setFocused(true);
+
+				#ifndef NDEBUG
+				if (debug::isReportingEventFocus())
+					debug::print("focus gained\n");
+				#endif//NDEBUG
 			}
 			break;
 
 			case sf::Event::LostFocus:
 			{
 				window.setFocused(false);
+
+				#ifndef NDEBUG
+				if (debug::isReportingEventFocus())
+					debug::print("focus lost\n");
+				#endif//NDEBUG
 			}
 			break;
 
 			case sf::Event::MouseEntered:
 			{
 				window.setMouseEntered(true);
+
+				#ifndef NDEBUG
+				if (debug::isReportingEventMouseEntered())
+					debug::print("mouse entered window\n");
+				#endif//NDEBUG
 			}
 			break;
 
 			case sf::Event::MouseLeft:
 			{
 				window.setMouseEntered(false);
+
+				#ifndef NDEBUG
+				if (debug::isReportingEventMouseEntered())
+					debug::print("mouse left window\n");
+				#endif//NDEBUG
 			}
 			break;
 			
@@ -210,7 +230,6 @@ void EventManager::update(float deltaTime)
 			}
 
 			binding->callUpdate(deltaTime);
-			break;
 		}
 	}
 }

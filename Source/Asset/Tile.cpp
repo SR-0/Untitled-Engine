@@ -21,7 +21,7 @@ Tile::Tile(
 	std::size_t			textureStartColumn,
 	std::size_t			textureStartRow,
 	bool				centeredOrigin,
-	const Tile::Type&	type,
+	const TileType&		tileType,
 	Scene*				parentScene,
 	Port*				port)
 	:
@@ -40,7 +40,7 @@ Tile::Tile(
 		textureStartColumn,
 		textureStartRow,
 		centeredOrigin,
-		type,
+		tileType,
 		parentScene,
 		port
 	);
@@ -60,7 +60,7 @@ void Tile::setup(
 	std::size_t			textureStartColumn,
 	std::size_t			textureStartRow,
 	bool				centeredOrigin,
-	const Tile::Type&	type,
+	const TileType&		tileType,
 	Scene*				parentScene,
 	Port*				port)
 {
@@ -81,7 +81,7 @@ void Tile::setup(
 	this->setTexture(texture);
 	//this->setTextureRect(sf::IntRect((static_cast<float>(texture->getSize().x) / static_cast<float>(textureColumnCount)) * static_cast<float>(textureStartColumn), (static_cast<float>(texture->getSize().y) / static_cast<float>(textureRowCount)) * static_cast<float>(textureStartRow), static_cast<float>(texture->getSize().x) / static_cast<float>(textureColumnCount), static_cast<float>(texture->getSize().y) / static_cast<float>(textureRowCount))); // temp srngfr
 	this->setTextureIndex(textureStartColumn, textureStartRow);
-	this->setType(type);
+	this->setTileType(tileType);
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 }
@@ -116,19 +116,19 @@ float Tile::getDepth() const
 	return this->depth;
 }
 
-const Tile::Type& Tile::getType() const
+const TileType& Tile::getTileType() const
 {
-	return this->type;
+	return this->tileType;
 }
 
 bool Tile::isConventional() const
 {
-	return this->type == Tile::Type::Conventional;
+	return this->tileType == TileType::Conventional;
 }
 
 bool Tile::isIsometric() const
 {
-	return this->type == Tile::Type::Isometric;
+	return this->tileType == TileType::Isometric;
 }
 
 std::size_t Tile::getTextureColumnCount() const
@@ -206,9 +206,9 @@ void Tile::setDepth(float depth)
 	this->depth = depth;
 }
 
-void Tile::setType(const Tile::Type& type)
+void Tile::setTileType(const TileType& tileType)
 {
-	this->type = type;
+	this->tileType = tileType;
 }
 
 void Tile::setTextureStartIndex(const sf::Vector2u& textureStartIndex)

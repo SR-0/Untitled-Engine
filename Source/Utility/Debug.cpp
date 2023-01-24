@@ -1,7 +1,9 @@
 #include "Utility/Debug.h"
 #include <Windows.h> // @TODO OS guards and variations - only Windows compatible atm
 
-std::stringstream Debug::logs = std::stringstream{};
+std::stringstream	Debug::logs							= std::stringstream{};
+bool				Debug::reportingEventFocus			= false;
+bool				Debug::reportingEventMouseEntered	= false;
 
 void Debug::wait()
 {
@@ -15,12 +17,12 @@ void Debug::saveLogs(const std::string& path, const std::string& fileName)
 
 void debug::printLogs()
 {
-	std::cout << logs.str();
+	std::cout << Debug::logs.str();
 }
 
 void Debug::clearLogs()
 {
-	logs.clear();
+	Debug::logs.clear();
 }
 
 void Debug::show()
@@ -41,4 +43,24 @@ bool Debug::isShowing()
 void Debug::setPosition(int x, int y)
 {
 	SetWindowPos(GetConsoleWindow(), 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+}
+
+bool Debug::isReportingEventFocus()
+{
+	return Debug::reportingEventFocus;
+}
+
+bool Debug::isReportingEventMouseEntered()
+{
+	return Debug::reportingEventMouseEntered;
+}
+
+void Debug::setReportingEventFocus(bool reportingEventFocus)
+{
+	Debug::reportingEventFocus = reportingEventFocus;
+}
+
+void Debug::setReportingEventMouseEntered(bool reportingEventMouseEntered)
+{
+	Debug::reportingEventMouseEntered = reportingEventMouseEntered;
 }

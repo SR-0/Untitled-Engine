@@ -9,7 +9,6 @@ Convex::Convex(const std::string& id, std::size_t pointCount, Scene* parentScene
 	this->setPointCount(pointCount);
 	this->setParentScene(parentScene);
 	this->setPort(*port);
-	Shape::type = Shape::Type::Convex;
 	sf::Shape::update();
 }
 
@@ -25,6 +24,11 @@ Convex::Convex(std::size_t pointCount, Scene* parentScene, Port* port)
 
 Convex::~Convex()
 {
+}
+
+ShapeType Convex::getShapeType() const
+{
+	return ShapeType::Convex;
 }
 
 std::size_t Convex::getPointCount() const

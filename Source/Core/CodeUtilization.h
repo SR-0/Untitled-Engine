@@ -11,7 +11,7 @@
 	virtual override functionality being the
 	preferable choice depending on final design
 
-	"CodeUtilization" is meant to give the certain
+	"CodeUtilization" is meant to give certain
 	classes more dynamically diverse automated
 	initialize/create, update, and terminate/
 	destroy coding style/utilization by giving

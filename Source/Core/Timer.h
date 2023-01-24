@@ -9,7 +9,7 @@ private: // data
 
 	std::string	uuid			= utility::get_uuid();
 	std::string	id				= std::string{};
-	sf::Time	originalTime	= sf::Time::Zero;
+	sf::Time	startingTime	= sf::Time::Zero;
 	sf::Time	remainingTime	= sf::Time::Zero;
 	bool		paused			= false;
 
@@ -27,20 +27,22 @@ public: // getter(s)
 
 	const std::string&	getUuid() const;
 	const std::string&	getId() const;
-	const sf::Time&		getOriginalTime() const;
+	const sf::Time&		getStartingTime() const;
 	const sf::Time&		getRemainingTime() const;
 	bool				isPaused() const;
+	bool				isCompleted() const;
 
 public: // setter(s)
 
 	void setId(const std::string& id);
+	void setStartingTime(const sf::Time& startingTime);
+	void setStartingTime(float seconds);
 
 public: // utility
 
 	void pause();
 	void resume();
-	void restart(const sf::Time& time);
-	void restart(float seconds);
+	void restart(bool paused = false);
 
 private: // friend(s)
 

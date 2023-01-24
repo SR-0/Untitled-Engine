@@ -9,24 +9,9 @@ Tilemap::Tilemap(const std::string& id, Scene* parentScene, Port* port)
 	:
 	Asset<Tilemap>(*this)
 {
-	this->setup
-	(
-		id,
-		0,
-		0,
-		0,
-		0,
-		sf::Vector2f(1.f, 1.f),
-		nullptr,
-		0,
-		0,
-		0,
-		0,
-		false,
-		Tile::Type::Conventional,
-		parentScene,
-		port
-	);
+	this->setId(id);
+	this->setParentScene(parentScene);
+	this->setPort(*port);
 }
 
 Tilemap::Tilemap(
@@ -42,7 +27,7 @@ Tilemap::Tilemap(
 	std::size_t			textureStartColumn,
 	std::size_t			textureStartRow,
 	bool				centeredOrigin,
-	const Tile::Type&	type,
+	const TileType&		tileType,
 	Scene*				parentScene,
 	Port*				port)
 	:
@@ -62,7 +47,7 @@ Tilemap::Tilemap(
 		textureStartColumn,
 		textureStartRow,
 		centeredOrigin,
-		type,
+		tileType,
 		parentScene,
 		port
 	);
@@ -81,7 +66,7 @@ void Tilemap::setup(
 	std::size_t			textureStartColumn,
 	std::size_t			textureStartRow,
 	bool				centeredOrigin,
-	const Tile::Type&	type,
+	const TileType&		tileType,
 	Scene*				parentScene,
 	Port*				port)
 {
@@ -95,7 +80,7 @@ void Tilemap::setup(
 	this->depth					= depth;
 	this->origin				= sf::Vector2f(centeredOrigin ? sf::Vector2f((texture->getSize().x / textureColumnCount) / 2, ((texture->getSize().y / textureRowCount) - depth) / 2) : sf::Vector2f(0, 0));
 	this->scale					= scale;
-	this->type					= type;
+	this->tileType				= tileType;
 	this->activeIndex			= sf::Vector3i(0, 0, 0);
 	this->textureColumnCount	= textureColumnCount;
 	this->textureRowCount		= textureRowCount;
@@ -130,16 +115,16 @@ void Tilemap::setup(
 					textureStartColumn,
 					textureStartRow,
 					centeredOrigin,
-					type
+					tileType
 				)));
 
 				Tile&		tile	= *this->tiles[layer][row][column].get();
 				const float	width	= static_cast<float>(tile.getSize().x);
 				const float	height	= static_cast<float>(tile.getSize().y);
 
-				switch (tile.getType())
+				switch (tile.getTileType())
 				{
-					case Tile::Type::Conventional: // @TODO untested
+					case TileType::Conventional: // @TODO untested
 					{
 						tile.setPosition(sf::Vector2f
 						(
@@ -149,12 +134,12 @@ void Tilemap::setup(
 					}
 					break;
 
-					case Tile::Type::Isometric: // @TODO bug on y axis
+					case TileType::Isometric: // @TODO bug on y axis
 					{
 						tile.setPosition
 						(
 							scale.x * ((width * column) + (row % 2 == 0 ? 0 : (width / 2))),
-							scale.y * ((((height - depth) / 2) * row) + (depth * (layers - layer - 1)))
+							scale.y * (((height - depth) / 2) * row) + (depth * (layers - layer - 1))
 
 						);
 					}
@@ -287,19 +272,19 @@ sf::Vector2f Tilemap::getTileScale() const
 	return this->scale;
 }
 
-const Tile::Type& Tilemap::getType() const
+const TileType& Tilemap::getTileType() const
 {
-	return this->type;
+	return this->tileType;
 }
 
 bool Tilemap::isConventional() const
 {
-	return this->type == Tile::Type::Conventional;;
+	return this->tileType == TileType::Conventional;
 }
 
 bool Tilemap::isIsometric() const
 {
-	return this->type == Tile::Type::Isometric;
+	return this->tileType == TileType::Isometric;
 }
 
 sf::Vector3i Tilemap::getActiveIndex() const

@@ -5,20 +5,20 @@
 
 class Music : public sf::Music, public Asset<Music>
 {
-private:
+private: // data
 
 	std::string fileString = std::string{};
 
-public:
+public: // ctor(s)/dtor(s)
 
 	Music(const std::string& id = "unidentified", class Scene* parentScene = nullptr);
 	Music(const std::string& id, const std::string& fileString, bool playNow = false, class Scene* parentScene = nullptr);
 
-public:
+public: // getter(s)
 
 	const std::string& getFileString() const;
 
-public:
+public: // utility
 
 	bool openFromFile(const std::string& fileString);
 

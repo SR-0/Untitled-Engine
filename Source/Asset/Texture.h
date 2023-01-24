@@ -7,20 +7,20 @@ class Texture
 	public sf::Texture,
 	public Asset<Texture>
 {
-private:
+private: // data
 
 	std::string fileString = std::string{};
 
-public:
+public: // ctor(s)/dtor(s)
 
 	Texture(const std::string& id = "unidentified", class Scene* parentScene = nullptr);
 	Texture(const std::string& id, const std::string& path, class Scene* parentScene = nullptr);
 
-public:
+public: // getter(s)
 
 	const std::string& getFileString() const;
 
-public:
+public: // utility
 
 	bool loadFromFile(const std::string& fileString);
 

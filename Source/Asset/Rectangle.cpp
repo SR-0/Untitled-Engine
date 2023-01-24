@@ -14,7 +14,6 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, Scene* parentScene, Port* p
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -29,7 +28,6 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, const sf::Color& outlineCol
 	this->setOutlineThickness(-1.f);
 	this->setParentScene(parentScene);
 	this->setPort(*port);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -45,7 +43,6 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, const sf::Color& outlineCol
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -62,7 +59,6 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, const sf::Vector2f& scale, 
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -79,7 +75,6 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, const sf::Vector2f& scale, 
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -92,7 +87,6 @@ Rectangle::Rectangle(const std::string& id, const sf::Vector2f& size, const sf::
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -104,7 +98,6 @@ Rectangle::Rectangle(const std::string& id, const Texture* texture, Scene* paren
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -117,7 +110,6 @@ Rectangle::Rectangle::Rectangle(const std::string& id, const Texture* texture, c
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -131,7 +123,6 @@ Rectangle::Rectangle(const std::string& id, const Texture* texture, const sf::Ve
 	this->setActive(true);
 	this->setAnimated(animated);
 	this->setAnimation(texture, imageCount, switchTime, activeRow);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -146,7 +137,6 @@ Rectangle::Rectangle(const std::string& id, const Texture* texture, const sf::Ve
 	this->setActive(true);
 	this->setAnimated(animated);
 	this->setAnimation(texture, imageCount, switchTime, activeRow);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -160,7 +150,6 @@ Rectangle::Rectangle(const sf::Vector2f& size, const sf::Vector2f& position, Sce
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -172,7 +161,6 @@ Rectangle::Rectangle::Rectangle::Rectangle(Texture* texture, Scene* parentScene,
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -184,7 +172,6 @@ Rectangle::Rectangle(Texture* texture, const sf::Vector2f& size, Scene* parentSc
 	this->setParentScene(parentScene);
 	this->setPort(*port);
 	this->setActive(true);
-	Shape::type = Shape::Type::Rectangle;
 	sf::Shape::update();
 }
 
@@ -218,6 +205,11 @@ bool Rectangle::intersects(const sf::Vector2i& point) const
 		point.x <= this->getPosition().x - this->getOrigin().x + this->getSize().x	&&
 		point.y <= this->getPosition().y - this->getOrigin().y + this->getSize().y
 	);
+}
+
+ShapeType Rectangle::getShapeType() const
+{
+	return ShapeType::Rectangle;
 }
 
 float Rectangle::getWidth() const

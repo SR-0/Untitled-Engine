@@ -19,6 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Script\Core\JavascriptScript.cpp" />
+    <ClCompile Include="Source\Script\Core\CSharpScript.cpp" />
+    <ClCompile Include="Source\Script\Core\ChaiscriptScript.cpp" />
+    <ClCompile Include="Source\Script\Core\LuaScript.cpp" />
+    <ClCompile Include="Source\Script\Core\PythonScript.cpp" />
+    <ClCompile Include="Source\Core\Script.cpp" />
+    <ClCompile Include="Source\Manager\ScriptManager.cpp" />
     <ClCompile Include="Source\Scene\Core\EngineModifier.cpp" />
     <ClCompile Include="Source\Scene\Core\EngineFooter.cpp" />
     <ClCompile Include="Source\Scene\Core\EngineMenu.cpp" />
@@ -51,12 +58,20 @@
     <ClCompile Include="Source\Core\Window.cpp" />
     <ClCompile Include="Source\Asset\Texture.cpp" />
     <ClCompile Include="Source\Asset\Text.cpp" />
-    <ClCompile Include="Source\Scene\Core\EngineConsole.cpp" />
+    <ClCompile Include="Source\Scene\Core\EngineAuxiliary.cpp" />
     <ClCompile Include="Source\Scene\Core\EngineSystem.cpp" />
     <ClCompile Include="Source\Core\Stopwatch.cpp" />
     <ClCompile Include="Source\Core\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Script\Core\JavascriptScript.h" />
+    <ClInclude Include="Source\Script\Core\CSharpScript.h" />
+    <ClInclude Include="Source\Script\Core\ChaiscriptScript.h" />
+    <ClInclude Include="Source\Script\Core\LuaScript.h" />
+    <ClInclude Include="Source\Script\Core\PythonScript.h" />
+    <ClInclude Include="Source\Core\Script.h" />
+    <ClInclude Include="Source\Manager\ScriptManager.h" />
+    <ClInclude Include="Source\Core\Common.h" />
     <ClInclude Include="Source\Core\CodeUtilization.h" />
     <ClInclude Include="Source\Scene\Core\EngineModifier.h" />
     <ClInclude Include="Source\Scene\Core\EngineFooter.h" />
@@ -90,10 +105,20 @@
     <ClInclude Include="Source\Utility\Utility.h" />
     <ClInclude Include="Source\Asset\Texture.h" />
     <ClInclude Include="Source\Asset\Text.h" />
-    <ClInclude Include="Source\Scene\Core\EngineConsole.h" />
+    <ClInclude Include="Source\Scene\Core\EngineAuxiliary.h" />
     <ClInclude Include="Source\Scene\Core\EngineSystem.h" />
     <ClInclude Include="Source\Core\Stopwatch.h" />
     <ClInclude Include="Source\Core\Timer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Source\Scene\Example\placeholder.txt" />
+    <Text Include="Source\Scene\User\placeholder.txt" />
+    <Text Include="Source\Script\Example\placeholder.txt" />
+    <Text Include="Source\Scene\Testing\placeholder.txt" />
+    <Text Include="Source\Script\User\placeholder.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Script\Testing\test.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -218,8 +243,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Libraries\SFML\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>flac.lib;freetype.lib;gdi32.lib;ogg.lib;openal32.lib;opengl32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;ws2_32.lib;sfml-audio-s-d.lib;sfml-graphics-s-d.lib;sfml-network-s-d.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Libraries\SFML\x64\;$(SolutionDir)Dependencies\Libraries\Lua\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>flac.lib;freetype.lib;gdi32.lib;ogg.lib;openal32.lib;opengl32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;ws2_32.lib;lua54.lib;sfml-audio-s-d.lib;sfml-graphics-s-d.lib;sfml-network-s-d.lib;sfml-system-s-d.lib;sfml-window-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -239,8 +264,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Libraries\SFML\x64\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>flac.lib;freetype.lib;gdi32.lib;ogg.lib;openal32.lib;opengl32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;ws2_32.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)Dependencies\Libraries\SFML\x64\;$(SolutionDir)Dependencies\Libraries\Lua\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>flac.lib;freetype.lib;gdi32.lib;ogg.lib;openal32.lib;opengl32.lib;vorbis.lib;vorbisenc.lib;vorbisfile.lib;winmm.lib;ws2_32.lib;lua54.lib;sfml-audio-s.lib;sfml-graphics-s.lib;sfml-network-s.lib;sfml-system-s.lib;sfml-window-s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

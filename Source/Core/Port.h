@@ -23,7 +23,7 @@ public: // ctor(s)/dtor(s)
 	Port(const std::string& id, const sf::FloatRect& viewport = sf::FloatRect(0.0f, 0.0f, 1.0f, 1.0f), std::size_t renderLayerCount = 1, bool active = true);
 	Port(const std::string& id = "unidentified", float x = 0.0f, float y = 0.0f, float width = 1.0f, float height = 1.0f, std::size_t renderLayerCount = 1, bool active = true);
 
-public:
+public: // utility
 
 	void resize();
 

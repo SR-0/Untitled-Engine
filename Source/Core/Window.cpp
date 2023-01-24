@@ -102,7 +102,7 @@ void Window::draw() // so much more work to do
 
 	auto	originalView				= this->instance->getView();
 	auto&	am							= *global::getAssetManager();
-	auto&	portEditor					= *this->getPort("portEditor");
+	auto&	portEditor					= *this->getPort("portEngineEditor");
 	auto&	rectangleEditorTileCuller	= *am.getShape("rectangleEditorTileCuller")->as<Rectangle>();
 
 	for (std::size_t renderLayer = 0; renderLayer < this->getRenderLayerCount(); renderLayer++)
@@ -186,7 +186,7 @@ void Window::draw() // so much more work to do
 		}
 
 		// shape(s)
-		for (auto& shape : am.getShapeData())
+		for (auto& shape : am.getShapeData()) // @TODO quadtree rendering implementation
 		{
 			if (shape->isRenderEnabled() && (shape->getRenderLayer() == renderLayer))
 			{
@@ -207,7 +207,7 @@ void Window::draw() // so much more work to do
 		}
 		
 		// text(s)
-		for (auto& text : am.getTextData())
+		for (auto& text : am.getTextData()) // @TODO quadtree rendering implementation
 		{
 			if (text->isRenderEnabled() && (text->getRenderLayer() == renderLayer))
 			{
@@ -242,16 +242,6 @@ void Window::display()
 
 #pragma region GETTER(S)
 
-constexpr std::size_t Window::getMinimumWidth()
-{
-	return Window::minimumWidth;
-}
-
-constexpr std::size_t Window::getMinimumHeight()
-{
-	return Window::minimumHeight;
-}
-
 sf::RenderWindow* Window::getInstance() const
 {
 	return this->instance.get();
@@ -260,6 +250,16 @@ sf::RenderWindow* Window::getInstance() const
 sf::Vector2u Window::getResolution() const
 {
 	return this->resolution;
+}
+
+std::size_t Window::getResolutionWidth() const
+{
+	return this->resolution.x;
+}
+
+std::size_t Window::getResolutionHeight() const
+{
+	return this->resolution.y;
 }
 
 sf::String Window::getTitle() const
@@ -402,6 +402,51 @@ void Window::set(
 
 void Window::setResolution(const sf::Vector2u& resolution)
 {
+	//bool		validWidth	= false;
+	//bool		validHeight	= false;
+	//const auto	w			= (validWidth	= (resolution.x >= Window::minimumWidth) ? resolution.x : Window::minimumWidth);
+	//const auto	h			= (validHeight	= (resolution.y >= Window::minimumHeight) ? resolution.y : Window::minimumHeight);
+	//
+	//if (!validWidth)
+	//{
+	//	debug::print
+	//	(
+	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+	//		"#\n"
+	//		"#   [ WARNING ]\n"
+	//		"#\n"
+	//		"#   attempt to set resolution width below minimum resolution\n"
+	//		"#   width failed - defaulting to minimum resolution width\n"
+	//		"#   value of ", Window::minimumWidth, "\n"
+	//		"#\n"
+	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+	//	);
+	//}
+	//
+	//if (!validHeight)
+	//{
+	//	debug::print
+	//	(
+	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+	//		"#\n"
+	//		"#   [ WARNING ]\n"
+	//		"#\n"
+	//		"#   attempt to set resolution height below minimum resolution\n"
+	//		"#   height failed - defaulting to minimum resolution height\n"
+	//		"#   value of ", Window::minimumHeight, "\n"
+	//		"#\n"
+	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+	//	);
+	//}
+	//
+	//this->set
+	//(
+	//	sf::Vector2u(w, h),
+	//	this->getTitle(),
+	//	this->getStyle(),
+	//	this->getSettings()
+	//);
+
 	this->set
 	(
 		resolution,
@@ -409,6 +454,11 @@ void Window::setResolution(const sf::Vector2u& resolution)
 		this->getStyle(),
 		this->getSettings()
 	);
+}
+
+void Window::setResolution(std::size_t width, std::size_t height)
+{
+	this->setResolution(sf::Vector2u(width, height));
 }
 
 void Window::setTitle(const sf::String& title)
@@ -461,7 +511,46 @@ void Window::setSize(const sf::Vector2u& size)
 
 void Window::setSize(std::size_t width, std::size_t height)
 {
-	this->instance->setSize(sf::Vector2u(sf::Uint32(width), sf::Uint32(height)));
+	//bool		validWidth	= false;
+	//bool		validHeight	= false;
+	//const auto	w			= (validWidth	= (width >= Window::minimumWidth) ? width : Window::minimumWidth);
+	//const auto	h			= (validHeight	= (height >= Window::minimumHeight) ? height : Window::minimumHeight);
+	//
+	//if (!validWidth)
+	//{
+	//	debug::print
+	//	(
+	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+	//		"#\n"
+	//		"#   [ WARNING ]\n"
+	//		"#\n"
+	//		"#   attempt to set resolution width below minimum resolution\n"
+	//		"#   width failed - defaulting to minimum resolution width\n"
+	//		"#   value of ", Window::minimumWidth, "\n"
+	//		"#\n"
+	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+	//	);
+	//}
+	//
+	//if (!validHeight)
+	//{
+	//	debug::print
+	//	(
+	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+	//		"#\n"
+	//		"#   [ WARNING ]\n"
+	//		"#\n"
+	//		"#   attempt to set resolution height below minimum resolution\n"
+	//		"#   height failed - defaulting to minimum resolution height\n"
+	//		"#   value of ", Window::minimumHeight, "\n"
+	//		"#\n"
+	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
+	//	);
+	//}
+	//
+	//this->instance->setSize(sf::Vector2u(w, h));
+
+	this->instance->setSize(sf::Vector2u(width, height));
 }
 
 void Window::setWidth(std::size_t width)
@@ -594,13 +683,6 @@ void Window::setMouseEntered(bool mouseEntered)
 
 
 #pragma region PORT(S)
-
-Port* Window::createPort(Port&& port)
-{
-	std::lock_guard<std::mutex> _(this->mutex);
-	this->ports.emplace_back(std::make_shared<Port>(std::move(port)));
-	return this->ports.back().get();
-}
 
 Port* Window::createPort(const std::string& id, const sf::FloatRect& viewport, std::size_t renderLayerCount, bool active)
 {

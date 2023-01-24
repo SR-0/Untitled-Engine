@@ -12,7 +12,6 @@ Circle::Circle(const std::string& id, float radius, std::size_t pointCount, Scen
 	this->setPointCount(pointCount);
 	this->setParentScene(parentScene);
 	this->setPort(*port);
-	Shape::type = Shape::Type::Circle;
 	sf::Shape::update();
 }
 
@@ -26,12 +25,16 @@ Circle::Circle(float radius, std::size_t pointCount, Scene* parentScene, Port* p
 	this->setPointCount(pointCount);
 	this->setParentScene(parentScene);
 	this->setPort(*port);
-	Shape::type = Shape::Type::Circle;
 	sf::Shape::update();
 }
 
 Circle::~Circle()
 {
+}
+
+ShapeType Circle::getShapeType() const
+{
+	return ShapeType::Circle;
 }
 
 float Circle::getRadius() const

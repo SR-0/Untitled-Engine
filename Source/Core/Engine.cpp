@@ -1,30 +1,20 @@
 #include "Core/Engine.h"
 #include "Core/Global.h"
 #include "Scene/Core/EngineSystem.h"
-#include "Scene/Core/EngineConsole.h"
 #include "Scene/Core/EngineMenu.h"
 #include "Scene/Core/EngineFooter.h"
 #include "Scene/Core/EngineExplorer.h"
 #include "Scene/Core/EngineModifier.h"
 #include "Scene/Core/EngineEditor.h"
+#include "Scene/Core/EngineAuxiliary.h"
 
-std::size_t	Engine::maxTicksPerSecond		= 0;
-std::size_t	Engine::maxFramesPerSecond		= 0;
-sf::Time	Engine::timeSinceLastUpdate		= sf::Time::Zero;
-sf::Time	Engine::timeSinceLastRender		= sf::Time::Zero;
-sf::Time	Engine::deltaTimeBuildUp		= sf::Time::Zero;
-bool		Engine::updating				= false;
-bool		Engine::rendering				= false;
+
+
+
 
 #pragma region CTOR(S)/DTOR(S)
 
 Engine::Engine()
-	:
-	Window(sf::Vector2u(1920, 1080), "Untitled Engine", sf::Style::None, sf::ContextSettings(0, 0, 4)),
-	ClockManager(),
-	EventManager(),
-	SceneManager(),
-	AssetManager()
 {
 	////////////////////////////
 	// global core references //
@@ -35,11 +25,12 @@ Engine::Engine()
 	
 	global::referenceCore
 	(
-		*this,
-		*this,
-		*this,
-		*this,
-		*this
+		this->window,
+		this->clockManager,
+		this->eventManager,
+		this->sceneManager,
+		this->assetManager,
+		this->scriptManager
 	);
 
 	////////////////////////
@@ -49,13 +40,13 @@ Engine::Engine()
 	////
 	//
 
-	auto& sceneEngineSystem		= *this->createScene<EngineSystem>();
-	auto& sceneEngineConsole	= *this->createScene<EngineConsole>();
-	auto& sceneEngineMenu		= *this->createScene<EngineMenu>();
-	auto& sceneEngineFooter		= *this->createScene<EngineFooter>();
-	auto& sceneEngineExplorer	= *this->createScene<EngineExplorer>();
-	auto& sceneEngineModifier	= *this->createScene<EngineModifier>();
-	auto& sceneEngineEditor		= *this->createScene<EngineEditor>();
+	auto& sceneEngineSystem		= *global::getSceneManager()->createScene<EngineSystem>();
+	auto& sceneEngineMenu		= *global::getSceneManager()->createScene<EngineMenu>();
+	auto& sceneEngineFooter		= *global::getSceneManager()->createScene<EngineFooter>();
+	auto& sceneEngineExplorer	= *global::getSceneManager()->createScene<EngineExplorer>();
+	auto& sceneEngineModifier	= *global::getSceneManager()->createScene<EngineModifier>();
+	auto& sceneEngineEditor		= *global::getSceneManager()->createScene<EngineEditor>();
+	auto& sceneEngineAuxiliary	= *global::getSceneManager()->createScene<EngineAuxiliary>();
 
 	/////////////////////////////
 	// global scene references //
@@ -67,12 +58,12 @@ Engine::Engine()
 	global::referenceScenes
 	(
 		sceneEngineSystem,
-		sceneEngineConsole,
 		sceneEngineMenu,
 		sceneEngineFooter,
 		sceneEngineExplorer,
 		sceneEngineModifier,
-		sceneEngineEditor
+		sceneEngineEditor,
+		sceneEngineAuxiliary
 	);
 
 	///////////////////////////////////////////
@@ -82,14 +73,23 @@ Engine::Engine()
 	////
 	//
 
-	if (
-		(this->getGlobalMousePosition().x >= this->getPosition().x)						&&
-		(this->getGlobalMousePosition().y >= this->getPosition().y)						&&
-		(this->getGlobalMousePosition().y <= this->getPosition().x + this->getSize().x) &&
-		(this->getGlobalMousePosition().y <= this->getPosition().y + this->getSize().y) )
+	if ((global::getEventManager()->getGlobalMousePosition().x >= global::getWindow()->getPosition().x)										&&
+		(global::getEventManager()->getGlobalMousePosition().y >= global::getWindow()->getPosition().y)										&&
+		(global::getEventManager()->getGlobalMousePosition().y <= global::getWindow()->getPosition().x + global::getWindow()->getSize().x)	&&
+		(global::getEventManager()->getGlobalMousePosition().y <= global::getWindow()->getPosition().y + global::getWindow()->getSize().y)	)
 	{
-		this->setMouseEntered(true);
+		global::getWindow()->setMouseEntered(true);
 	}
+
+	///////////////////////////
+	// test code for scripts //
+	///////////////////////////
+	//////
+	////
+	//
+
+	auto& luaScript = *global::getScriptManager()->createScript<LuaScript>("luaScriptTest");
+	luaScript.loadFromFile("Source/Script/Testing/test.lua");
 }
 
 #pragma endregion CTOR(S)/DTOR(S)
@@ -102,123 +102,69 @@ Engine::Engine()
 
 bool Engine::isRunning()
 {
-	return Window::isOpen();
+	return global::getWindow()->isOpen();
 }
 
 void Engine::update()
 {
-	ClockManager::update();
+	global::getClockManager()->update();
+	global::setTimeSinceLastUpdate(global::getTimeSinceLastUpdate() + global::getClockManager()->getDeltaTime());
 
-	this->timeSinceLastUpdate += this->getDeltaTime();
-
-	switch (this->maxTicksPerSecond)
+	switch (global::getMaxTicksPerSecond())
 	{
 		case 0: // no tick limit
 		{
-			this->updating = true;
+			global::setUpdating(true);
 		}
 		break;
 
 		default: // tick limit
 		{
-			if (this->timeSinceLastUpdate.asSeconds() >= (1.000000f / static_cast<float>(maxTicksPerSecond)))
-				this->updating = true;
+			if (global::getTimeSinceLastUpdate().asSeconds() >= (1.000000f / static_cast<float>(global::getMaxTicksPerSecond())))
+				global::setUpdating(true);
 		}
 		break;
 	}
 
-	if (this->updating)
+	if (global::isUpdating())
 	{
-		EventManager::update(this->timeSinceLastUpdate.asSeconds());
-		SceneManager::update(this->timeSinceLastUpdate.asSeconds());
-		AssetManager::update(this->timeSinceLastUpdate.asSeconds());
-
-		this->timeSinceLastUpdate	= sf::Time::Zero;
-		this->updating				= false;
+		global::getEventManager()->update(global::getTimeSinceLastUpdate().asSeconds());
+		global::getSceneManager()->update(global::getTimeSinceLastUpdate().asSeconds());
+		global::getAssetManager()->update(global::getTimeSinceLastUpdate().asSeconds());
+		global::getScriptManager()->update(global::getTimeSinceLastUpdate().asSeconds());
+		global::setTimeSinceLastUpdate(sf::Time::Zero);
+		global::setUpdating(false);
 	}
 }
 
 void Engine::render()
 {
-	this->timeSinceLastRender += this->getDeltaTime();
+	global::setTimeSinceLastRender(global::getTimeSinceLastRender() + global::getClockManager()->getDeltaTime());
 
-	switch (this->maxFramesPerSecond)
+	switch (global::getMaxFramesPerSecond())
 	{
 		case 0: // no frame limit
 		{
-			this->rendering = true;
+			global::setRendering(true);
 		}
 		break;
 
 		default: // frame limit
 		{
-			if (this->timeSinceLastRender.asSeconds() >= (1.000000f / static_cast<float>(maxFramesPerSecond)))
-				this->rendering = true;
+			if (global::getTimeSinceLastRender().asSeconds() >= (1.000000f / static_cast<float>((global::getMaxFramesPerSecond()))))
+				global::setRendering(true);
 		}
 		break;
 	}
 
-	if (this->rendering)
+	if (global::isRendering())
 	{
-		this->clear();
-		this->draw();
-		this->display();
-
-		this->timeSinceLastRender	= sf::Time::Zero;
-		this->rendering				= false;
+		global::getWindow()->clear();
+		global::getWindow()->draw();
+		global::getWindow()->display();
+		global::setTimeSinceLastRender(sf::Time::Zero);
+		global::setRendering(false);
 	}
 }
 
 #pragma endregion CORE
-
-
-
-
-
-#pragma region GETTER(S)
-
-std::size_t Engine::getMaxTicksPerSecond()
-{
-	return Engine::maxTicksPerSecond;
-}
-
-std::size_t Engine::getMaxFramesPerSecond()
-{
-	return  Engine::maxFramesPerSecond;
-}
-
-#pragma endregion GETTER(S)
-
-
-
-
-
-#pragma region SETTER(S)
-
-void Engine::setMaxTicksPerSecond(std::size_t maxTicksPerSecond)
-{
-	if ((maxTicksPerSecond == 0) || (maxTicksPerSecond >= Engine::minMaxTicksPerSecond))
-	{
-		Engine::maxTicksPerSecond = maxTicksPerSecond;
-	}
-	else
-	{
-		Engine::maxTicksPerSecond = Engine::minMaxTicksPerSecond;
-		debug::print("[ERROR] max ticks per second must be 0 (no limit) or a value of at least ", Engine::minMaxTicksPerSecond, " - anything less will negatively affect event handling beyond acceptable level - setting value to ", Engine::minMaxTicksPerSecond, "\n");
-	}
-}
-
-void Engine::setMaxFramesPerSecond(std::size_t maxFramesPerSecond)
-{
-	if ((maxFramesPerSecond == 0) || (maxFramesPerSecond >= Engine::minMaxFramesPerSecond))
-	{
-		Engine::maxFramesPerSecond = maxFramesPerSecond;
-	}
-	else
-	{
-		Engine::maxFramesPerSecond = Engine::minMaxFramesPerSecond;
-		debug::print("[ERROR] max frames per second must be 0 (no limit) or a value of at least ", Engine::minMaxFramesPerSecond, " - anything less will negatively affect video quality beyond acceptable level - setting value to ", Engine::minMaxFramesPerSecond, "\n");
-	}
-}
-
-#pragma endregion SETTER(S)

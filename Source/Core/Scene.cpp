@@ -180,9 +180,9 @@ bool Scene::isMouseEnteredRequired() const
 	return this->mouseEnteredRequired;
 }
 
-const Scene::State& Scene::getState() const
+const SceneState& Scene::getSceneState() const
 {
-	return this->state;
+	return this->sceneState;
 }
 
 const CodeUtilization& Scene::getCodeUtilization() const
@@ -225,9 +225,9 @@ void Scene::setMouseEnteredRequired(bool mouseEnteredRequired)
 	this->mouseEnteredRequired = mouseEnteredRequired;
 }
 
-void Scene::setState(const Scene::State& state)
+void Scene::setSceneState(const SceneState& sceneState)
 {
-	this->state = state;
+	this->sceneState = sceneState;
 }
 
 void Scene::setCodeUtilization(const CodeUtilization& codeUtilization)
