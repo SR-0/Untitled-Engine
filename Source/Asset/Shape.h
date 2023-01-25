@@ -8,10 +8,10 @@ class Shape : public sf::Shape, public Asset<Shape>
 {
 private: // data
 
-	Animation	animation		= Animation{};
-	std::size_t renderLayer		= 0;
-	bool		renderEnabled	= true;
-	class Port* port			= nullptr;
+	Animation   animation       = Animation{};
+	std::size_t renderLayer     = 0;
+	bool        renderEnabled   = true;
+	class Port* port            = nullptr;
 
 public: // ctor(s)/dtor(s)
 
@@ -26,18 +26,18 @@ public: // collision
 
 public: // getter(s)
 
-	virtual ShapeType	getShapeType() const = 0;
-	const std::size_t&	getRenderLayer() const;
-	bool				isRenderEnabled() const;
-	class Port*			getPort() const;
-	bool				isAnimated() const;
-	bool				isHoveredOver() const;
-	bool				isLeftClicked() const;
-	bool				isMiddleClicked() const;
-	bool				isRightClicked() const;
-	sf::Uint8			getOpacity() const;
-	bool				isTransparent() const;
-	bool				isOpaque() const;
+	virtual ShapeType   getShapeType() const = 0;
+	const std::size_t&  getRenderLayer() const;
+	bool                isRenderEnabled() const;
+	class Port*         getPort() const;
+	bool                isAnimated() const;
+	bool                isHoveredOver() const;
+	bool                isLeftClicked() const;
+	bool                isMiddleClicked() const;
+	bool                isRightClicked() const;
+	sf::Uint8           getOpacity() const;
+	bool                isTransparent() const;
+	bool                isOpaque() const;
 
 public: // setter(s)
 

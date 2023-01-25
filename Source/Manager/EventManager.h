@@ -10,13 +10,13 @@ class EventManager
 {
 private: // data
 
-	std::vector<std::shared_ptr<Binding>>	bindings					= {};
-	std::mutex								mutex						= std::mutex{};
-	bool									keyPressInhibited			= false;
-	bool									mousePressInhibited			= false;
-	bool									mouseWheelScrollInhibited	= false;
-	bool									autoUninhibited				= false;
-	bool									textInputEnabled			= false;
+	std::vector<std::shared_ptr<Binding>>   bindings                    = {};
+	bool                                    keyPressInhibited           = false;
+	bool                                    mousePressInhibited         = false;
+	bool                                    mouseWheelScrollInhibited   = false;
+	bool                                    autoUninhibited             = false;
+	bool                                    textInputEnabled            = false;
+	std::mutex                              mutex                       = std::mutex{};
 
 public: // ctor(s)/dtor(s)
 
@@ -36,27 +36,27 @@ private: // core
 
 public: // bindings
 
-	template <typename Derived, typename ... Args> Derived*	createBinding(Args ... args);
-	std::size_t												getBindingCount() const;
-	Binding*												getBinding(std::size_t index);
-	Binding*												getBinding(const std::string& id);
-	Binding*												getBindingFront();
-	Binding*												getBindingBack();
-	std::vector<std::shared_ptr<Binding>>&					getBindingData();
-	void													removeBinding(std::size_t index);
-	void													removeBinding(const std::string& id);
-	void													removeBindings(class Scene* scene = nullptr);
-	void													iterateBindings(const std::function<void(Binding&)>& function, bool reversed = false);
+	template <typename Derived, typename ... Args> Derived* createBinding(Args ... args);
+	std::size_t                                             getBindingCount() const;
+	Binding*                                                getBinding(std::size_t index);
+	Binding*                                                getBinding(const std::string& id);
+	Binding*                                                getBindingFront();
+	Binding*                                                getBindingBack();
+	std::vector<std::shared_ptr<Binding>>&                  getBindingData();
+	void                                                    removeBinding(std::size_t index);
+	void                                                    removeBinding(const std::string& id);
+	void                                                    removeBindings(class Scene* scene = nullptr);
+	void                                                    iterateBindings(const std::function<void(Binding&)>& function, bool reversed = false);
 
 public: // getter(s)
 
-	sf::Vector2i	getLocalMousePosition() const;
-	sf::Vector2i	getGlobalMousePosition() const;
-	bool			isKeyPressInhibited() const;
-	bool			isMousePressInhibited() const;
-	bool			isMouseWheelScrollInhibited() const;
-	bool			isAutoUninhibited() const;
-	bool			isTextInputEnabled() const;
+	sf::Vector2i    getLocalMousePosition() const;
+	sf::Vector2i    getGlobalMousePosition() const;
+	bool            isKeyPressInhibited() const;
+	bool            isMousePressInhibited() const;
+	bool            isMouseWheelScrollInhibited() const;
+	bool            isAutoUninhibited() const;
+	bool            isTextInputEnabled() const;
 
 public: // setter(s)
 

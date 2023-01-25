@@ -16,9 +16,9 @@ public: // ctor(s)/dtor(s)
 
 public: // getter(s)
 
-	virtual ShapeType	getShapeType() const override final;
-	virtual std::size_t	getPointCount() const override final;
-	sf::Vector2f		getPoint(std::size_t index) const;
+	virtual ShapeType   getShapeType() const override final;
+	virtual std::size_t getPointCount() const override final;
+	sf::Vector2f        getPoint(std::size_t index) const;
 
 public: // setter(s)
 

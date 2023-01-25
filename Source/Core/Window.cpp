@@ -46,11 +46,15 @@ Window::Window(bool autoSetup)
 	);
 }
 
-Window::Window(const sf::Vector2u& size, const sf::String& title, const sf::Uint32& style, const sf::ContextSettings& settings)
+Window::Window(
+	const sf::Vector2u&         resolution,
+	const sf::String&           title,
+	const sf::Uint32&           style,
+	const sf::ContextSettings&  settings)
 {
 	this->set
 	(
-		size,
+		resolution,
 		title,
 		style,
 		settings
@@ -100,10 +104,10 @@ void Window::draw() // so much more work to do
 	if (this->isRenderingPaused())
 		return;
 
-	auto	originalView				= this->instance->getView();
-	auto&	am							= *global::getAssetManager();
-	auto&	portEditor					= *this->getPort("portEngineEditor");
-	auto&	rectangleEditorTileCuller	= *am.getShape("rectangleEditorTileCuller")->as<Rectangle>();
+	auto    originalView                = this->instance->getView();
+	auto&   am                          = *global::getAssetManager();
+	auto&   portEditor                  = *this->getPort("portEngineEditor");
+	auto&   rectangleEditorTileCuller   = *am.getShape("rectangleEditorTileCuller")->as<Rectangle>();
 
 	for (std::size_t renderLayer = 0; renderLayer < this->getRenderLayerCount(); renderLayer++)
 	{
@@ -113,10 +117,10 @@ void Window::draw() // so much more work to do
 
 			if (tilemap->isActive() && (renderLayer < tilemap->getLayerCount()))
 			{
-				int xStart	= (((rectangleEditorTileCuller.getPosition().x - rectangleEditorTileCuller.getOrigin().x) / (tilemap->getTileSize().x * tilemap->getTileScale().x)) - 1);
-				int xEnd	= (xStart + (rectangleEditorTileCuller.getSize().x / (tilemap->getTileSize().x * tilemap->getTileScale().x)) + 3);
-				int	yStart	= ((rectangleEditorTileCuller.getPosition().y - rectangleEditorTileCuller.getOrigin().y) / (((tilemap->getTileSize().y - tilemap->getTileDepth()) * tilemap->getTileScale().y) / 2)) - ((tilemap->getLayerCount() - zIndex - 1) * (tilemap->getTileDepth() * tilemap->getTileScale().y)) / (((tilemap->getTileSize().y - tilemap->getTileDepth()) * tilemap->getTileScale().y) / 2) - 2;
-				int	yEnd	= yStart + (rectangleEditorTileCuller.getSize().y / (((tilemap->getTileSize().y - tilemap->getTileDepth()) * tilemap->getTileScale().y) / 2)) + 4;
+				int xStart  = (((rectangleEditorTileCuller.getPosition().x - rectangleEditorTileCuller.getOrigin().x) / (tilemap->getTileSize().x * tilemap->getTileScale().x)) - 1);
+				int xEnd    = (xStart + (rectangleEditorTileCuller.getSize().x / (tilemap->getTileSize().x * tilemap->getTileScale().x)) + 3);
+				int	yStart  = ((rectangleEditorTileCuller.getPosition().y - rectangleEditorTileCuller.getOrigin().y) / (((tilemap->getTileSize().y - tilemap->getTileDepth()) * tilemap->getTileScale().y) / 2)) - ((tilemap->getLayerCount() - zIndex - 1) * (tilemap->getTileDepth() * tilemap->getTileScale().y)) / (((tilemap->getTileSize().y - tilemap->getTileDepth()) * tilemap->getTileScale().y) / 2) - 2;
+				int	yEnd    = yStart + (rectangleEditorTileCuller.getSize().y / (((tilemap->getTileSize().y - tilemap->getTileDepth()) * tilemap->getTileScale().y) / 2)) + 4;
 
 				if (xStart < 0)
 					xStart = 0;
@@ -369,10 +373,10 @@ bool Window::isMouseEntered() const
 #pragma region SETTER(S)
 
 void Window::set(
-	const sf::Vector2u&			resolution,
-	const sf::String&			title,
-	const sf::Uint32&			style,
-	const sf::ContextSettings&	settings)
+	const sf::Vector2u&         resolution,
+	const sf::String&           title,
+	const sf::Uint32&           style,
+	const sf::ContextSettings&  settings)
 {
 	if (!static_cast<bool>(this->instance))
 	{
@@ -395,9 +399,9 @@ void Window::set(
 		));
 	}
 
-	this->resolution	= resolution;
-	this->title			= title;
-	this->style			= style;
+	this->resolution    = resolution;
+	this->title         = title;
+	this->style         = style;
 }
 
 void Window::setResolution(const sf::Vector2u& resolution)

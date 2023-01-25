@@ -7,9 +7,9 @@ class Text : public sf::Text, public Asset<Text>
 {
 private: // data
 
-	std::size_t renderLayer		= 0;
-	bool		renderEnabled	= true;
-	class Port* port			= nullptr;
+	std::size_t renderLayer     = 0;
+	bool        renderEnabled   = true;
+	class Port* port            = nullptr;
 
 public: // ctor(s)/dtor(s)
 
@@ -20,12 +20,12 @@ public: // ctor(s)/dtor(s)
 
 public: // getter(s)
 
-	const std::size_t&	getRenderLayer() const;
-	bool				isRenderEnabled() const;
-	class Port*			getPort() const;
-	sf::Uint8			getOpacity() const;
-	bool				isTransparent() const;
-	bool				isOpaque() const;
+	const std::size_t&  getRenderLayer() const;
+	bool                isRenderEnabled() const;
+	class Port*         getPort() const;
+	sf::Uint8           getOpacity() const;
+	bool                isTransparent() const;
+	bool                isOpaque() const;
 
 public: // setter(s)
 

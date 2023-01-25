@@ -93,6 +93,11 @@ Scene* SceneManager::getSceneBack()
 	return this->scenes.back().get();
 }
 
+std::vector<std::shared_ptr<Scene>>& SceneManager::getSceneData()
+{
+	return this->scenes;
+}
+
 void SceneManager::removeScene(std::size_t index)
 {
 	this->scenes.erase(this->scenes.begin() + index);

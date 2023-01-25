@@ -1,9 +1,10 @@
 #include "Utility/Debug.h"
 #include <Windows.h> // @TODO OS guards and variations - only Windows compatible atm
 
-std::stringstream	Debug::logs							= std::stringstream{};
-bool				Debug::reportingEventFocus			= false;
-bool				Debug::reportingEventMouseEntered	= false;
+std::stringstream   Debug::logs                         = std::stringstream{};
+bool                Debug::reportingEventFocus          = false;
+bool                Debug::reportingEventMouseEntered   = false;
+bool                Debug::reportingScriptUpdates       = false;
 
 void Debug::wait()
 {
@@ -55,6 +56,11 @@ bool Debug::isReportingEventMouseEntered()
 	return Debug::reportingEventMouseEntered;
 }
 
+bool Debug::isReportingScriptUpdates()
+{
+	return Debug::reportingScriptUpdates;
+}
+
 void Debug::setReportingEventFocus(bool reportingEventFocus)
 {
 	Debug::reportingEventFocus = reportingEventFocus;
@@ -63,4 +69,9 @@ void Debug::setReportingEventFocus(bool reportingEventFocus)
 void Debug::setReportingEventMouseEntered(bool reportingEventMouseEntered)
 {
 	Debug::reportingEventMouseEntered = reportingEventMouseEntered;
+}
+
+void Debug::setReportingScriptUpdates(bool reportingScriptUpdates)
+{
+	Debug::reportingScriptUpdates = reportingScriptUpdates;
 }

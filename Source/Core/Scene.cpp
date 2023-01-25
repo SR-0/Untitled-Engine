@@ -8,9 +8,9 @@ Scene::Scene()
 
 Scene::Scene(const std::string& id, bool active, const CodeUtilization& codeUtilization)
 {
-	this->id				= id;
-	this->active			= active;
-	this->codeUtilization	= codeUtilization;
+	this->id                = id;
+	this->active            = active;
+	this->codeUtilization   = codeUtilization;
 }
 
 void Scene::initialize()

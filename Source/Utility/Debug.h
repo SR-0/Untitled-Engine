@@ -7,9 +7,10 @@ class Debug
 {
 private:
 
-	static std::stringstream	logs;
-	static bool					reportingEventFocus;
-	static bool					reportingEventMouseEntered;
+	static std::stringstream    logs;
+	static bool                 reportingEventFocus;
+	static bool                 reportingEventMouseEntered;
+	static bool                 reportingScriptUpdates;
 
 private:
 
@@ -25,27 +26,29 @@ private:
 
 public: // core
 
-	static void										wait();
-	template <typename ... Parameters> static void	log(Parameters ... parameters);
-	static void										saveLogs(const std::string& path, const std::string& fileName);
-	static void										printLogs();
-	static void										clearLogs();
-	template <typename ... Parameters> static void	print(Parameters ... parameters);
-	template <typename ... Parameters> static void	printLine(Parameters ... parameters);
-	static void										show();
-	static void										hide();
-	static bool										isShowing();
-	static void										setPosition(int x, int y);
+	static void                                     wait();
+	template <typename ... Parameters> static void  log(Parameters ... parameters);
+	static void                                     saveLogs(const std::string& path, const std::string& fileName);
+	static void                                     printLogs();
+	static void                                     clearLogs();
+	template <typename ... Parameters> static void  print(Parameters ... parameters);
+	template <typename ... Parameters> static void  printLine(Parameters ... parameters);
+	static void                                     show();
+	static void                                     hide();
+	static bool                                     isShowing();
+	static void                                     setPosition(int x, int y);
 
 public: // getter(s)
 
 	static bool isReportingEventFocus();
 	static bool isReportingEventMouseEntered();
+	static bool isReportingScriptUpdates();
 
 public: // setter(s)
 
 	static void setReportingEventFocus(bool reportingEventFocus);
 	static void setReportingEventMouseEntered(bool reportingEventMouseEntered);
+	static void setReportingScriptUpdates(bool reportingScriptUpdates);
 
 };
 

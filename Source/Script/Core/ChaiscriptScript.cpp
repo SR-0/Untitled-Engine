@@ -1,25 +1,39 @@
 #include "Script/Core/ChaiscriptScript.h"
 
 ChaiscriptScript::ChaiscriptScript()
+{
+}
+
+ChaiscriptScript::ChaiscriptScript(
+	const std::string&  id,
+	const std::string&  fileString,
+	bool                active,
+	bool                repeating,
+	const sf::Time&     runInterval,
+	class Scene*        parentScene)
 	:
-	Script()
+	Script(id, fileString, active, repeating, runInterval, parentScene)
 {
 }
 
-ChaiscriptScript::ChaiscriptScript(const std::string& id, bool active, Scene* parentScene)
+ChaiscriptScript::ChaiscriptScript(
+	const std::string&  id,
+	const std::string&  fileString,
+	bool                active,
+	bool                repeating,
+	float               runIntervalSeconds,
+	class Scene*        parentScene)
 	:
-	Script(id, active, parentScene)
+	Script(id, fileString, active, repeating, runIntervalSeconds, parentScene)
 {
 }
 
-bool ChaiscriptScript::loadFromFile(const std::string& fileString)
-{
-	this->setFileString(fileString);
-
-	return false;
-}
-
-void ChaiscriptScript::update(float deltaTime)
+void ChaiscriptScript::run(float deltaTime)
 {
 	return; // @TODO
+}
+
+ScriptLanguage ChaiscriptScript::getScriptLanguage() const
+{
+	return ScriptLanguage::Chaiscript;
 }

@@ -7,12 +7,35 @@ class CSharpScript : public Script
 public: // ctor(s)/dtor(s)
 
 	CSharpScript();
-	CSharpScript(const std::string& id, bool active = true, class Scene* parentScene = nullptr);
-	virtual ~CSharpScript() override = default;
+	CSharpScript(const CSharpScript&) = delete;
+	virtual ~CSharpScript() = default;
+	
+	CSharpScript
+	(
+		const std::string&  id,
+		const std::string&  fileString  = "",
+		bool                active      = true,
+		bool                repeating   = false,
+		const sf::Time&     runInterval = sf::Time::Zero,
+		class Scene*        parentScene = nullptr
+	);
+	
+	CSharpScript
+	(
+		const std::string&  id,
+		const std::string&  fileString,
+		bool                active,
+		bool                repeating,
+		float               runIntervalSeconds  = 0.000000f,
+		class Scene*        parentScene         = nullptr
+	);
 
 public: // core
 
-	virtual bool loadFromFile(const std::string& fileString) override final;
-	virtual void update(float deltaTime) override final;
+	virtual void run(float deltaTime) override final;
+
+public:
+
+	virtual ScriptLanguage getScriptLanguage() const override final;
 
 };

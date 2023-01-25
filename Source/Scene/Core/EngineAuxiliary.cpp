@@ -19,11 +19,11 @@ void EngineAuxiliary::initialize()
 	////
 	//
 	
-	auto& window	= *global::getWindow();
-	auto& cm		= *global::getClockManager();
-	auto& em		= *global::getEventManager();
-	auto& sm		= *global::getSceneManager();
-	auto& am		= *global::getAssetManager();
+	auto& window    = *global::getWindow();
+	auto& cm        = *global::getClockManager();
+	auto& em        = *global::getEventManager();
+	auto& sm        = *global::getSceneManager();
+	auto& am        = *global::getAssetManager();
 
 	///////////////////////////////////
 	// create/reference general data //
@@ -50,11 +50,11 @@ void EngineAuxiliary::initialize()
 	////
 	//
 
-	this->rectangleAuxiliaryConsole			= am.createShape<Rectangle>("rectangleAuxiliaryConsole",		sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 0.0f), 0.0f),																										this, &*this->port); // font at index 0 is system regular
-	this->rectangleAuxiliaryWarnings		= am.createShape<Rectangle>("rectangleAuxiliaryWarnings",		sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 1.0f), 0.0f),																										this, &*this->port); // font at index 0 is system regular
-	this->rectangleAuxiliaryErrors			= am.createShape<Rectangle>("rectangleAuxiliaryErrors",			sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 2.0f), 0.0f),																										this, &*this->port); // font at index 0 is system regular
-	this->rectangleAuxiliaryTabConnector	= am.createShape<Rectangle>("rectangleAuxiliaryTabConnector",	sf::Vector2f(this->rectangleAuxiliaryConsole->getSize().x - 4, 4),																						sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 0.0f) + 2, this->rectangleAuxiliaryConsole->getPosition().y + this->rectangleAuxiliaryConsole->getSize().y - 2),	this, &*this->port); // font at index 0 is system regular
-	this->rectangleConsoleCursor			= am.createShape<Rectangle>("rectangleConsoleCursor",			sf::Vector2f(window.getHeight() / 256, window.getHeight() / 48),																						sf::Vector2f(global::getFontSize() * global::getUiScale() * 4, global::getFontSize() * global::getUiScale() * 4),																								this, &*this->port);
+	this->rectangleAuxiliaryConsole         = am.createShape<Rectangle>("rectangleAuxiliaryConsole",        sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),   sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 0.0f), 0.0f),                                                                                                     this, &*this->port); // font at index 0 is system regular
+	this->rectangleAuxiliaryWarnings        = am.createShape<Rectangle>("rectangleAuxiliaryWarnings",       sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),   sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 1.0f), 0.0f),                                                                                                     this, &*this->port); // font at index 0 is system regular
+	this->rectangleAuxiliaryErrors          = am.createShape<Rectangle>("rectangleAuxiliaryErrors",         sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),   sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 2.0f), 0.0f),                                                                                                     this, &*this->port); // font at index 0 is system regular
+	this->rectangleAuxiliaryTabConnector    = am.createShape<Rectangle>("rectangleAuxiliaryTabConnector",   sf::Vector2f(this->rectangleAuxiliaryConsole->getSize().x - 4, 4),                                                                                      sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 0.0f) + 2, this->rectangleAuxiliaryConsole->getPosition().y + this->rectangleAuxiliaryConsole->getSize().y - 2),  this, &*this->port); // font at index 0 is system regular
+	this->rectangleConsoleCursor            = am.createShape<Rectangle>("rectangleConsoleCursor",           sf::Vector2f(window.getHeight() / 256, window.getHeight() / 48),                                                                                        sf::Vector2f(global::getFontSize() * global::getUiScale() * 4, global::getFontSize() * global::getUiScale() * 4),                                                                                               this, &*this->port);
 
 	//////////////////////////////
 	// create/reference text(s) //
@@ -63,9 +63,9 @@ void EngineAuxiliary::initialize()
 	////
 	//
 
-	this->textAuxiliaryConsole	= am.createText<Text>("textAuxiliaryConsole",	&*am.getFont(0), this, &*this->port);
-	this->textAuxiliaryWarnings	= am.createText<Text>("textAuxiliaryWarning",	&*am.getFont(0), this, &*this->port);
-	this->textAuxiliaryErrors	= am.createText<Text>("textAuxiliaryErrors",	&*am.getFont(0), this, &*this->port);
+	this->textAuxiliaryConsole  = am.createText<Text>("textAuxiliaryConsole",   &*am.getFont(0), this, &*this->port);
+	this->textAuxiliaryWarnings = am.createText<Text>("textAuxiliaryWarning",   &*am.getFont(0), this, &*this->port);
+	this->textAuxiliaryErrors   = am.createText<Text>("textAuxiliaryErrors",    &*am.getFont(0), this, &*this->port);
 	
 	#pragma endregion CREATE/REFERENCE
 

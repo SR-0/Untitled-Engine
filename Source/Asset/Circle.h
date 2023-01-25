@@ -6,8 +6,8 @@ class Circle : public Shape
 {
 private: // data
 
-	float	radius;
-	size_t	pointCount;
+	float   radius      = 0.F;
+	size_t  pointCount  = 0;
 
 public: // ctor(s)/dtor(s)
 
@@ -17,10 +17,10 @@ public: // ctor(s)/dtor(s)
 
 public: // getter(s)
 
-	virtual ShapeType		getShapeType() const override final;
-	float					getRadius() const;
-	virtual std::size_t		getPointCount() const override final;
-	virtual sf::Vector2f	getPoint(std::size_t index) const override final;
+	virtual ShapeType       getShapeType() const override final;
+	float                   getRadius() const;
+	virtual std::size_t     getPointCount() const override final;
+	virtual sf::Vector2f    getPoint(std::size_t index) const override final;
 
 public: // setter(s)
 

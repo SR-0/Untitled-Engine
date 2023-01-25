@@ -11,15 +11,15 @@ class EngineEditor : public Scene
 {
 private: // data
 
-	Port*					port						= nullptr;
-	Sound*					soundEditorOk				= nullptr;
-	Sound*					soundEditorCancel			= nullptr;
-	Texture*				textureEditorTiles			= nullptr;
-	Rectangle*				rectangleEditorTileCuller	= nullptr;
-	Rectangle*				rectangleEditorTabConnector	= nullptr;
-	std::vector<Rectangle*>	rectangleEditorTabs			= std::vector<Rectangle*>{};
-	std::vector<Text*>		textEditorTabs				= std::vector<Text*>{};
-	Tilemap*				tilemapEditor				= nullptr;
+	Port*                   port                        = nullptr;
+	Sound*                  soundEditorOk               = nullptr;
+	Sound*                  soundEditorCancel           = nullptr;
+	Texture*                textureEditorTiles          = nullptr;
+	Rectangle*              rectangleEditorTileCuller   = nullptr;
+	Rectangle*              rectangleEditorTabConnector = nullptr;
+	std::vector<Rectangle*> rectangleEditorTabs         = std::vector<Rectangle*>{};
+	std::vector<Text*>      textEditorTabs              = std::vector<Text*>{};
+	Tilemap*                tilemapEditor               = nullptr;
 
 public:  // ctor(s)/dtor(s)
 

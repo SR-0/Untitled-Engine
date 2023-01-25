@@ -26,6 +26,15 @@ enum class TileType
 	Isometric
 };
 
+enum class ScriptLanguage // only acceptable language(s) at the moment
+{
+	Chaiscript,
+	CSharp,
+	Javascript,
+	Lua,
+	Python
+};
+
 enum class AnchorResize
 {
 	Left,

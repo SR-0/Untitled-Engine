@@ -18,30 +18,34 @@ class Window
 {
 private: // data
 
-	static constexpr std::size_t		minimumWidth		= 1280;
-	static constexpr std::size_t		minimumHeight		= 720;
-	static constexpr sf::Uint32			modeBitsPerPixel	= 32; // @TODO dig
-	std::shared_ptr<sf::RenderWindow>	instance			= nullptr;
-	std::size_t							renderLayerCount	= 1;
-	sf::Vector2u						resolution			= sf::Vector2u(Window::minimumWidth, Window::minimumHeight);
-	sf::String							title				= sf::String{};
-	sf::Uint32							style				= 0;
-	sf::Color							clearColor			= sf::Color::Black;
-	std::size_t							framerateLimit		= 0;
-	bool								renderingPaused		= false;
-	bool								focused				= true;
-	bool								mouseEntered		= false;
-	std::vector<std::shared_ptr<Port>>	ports				= {};
-	std::mutex							mutex				= std::mutex{};
+	static constexpr std::size_t        minimumWidth        = 1280;
+	static constexpr std::size_t        minimumHeight       = 720;
+	static constexpr sf::Uint32         modeBitsPerPixel    = 32; // @TODO dig
+	std::shared_ptr<sf::RenderWindow>   instance            = nullptr;
+	std::size_t                         renderLayerCount    = 1;
+	sf::Vector2u                        resolution          = sf::Vector2u(Window::minimumWidth, Window::minimumHeight);
+	sf::String                          title               = sf::String{};
+	sf::Uint32                          style               = 0;
+	sf::Color                           clearColor          = sf::Color::Black;
+	std::size_t                         framerateLimit      = 0;
+	bool                                renderingPaused     = false;
+	bool                                focused             = true;
+	bool                                mouseEntered        = false;
+	std::vector<std::shared_ptr<Port>>  ports               = {};
+	std::mutex                          mutex               = std::mutex{};
 
 public: // ctor(s)/dtor(s)
 
 	Window(bool autoSetup = false);
-	Window(
-		const sf::Vector2u&			resolution,
-		const sf::String&			title,
-		const sf::Uint32&			style,
-		const sf::ContextSettings&	settings);
+
+	Window
+	(
+		const sf::Vector2u&         resolution,
+		const sf::String&           title,
+		const sf::Uint32&           style,
+		const sf::ContextSettings&  settings
+	);
+
 	Window(const Window&) = delete;
 
 public: // core
@@ -60,39 +64,39 @@ private: // core
 
 public: // getters(s)
 
-	inline static constexpr std::size_t	getMinimumWidth()	{ return Window::minimumWidth; }
-	inline static constexpr std::size_t	getMinimumHeight()	{ return Window::minimumHeight; }
-	sf::RenderWindow*					getInstance() const;
-	sf::Vector2u						getResolution() const;
-	std::size_t							getResolutionWidth() const;
-	std::size_t							getResolutionHeight() const;
-	sf::String							getTitle() const;
-	sf::Uint32							getStyle() const;
-	sf::ContextSettings					getSettings() const;
-	std::size_t							getRenderLayerCount() const;
-	bool								isOpen() const;
-	sf::Vector2i						getPosition() const;
-	sf::Vector2u						getSize() const;
-	std::size_t							getWidth() const;
-	std::size_t							getHeight() const;
-	sf::View							getView() const;
-	sf::FloatRect						getViewport() const;
-	sf::Color							getClearColor() const;
-	sf::Vector2f						getZoom() const;
-	sf::Vector2f						getScroll() const;
-	float								getRotation() const;
-	bool								isRenderingPaused() const;
-	bool								isFocused() const;
-	bool								isMouseEntered() const;
+	inline static constexpr std::size_t getMinimumWidth()   { return Window::minimumWidth; }
+	inline static constexpr std::size_t getMinimumHeight()  { return Window::minimumHeight; }
+	sf::RenderWindow*                   getInstance() const;
+	sf::Vector2u                        getResolution() const;
+	std::size_t                         getResolutionWidth() const;
+	std::size_t                         getResolutionHeight() const;
+	sf::String                          getTitle() const;
+	sf::Uint32                          getStyle() const;
+	sf::ContextSettings                 getSettings() const;
+	std::size_t                         getRenderLayerCount() const;
+	bool                                isOpen() const;
+	sf::Vector2i                        getPosition() const;
+	sf::Vector2u                        getSize() const;
+	std::size_t                         getWidth() const;
+	std::size_t                         getHeight() const;
+	sf::View                            getView() const;
+	sf::FloatRect                       getViewport() const;
+	sf::Color                           getClearColor() const;
+	sf::Vector2f                        getZoom() const;
+	sf::Vector2f                        getScroll() const;
+	float                               getRotation() const;
+	bool                                isRenderingPaused() const;
+	bool                                isFocused() const;
+	bool                                isMouseEntered() const;
 
 public: // setter(s)
 
 	void set
 	(
-		const sf::Vector2u&			resolution,
-		const sf::String&			title,
-		const sf::Uint32&			style,
-		const sf::ContextSettings&	settings
+		const sf::Vector2u&         resolution,
+		const sf::String&           title,
+		const sf::Uint32&           style,
+		const sf::ContextSettings&  settings
 	);
 
 	void setResolution(const sf::Vector2u& resolution);
@@ -130,19 +134,19 @@ private: // setter(s) (for friends only)
 
 public: // ports
 
-	Port*								createPort(const std::string& id = "unidentified", const sf::FloatRect& viewport = sf::FloatRect(0.0f, 0.0f, 1.0f, 1.0f), std::size_t renderLayerCount = 1, bool active = true);
-	Port*								createPort(const std::string& id = "unidentified", float x = 0.0f, float y = 0.0f, float width = 1.0f, float height = 1.0f, std::size_t renderLayerCount = 1, bool active = true);
-	std::size_t							getPortCount() const;
-	Port*								getPort(std::size_t index);
-	Port*								getPort(const std::string& id);
-	Port*								getPortFront();
-	Port*								getPortBack();
-	std::vector<std::shared_ptr<Port>>&	getPortData();
-	void								removePort(std::size_t index);
-	void								removePort(const std::string& id);
-	void								removePorts(class Scene* scene = nullptr);
-	void								iteratePorts(const std::function<void(Port&)>& function);
-	void								resizePorts();
+	Port*                               createPort(const std::string& id = "unidentified", const sf::FloatRect& viewport = sf::FloatRect(0.0f, 0.0f, 1.0f, 1.0f), std::size_t renderLayerCount = 1, bool active = true);
+	Port*                               createPort(const std::string& id = "unidentified", float x = 0.0f, float y = 0.0f, float width = 1.0f, float height = 1.0f, std::size_t renderLayerCount = 1, bool active = true);
+	std::size_t                         getPortCount() const;
+	Port*                               getPort(std::size_t index);
+	Port*                               getPort(const std::string& id);
+	Port*                               getPortFront();
+	Port*                               getPortBack();
+	std::vector<std::shared_ptr<Port>>& getPortData();
+	void                                removePort(std::size_t index);
+	void                                removePort(const std::string& id);
+	void                                removePorts(class Scene* scene = nullptr);
+	void                                iteratePorts(const std::function<void(Port&)>& function);
+	void                                resizePorts();
 
 private: // friend(s)
 

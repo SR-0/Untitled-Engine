@@ -22,31 +22,31 @@ class Global
 {
 private: // data
 
-	static Window*					window;
-	static ClockManager*			clockManager;
-	static EventManager*			eventManager;
-	static SceneManager*			sceneManager;
-	static AssetManager*			assetManager;
-	static ScriptManager*			scriptManager;
-	static EngineSystem*			engineSystem;
-	static EngineMenu*				engineMenu;
-	static EngineFooter*			engineFooter;
-	static EngineExplorer*			engineExplorer;
-	static EngineModifier*			engineModifier;
-	static EngineEditor*			engineEditor;
-	static EngineAuxiliary*			engineAuxiliary;
-	static constexpr std::size_t	minFontSize = 10;
-	static std::size_t				fontSize;
-	static constexpr float			minUiScale = 1.000000f;
-	static float					uiScale;
-	static constexpr std::size_t	minMaxTicksPerSecond = 24; // limiting user to 0 (no limit) or at least 24 max tick per second
-	static constexpr std::size_t	minMaxFramesPerSecond = 24; // limiting user to 0 (no limit) or at least 24 max frames per second (possible change) 
-	static std::size_t				maxTicksPerSecond;
-	static std::size_t				maxFramesPerSecond;
-	static sf::Time					timeSinceLastUpdate;
-	static sf::Time					timeSinceLastRender;
-	static bool						updating;
-	static bool						rendering;
+	static Window*                  window;
+	static ClockManager*            clockManager;
+	static EventManager*            eventManager;
+	static SceneManager*            sceneManager;
+	static AssetManager*            assetManager;
+	static ScriptManager*           scriptManager;
+	static EngineSystem*            engineSystem;
+	static EngineMenu*              engineMenu;
+	static EngineFooter*            engineFooter;
+	static EngineExplorer*          engineExplorer;
+	static EngineModifier*          engineModifier;
+	static EngineEditor*            engineEditor;
+	static EngineAuxiliary*         engineAuxiliary;
+	static constexpr std::size_t    minFontSize = 10;
+	static std::size_t              fontSize;
+	static constexpr float          minUiScale = 1.000000f;
+	static float                    uiScale;
+	static constexpr std::size_t    minMaxTicksPerSecond = 24; // limiting user to 0 (no limit) or at least 24 max tick per second
+	static constexpr std::size_t    minMaxFramesPerSecond = 24; // limiting user to 0 (no limit) or at least 24 max frames per second (possible change) 
+	static std::size_t              maxTicksPerSecond;
+	static std::size_t              maxFramesPerSecond;
+	static sf::Time                 timeSinceLastUpdate;
+	static sf::Time                 timeSinceLastRender;
+	static bool                     updating;
+	static bool                     rendering;
 
 private: // ctor(s)/dtor(s)
 
@@ -64,52 +64,52 @@ private: // core (for use within Engine.cpp only)
 
 	static void referenceCore
 	(
-		Window&			window,
-		ClockManager&	clockManager,
-		EventManager&	eventManager,
-		SceneManager&	sceneManager,
-		AssetManager&	assetManager,
-		ScriptManager&	scriptManager
+		Window&         window,
+		ClockManager&   clockManager,
+		EventManager&   eventManager,
+		SceneManager&   sceneManager,
+		AssetManager&   assetManager,
+		ScriptManager&  scriptManager
 	);
 
 	static void referenceScenes
 	(
-		EngineSystem&		engineSystem,
-		EngineMenu&			engineMenu,
-		EngineFooter&		engineFooter,
-		EngineExplorer&		engineExplorer,
-		EngineModifier&		engineModifier,
-		EngineEditor&		engineEditor,
-		EngineAuxiliary&	engineConsole
+		EngineSystem&       engineSystem,
+		EngineMenu&         engineMenu,
+		EngineFooter&       engineFooter,
+		EngineExplorer&     engineExplorer,
+		EngineModifier&     engineModifier,
+		EngineEditor&       engineEditor,
+		EngineAuxiliary&    engineConsole
 	);
 
 public: // getter(s)
 
-	static Window*					getWindow();
-	static ClockManager*			getClockManager();
-	static EventManager*			getEventManager();
-	static SceneManager*			getSceneManager();
-	static AssetManager*			getAssetManager();
-	static ScriptManager*			getScriptManager();
-	static EngineSystem*			getEngineSystem();
-	static EngineMenu*				getEngineMenu();
-	static EngineFooter*			getEngineFooter();
-	static EngineExplorer*			getEngineExplorer();
-	static EngineModifier*			getEngineModifier();
-	static EngineEditor*			getEngineEditor();
-	static EngineAuxiliary*			getEngineAuxiliary();
-	static constexpr std::size_t	getMinFontSize();
-	static std::size_t				getFontSize();
-	static constexpr std::size_t	getMinUiScale();
-	static float					getUiScale();
-	static constexpr std::size_t	getMinMaxTicksPerSecond(); // limiting user to 0 (no limit) or at least 24 max tick per second
-	static constexpr std::size_t	getMinMaxFramesPerSecond(); // limiting user to 0 (no limit) or at least 24 max frames per second (possible change) 
-	static std::size_t				getMaxTicksPerSecond();
-	static std::size_t				getMaxFramesPerSecond();
-	static sf::Time					getTimeSinceLastUpdate();
-	static sf::Time					getTimeSinceLastRender();
-	static bool						isUpdating();
-	static bool						isRendering();
+	static Window*                  getWindow();
+	static ClockManager*            getClockManager();
+	static EventManager*            getEventManager();
+	static SceneManager*            getSceneManager();
+	static AssetManager*            getAssetManager();
+	static ScriptManager*           getScriptManager();
+	static EngineSystem*            getEngineSystem();
+	static EngineMenu*              getEngineMenu();
+	static EngineFooter*            getEngineFooter();
+	static EngineExplorer*          getEngineExplorer();
+	static EngineModifier*          getEngineModifier();
+	static EngineEditor*            getEngineEditor();
+	static EngineAuxiliary*         getEngineAuxiliary();
+	static constexpr std::size_t    getMinFontSize();
+	static std::size_t              getFontSize();
+	static constexpr std::size_t    getMinUiScale();
+	static float                    getUiScale();
+	static constexpr std::size_t    getMinMaxTicksPerSecond(); // limiting user to 0 (no limit) or at least 24 max tick per second
+	static constexpr std::size_t    getMinMaxFramesPerSecond(); // limiting user to 0 (no limit) or at least 24 max frames per second (possible change) 
+	static std::size_t              getMaxTicksPerSecond();
+	static std::size_t              getMaxFramesPerSecond();
+	static sf::Time                 getTimeSinceLastUpdate();
+	static sf::Time                 getTimeSinceLastRender();
+	static bool                     isUpdating();
+	static bool                     isRendering();
 
 public: // setter(s)
 

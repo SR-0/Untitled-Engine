@@ -11,8 +11,8 @@ class SceneManager
 {
 private: // data
 
-	std::vector<std::shared_ptr<Scene>>	scenes	 = {};
-	std::mutex							mutex	 = std::mutex{};
+	std::vector<std::shared_ptr<Scene>> scenes   = {};
+	std::mutex                          mutex    = std::mutex{};
 
 public: // ctor(s)/dtor(s)
 
@@ -32,16 +32,17 @@ private: // core
 
 public: // scenes
 
-	template <typename Derived, typename ... Args> Derived*	createScene(Args ... args);
-	std::size_t												getSceneCount() const;
-	Scene*													getScene(std::size_t index);
-	Scene*													getScene(const std::string& id);
-	Scene*													getSceneFront();
-	Scene*													getSceneBack();
-	void													removeScene(std::size_t index);
-	void													removeScene(const std::string& id);
-	void													removeScenes();
-	void													iterateScenes(const std::function<void(Scene&)>& function, bool reversed = false);
+	template <typename Derived, typename ... Args> Derived* createScene(Args ... args);
+	std::size_t                                             getSceneCount() const;
+	Scene*                                                  getScene(std::size_t index);
+	Scene*                                                  getScene(const std::string& id);
+	Scene*                                                  getSceneFront();
+	Scene*                                                  getSceneBack();
+	std::vector<std::shared_ptr<Scene>>&                    getSceneData();
+	void                                                    removeScene(std::size_t index);
+	void                                                    removeScene(const std::string& id);
+	void                                                    removeScenes();
+	void                                                    iterateScenes(const std::function<void(Scene&)>& function, bool reversed = false);
 
 private: // friend(s)
 

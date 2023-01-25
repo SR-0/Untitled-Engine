@@ -7,11 +7,11 @@ class Timer
 {
 private: // data
 
-	std::string	uuid			= utility::get_uuid();
-	std::string	id				= std::string{};
-	sf::Time	startingTime	= sf::Time::Zero;
-	sf::Time	remainingTime	= sf::Time::Zero;
-	bool		paused			= false;
+	std::string uuid            = utility::get_uuid();
+	std::string id              = std::string{};
+	sf::Time    startingTime    = sf::Time::Zero;
+	sf::Time    remainingTime   = sf::Time::Zero;
+	bool        paused          = false;
 
 public:
 
@@ -25,12 +25,12 @@ private: // core
 
 public: // getter(s)
 
-	const std::string&	getUuid() const;
-	const std::string&	getId() const;
-	const sf::Time&		getStartingTime() const;
-	const sf::Time&		getRemainingTime() const;
-	bool				isPaused() const;
-	bool				isCompleted() const;
+	const std::string&  getUuid() const;
+	const std::string&  getId() const;
+	const sf::Time&     getStartingTime() const;
+	const sf::Time&     getRemainingTime() const;
+	bool                isPaused() const;
+	bool                isCompleted() const;
 
 public: // setter(s)
 

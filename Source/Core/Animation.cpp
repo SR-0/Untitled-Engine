@@ -24,15 +24,15 @@ Animation::Animation(const Shape* shape, sf::Vector2u imageCount, float switchTi
 
 void Animation::set(const Shape* shape, sf::Vector2u imageCount, float switchTime, std::size_t activeRow)
 {
-	this->imageCount.x		= imageCount.x;
-	this->imageCount.y		= imageCount.y;
-	this->switchTime		= switchTime;
-	this->totalTime			= 0.f;
-	this->currentImage.x	= 0;
-	this->currentImage.y	= 0;
-	this->uvRect.width		= shape->getTexture()->getSize().x / imageCount.x;
-	this->uvRect.height		= shape->getTexture()->getSize().y / imageCount.y;
-	this->activeRow			= activeRow;
+	this->imageCount.x      = imageCount.x;
+	this->imageCount.y      = imageCount.y;
+	this->switchTime        = switchTime;
+	this->totalTime         = 0.f;
+	this->currentImage.x    = 0;
+	this->currentImage.y    = 0;
+	this->uvRect.width      = shape->getTexture()->getSize().x / imageCount.x;
+	this->uvRect.height     = shape->getTexture()->getSize().y / imageCount.y;
+	this->activeRow         = activeRow;
 }
 
 void Animation::update(float deltaTime)

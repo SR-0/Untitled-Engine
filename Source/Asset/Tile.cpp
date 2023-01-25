@@ -10,20 +10,20 @@ Tile::Tile(Scene* scene, Port* port)
 }
 
 Tile::Tile(
-	std::size_t			column,
-	std::size_t			row,
-	std::size_t			layer,
-	float				depth,
+	std::size_t         column,
+	std::size_t         row,
+	std::size_t         layer,
+	float               depth,
 	const sf::Vector2f& scale,
-	Texture*			texture,
-	std::size_t			textureColumnCount,
-	std::size_t			textureRowCount,
-	std::size_t			textureStartColumn,
-	std::size_t			textureStartRow,
-	bool				centeredOrigin,
-	const TileType&		tileType,
-	Scene*				parentScene,
-	Port*				port)
+	Texture*            texture,
+	std::size_t         textureColumnCount,
+	std::size_t         textureRowCount,
+	std::size_t         textureStartColumn,
+	std::size_t         textureStartRow,
+	bool                centeredOrigin,
+	const TileType&     tileType,
+	Scene*              parentScene,
+	Port*               port)
 	:
 	Rectangle("tile" + std::to_string(count))
 {
@@ -49,27 +49,27 @@ Tile::Tile(
 }
 
 void Tile::setup(
-	std::size_t			column,
-	std::size_t			row,
-	std::size_t			layer,
-	float				depth,
-	const sf::Vector2f&	scale,
-	Texture*			texture,
-	std::size_t			textureColumnCount,
-	std::size_t			textureRowCount,
-	std::size_t			textureStartColumn,
-	std::size_t			textureStartRow,
-	bool				centeredOrigin,
-	const TileType&		tileType,
-	Scene*				parentScene,
-	Port*				port)
+	std::size_t         column,
+	std::size_t         row,
+	std::size_t         layer,
+	float               depth,
+	const sf::Vector2f& scale,
+	Texture*            texture,
+	std::size_t         textureColumnCount,
+	std::size_t         textureRowCount,
+	std::size_t         textureStartColumn,
+	std::size_t         textureStartRow,
+	bool                centeredOrigin,
+	const TileType&     tileType,
+	Scene*              parentScene,
+	Port*               port)
 {
-	this->textureColumnCount	= textureColumnCount;
-	this->textureRowCount		= textureRowCount;
-	this->textureStartColumn	= textureStartColumn;
-	this->textureStartRow		= textureStartRow;
-	this->textureSize			= texture->getSize();
-	this->centeredOrigin		= centeredOrigin;
+	this->textureColumnCount    = textureColumnCount;
+	this->textureRowCount       = textureRowCount;
+	this->textureStartColumn    = textureStartColumn;
+	this->textureStartRow       = textureStartRow;
+	this->textureSize           = texture->getSize();
+	this->centeredOrigin        = centeredOrigin;
 
 	this->setColumn(column);
 	this->setRow(row);
@@ -213,14 +213,14 @@ void Tile::setTileType(const TileType& tileType)
 
 void Tile::setTextureStartIndex(const sf::Vector2u& textureStartIndex)
 {
-	this->textureStartColumn	= textureStartIndex.x;
-	this->textureStartRow		= textureStartIndex.y;
+	this->textureStartColumn    = textureStartIndex.x;
+	this->textureStartRow       = textureStartIndex.y;
 }
 
 void Tile::setTextureStartIndex(std::size_t textureStartColumn, std::size_t textureStartRow)
 {
-	this->textureStartColumn	= textureStartColumn;
-	this->textureStartRow		= textureStartRow;
+	this->textureStartColumn    = textureStartColumn;
+	this->textureStartRow       = textureStartRow;
 }
 
 void Tile::setTextureIndex(const sf::Vector2u& textureIndex)

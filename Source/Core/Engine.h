@@ -6,12 +6,12 @@ class Engine
 {
 public: // data
 
-	Window			window			= Window(sf::Vector2u(1920, 1080), "Untitled Engine", sf::Style::None, sf::ContextSettings());
-	ClockManager	clockManager	= ClockManager{};
-	EventManager	eventManager	= EventManager{};
-	SceneManager	sceneManager	= SceneManager{};
-	AssetManager	assetManager	= AssetManager{};
-	ScriptManager	scriptManager	= ScriptManager{};
+	Window          window          = Window(sf::Vector2u(1920, 1080), "Untitled Engine", sf::Style::None, sf::ContextSettings());
+	ClockManager    clockManager    = ClockManager{};
+	EventManager    eventManager    = EventManager{};
+	SceneManager    sceneManager    = SceneManager{};
+	AssetManager    assetManager    = AssetManager{};
+	ScriptManager   scriptManager   = ScriptManager{};
 
 public: // ctor(s)/dtor(s)
 

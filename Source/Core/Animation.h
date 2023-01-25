@@ -8,14 +8,14 @@ class Animation
 {
 private: // data
 
-	sf::IntRect		uvRect			= sf::IntRect{};
-	sf::Vector2u	imageCount		= sf::Vector2u{};
-	sf::Vector2u	currentImage	= sf::Vector2u{};
-	float			totalTime		= float{};
-	float			switchTime		= float{};
-	bool			active			= false;
-	std::size_t		activeRow		= 0;
-	class Shape*	shape			= nullptr;
+	sf::IntRect     uvRect          = sf::IntRect{};
+	sf::Vector2u    imageCount      = sf::Vector2u{};
+	sf::Vector2u    currentImage    = sf::Vector2u{};
+	float           totalTime       = float{};
+	float           switchTime      = float{};
+	bool            active          = false;
+	std::size_t     activeRow       = 0;
+	class Shape*    shape           = nullptr;
 
 public: // ctor(s)/dtor(s)
 
@@ -29,13 +29,13 @@ public: // core
 
 public: // getter(s)
 
-	const sf::IntRect&	getUvRect() const;
-	const sf::Vector2u&	getImageCount() const;
-	const sf::Vector2u&	getCurrentImage() const;
-	float				getTotalTime() const;
-	float				getSwitchTime() const;
-	bool				isActive() const;
-	std::size_t			getActiveRow() const;
+	const sf::IntRect&  getUvRect() const;
+	const sf::Vector2u& getImageCount() const;
+	const sf::Vector2u& getCurrentImage() const;
+	float               getTotalTime() const;
+	float               getSwitchTime() const;
+	bool                isActive() const;
+	std::size_t         getActiveRow() const;
 
 public: // setter(s)
 

@@ -36,15 +36,15 @@ class Asset
 {
 private: // data
 
-	std::string					uuid					= utility::get_uuid();
-	std::string					id						= std::string{};
-	bool						active					= false;
-	CodeUtilization				codeUtilization			= CodeUtilization::Combination;
-	CodeUtilization				priorityCodeUtilization	= CodeUtilization::VirtualOverride;
-	Base*						base					= nullptr;
-	Scene*						parentScene				= nullptr;
-	Port*						port					= nullptr;
-	std::function<void(float)>	functionUpdate			= [](float){};
+	std::string                 uuid                    = utility::get_uuid();
+	std::string                 id                      = std::string{};
+	bool                        active                  = false;
+	CodeUtilization             codeUtilization         = CodeUtilization::Combination;
+	CodeUtilization             priorityCodeUtilization = CodeUtilization::VirtualOverride;
+	Base*                       base                    = nullptr;
+	Scene*                      parentScene             = nullptr;
+	Port*                       port                    = nullptr;
+	std::function<void(float)>  functionUpdate          = [](float){};
 
 public: // ctor(s)/dtor(s)
 
@@ -61,14 +61,14 @@ protected: // core
 
 public: // getter(s)
 
-	const std::string&						getUuid() const;
-	const std::string&						getId() const;
-	bool									isActive() const;
-	const CodeUtilization&					getCodeUtilization() const;
-	const CodeUtilization&					getPriorityCodeUtilization() const;
-	Scene*									getParentScene() const;
-	Port*									getPort() const;
-	template <typename Derived> Derived*	as() const;
+	const std::string&                      getUuid() const;
+	const std::string&                      getId() const;
+	bool                                    isActive() const;
+	const CodeUtilization&                  getCodeUtilization() const;
+	const CodeUtilization&                  getPriorityCodeUtilization() const;
+	Scene*                                  getParentScene() const;
+	Port*                                   getPort() const;
+	template <typename Derived> Derived*    as() const;
 
 public: // setter(s)
 
@@ -98,16 +98,16 @@ private: // friend(s)
 template<typename Base>
 inline Asset<Base>::Asset(Base& base, Scene* parentScene)
 {
-	this->base			= &base;
-	this->parentScene	= parentScene;
+	this->base          = &base;
+	this->parentScene   = parentScene;
 }
 
 template<typename Base>
 inline Asset<Base>::Asset(Base& base, const std::string& id, Scene* parentScene)
 {
-	this->base			= &base;
-	this->id			= id;
-	this->parentScene	= parentScene;
+	this->base          = &base;
+	this->id            = id;
+	this->parentScene   = parentScene;
 }
 
 template<typename Base>

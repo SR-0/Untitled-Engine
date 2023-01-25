@@ -19,11 +19,11 @@ void EngineSystem::initialize()
 	////
 	//
 
-	auto& window	= *global::getWindow();
-	auto& cm		= *global::getClockManager();
-	auto& em		= *global::getEventManager();
-	auto& sm		= *global::getSceneManager();
-	auto& am		= *global::getAssetManager();
+	auto& window    = *global::getWindow();
+	auto& cm        = *global::getClockManager();
+	auto& em        = *global::getEventManager();
+	auto& sm        = *global::getSceneManager();
+	auto& am        = *global::getAssetManager();
 
 	/////////////////////////////////////
 	// create/reference window port(s) //
@@ -32,12 +32,12 @@ void EngineSystem::initialize()
 	////
 	//
 
-	this->portEngineMenu		= window.createPort("portEngineMenu",		0.0f,													0.0f,																						1.0f,														0.035f,														window.getRenderLayerCount(), true);
-	this->portEngineFooter		= window.createPort("portEngineFooter",		0.0f,													1.f - this->portEngineMenu->getViewport().height,											1.0f,														this->portEngineMenu->getViewport().height,					window.getRenderLayerCount(), true);
-	this->portEngineExplorer	= window.createPort("portEngineExplorer",	0.0f,													this->portEngineMenu->getViewport().height,													0.20f,														1.0f - (this->portEngineMenu->getViewport().height * 2.0f),	window.getRenderLayerCount(), true);
-	this->portEngineModifier	= window.createPort("portEngineModifier",	1.0f - this->portEngineExplorer->getViewport().width,	this->portEngineExplorer->getViewport().top,												this->portEngineExplorer->getViewport().width,				this->portEngineExplorer->getViewport().height,				window.getRenderLayerCount(), true);
-	this->portEngineEditor		= window.createPort("portEngineEditor",		this->portEngineExplorer->getViewport().width,			this->portEngineExplorer->getViewport().top,												1.0f - (this->portEngineExplorer->getViewport().width * 2),	this->portEngineExplorer->getViewport().height * 0.750f,	window.getRenderLayerCount(), true);
-	this->portEngineAuxiliary	= window.createPort("portEngineAxuiliary",	this->portEngineExplorer->getViewport().width,			this->portEngineEditor->getViewport().top + this->portEngineEditor->getViewport().height,	1.0f - (this->portEngineExplorer->getViewport().width * 2),	this->portEngineExplorer->getViewport().height * 0.250f,	window.getRenderLayerCount(), true);
+	this->portEngineMenu        = window.createPort("portEngineMenu",       0.0f,                                                   0.0f,                                                                                       1.0f,                                                       0.035f,                                                     window.getRenderLayerCount(), true);
+	this->portEngineFooter      = window.createPort("portEngineFooter",     0.0f,                                                   1.f - this->portEngineMenu->getViewport().height,                                           1.0f,                                                       this->portEngineMenu->getViewport().height,                 window.getRenderLayerCount(), true);
+	this->portEngineExplorer    = window.createPort("portEngineExplorer",   0.0f,                                                   this->portEngineMenu->getViewport().height,                                                 0.20f,                                                      1.0f - (this->portEngineMenu->getViewport().height * 2.0f), window.getRenderLayerCount(), true);
+	this->portEngineModifier    = window.createPort("portEngineModifier",   1.0f - this->portEngineExplorer->getViewport().width,   this->portEngineExplorer->getViewport().top,                                                this->portEngineExplorer->getViewport().width,              this->portEngineExplorer->getViewport().height,             window.getRenderLayerCount(), true);
+	this->portEngineEditor      = window.createPort("portEngineEditor",     this->portEngineExplorer->getViewport().width,          this->portEngineExplorer->getViewport().top,                                                1.0f - (this->portEngineExplorer->getViewport().width * 2), this->portEngineExplorer->getViewport().height * 0.750f,    window.getRenderLayerCount(), true);
+	this->portEngineAuxiliary   = window.createPort("portEngineAxuiliary",  this->portEngineExplorer->getViewport().width,          this->portEngineEditor->getViewport().top + this->portEngineEditor->getViewport().height,   1.0f - (this->portEngineExplorer->getViewport().width * 2), this->portEngineExplorer->getViewport().height * 0.250f,    window.getRenderLayerCount(), true);
 
 	///////////////////////////////////////////////////////////
 	// create/reference global system/engine sound buffer(s) //
@@ -46,8 +46,8 @@ void EngineSystem::initialize()
 	////
 	//
 
-	this->soundBufferEngineOk		= am.createSoundBuffer<SoundBuffer>("soundBufferEngineOk",		"Resources/Sounds/ok1.wav", this);
-	this->soundBufferEngineCancel	= am.createSoundBuffer<SoundBuffer>("soundBufferEngineCancel",	"Resources/Sounds/ok2.wav", this);
+	this->soundBufferEngineOk       = am.createSoundBuffer<SoundBuffer>("soundBufferEngineOk",      "Resources/Sounds/ok1.wav", this);
+	this->soundBufferEngineCancel   = am.createSoundBuffer<SoundBuffer>("soundBufferEngineCancel",  "Resources/Sounds/ok2.wav", this);
 
 
 	///////////////////////////////////////////////////
@@ -57,10 +57,10 @@ void EngineSystem::initialize()
 	////
 	//
 
-	this->fontEngineRegular		= am.createFont<Font>("fontEngineRegular",		"Resources/Fonts/Monospaced/unispace.ttf",				this);	// (monospaced)
-	this->fontEngineItalic		= am.createFont<Font>("fontEngineItalic",		"Resources/Fonts/Monospaced/unispace_italic.ttf",		this);	// (monospaced)
-	this->fontEngineBold		= am.createFont<Font>("fontEngineBold",			"Resources/Fonts/Monospaced/unispace_bold.ttf",			this);	// (monospaced)
-	this->fontEngineBoldItalic	= am.createFont<Font>("fontEngineBoldItalic",	"Resources/Fonts/Monospaced/unispace_bold_italic.ttf",	this);	// (monospaced)
+	this->fontEngineRegular     = am.createFont<Font>("fontEngineRegular",      "Resources/Fonts/Monospaced/unispace.ttf",              this);	// (monospaced)
+	this->fontEngineItalic      = am.createFont<Font>("fontEngineItalic",       "Resources/Fonts/Monospaced/unispace_italic.ttf",       this);	// (monospaced)
+	this->fontEngineBold        = am.createFont<Font>("fontEngineBold",         "Resources/Fonts/Monospaced/unispace_bold.ttf",         this);	// (monospaced)
+	this->fontEngineBoldItalic  = am.createFont<Font>("fontEngineBoldItalic",   "Resources/Fonts/Monospaced/unispace_bold_italic.ttf",  this);	// (monospaced)
 
 	////////////////////////////////////////////////////
 	// create/reference global system/engine shape(s) //
@@ -87,6 +87,7 @@ void EngineSystem::initialize()
 	// debug
 	debug::setReportingEventFocus(true);
 	debug::setReportingEventMouseEntered(true);
+	debug::setReportingScriptUpdates(true);
 
 	// scene
 	this->setCodeUtilization(CodeUtilization::VirtualOverride);
@@ -127,14 +128,14 @@ void EngineSystem::initialize()
 		////
 		//
 
-		static AnchorResize		resizeAnchor	= AnchorResize::Left;
-		static bool				started			= false;
-		static bool				set				= false;
-		static sf::Vector2i		previous		= sf::Vector2i(0, 0);
-		static constexpr auto	marginOfError	= 5;
-		static constexpr auto	minWidth		= 1280;
-		static constexpr auto	minHeight		= 720;
-		const auto				mousePosition	= sf::Mouse::getPosition(*window.getInstance());
+		static AnchorResize     resizeAnchor    = AnchorResize::Left;
+		static bool             started         = false;
+		static bool             set             = false;
+		static sf::Vector2i     previous        = sf::Vector2i(0, 0);
+		static constexpr auto   marginOfError   = 5;
+		static constexpr auto   minWidth        = 1280;
+		static constexpr auto   minHeight       = 720;
+		const auto              mousePosition   = sf::Mouse::getPosition(*window.getInstance());
 
 		
 		/////////////////
@@ -145,10 +146,10 @@ void EngineSystem::initialize()
 		//
 
 		if (
-			mousePosition.x >= 0					&&
-			mousePosition.y >= 0					&&
-			mousePosition.x <= marginOfError		&&
-			mousePosition.y <= window.getSize().y	)
+			mousePosition.x >= 0                    &&
+			mousePosition.y >= 0                    &&
+			mousePosition.x <= marginOfError        &&
+			mousePosition.y <= window.getSize().y   )
 		{
 			resizeAnchor = AnchorResize::Left;
 
@@ -173,10 +174,10 @@ void EngineSystem::initialize()
 		//
 
 		else if (
-			mousePosition.x >= window.getSize().x - marginOfError	&&
-			mousePosition.y >= 0									&&
-			mousePosition.x <= window.getSize().x					&&
-			mousePosition.y <= window.getSize().y 					)
+			mousePosition.x >= window.getSize().x - marginOfError   &&
+			mousePosition.y >= 0                                    &&
+			mousePosition.x <= window.getSize().x                   &&
+			mousePosition.y <= window.getSize().y                   )
 		{
 			resizeAnchor = AnchorResize::Right;
 
@@ -273,8 +274,8 @@ void EngineSystem::initialize()
 			return;
 		}
 		
-		started	= false;
-		set		= false;
+		started = false;
+		set     = false;
 		this->textEngineResizer->setRenderEnabled(false);
 		ShowCursor(true);
 	});

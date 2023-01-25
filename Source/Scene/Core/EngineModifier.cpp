@@ -19,11 +19,11 @@ void EngineModifier::initialize()
 	////
 	//
 
-	auto& window	= *global::getWindow();
-	auto& cm		= *global::getClockManager();
-	auto& em		= *global::getEventManager();
-	auto& sm		= *global::getSceneManager();
-	auto& am		= *global::getAssetManager();
+	auto& window    = *global::getWindow();
+	auto& cm        = *global::getClockManager();
+	auto& em        = *global::getEventManager();
+	auto& sm        = *global::getSceneManager();
+	auto& am        = *global::getAssetManager();
 
 	/////////////////////////////////////
 	// create/reference window port(s) //
@@ -41,10 +41,10 @@ void EngineModifier::initialize()
 	////
 	//
 
-	this->rectangleModifierTab1			= am.createShape<Rectangle>("rectangleModifierTab1",			sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f * 0.0f), 0.0f),																								this, &*this->port); // font at index 0 is system regular
-	this->rectangleModifierTab2			= am.createShape<Rectangle>("rectangleModifierTab2",			sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f * 1.0f), 0.0f),																								this, &*this->port); // font at index 0 is system regular
-	this->rectangleModifierTab3			= am.createShape<Rectangle>("rectangleModifierTab3",			sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f * 2.0f), 0.0f),																								this, &*this->port); // font at index 0 is system regular
-	this->rectangleModifierTabConnector = am.createShape<Rectangle>("rectangleModifierTabConnector",	sf::Vector2f(this->rectangleModifierTab1->getSize().x - 4, 4),																							sf::Vector2f(((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f * 0.0f) + 2, this->rectangleModifierTab1->getPosition().y + this->rectangleModifierTab1->getSize().y - 2),	this, &*this->port); // font at index 0 is system regular
+	this->rectangleModifierTab1         = am.createShape<Rectangle>("rectangleModifierTab1",            sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),   sf::Vector2f(((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f * 0.0f), 0.0f),                                                                                               this, &*this->port); // font at index 0 is system regular
+	this->rectangleModifierTab2         = am.createShape<Rectangle>("rectangleModifierTab2",            sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),   sf::Vector2f(((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f * 1.0f), 0.0f),                                                                                               this, &*this->port); // font at index 0 is system regular
+	this->rectangleModifierTab3         = am.createShape<Rectangle>("rectangleModifierTab3",            sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),   sf::Vector2f(((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f * 2.0f), 0.0f),                                                                                               this, &*this->port); // font at index 0 is system regular
+	this->rectangleModifierTabConnector = am.createShape<Rectangle>("rectangleModifierTabConnector",    sf::Vector2f(this->rectangleModifierTab1->getSize().x - 4, 4),                                                                                          sf::Vector2f(((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f * 0.0f) + 2, this->rectangleModifierTab1->getPosition().y + this->rectangleModifierTab1->getSize().y - 2),    this, &*this->port); // font at index 0 is system regular
 
 	//////////////////////////////
 	// create/reference text(s) //

@@ -7,9 +7,9 @@ class EngineFooter : public Scene
 {
 private: // data
 
-	Port* port					= nullptr;
-	Text* textTicksPerSecond	= nullptr;
-	Text* textFramesPerSecond	= nullptr; // @TODO
+	Port* port                  = nullptr;
+	Text* textTicksPerSecond    = nullptr;
+	Text* textFramesPerSecond   = nullptr; // @TODO
 
 public: // ctor(s)/dtor(s)
 

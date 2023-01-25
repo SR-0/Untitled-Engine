@@ -13,8 +13,8 @@ class ScriptManager
 {
 private: // data
 
-	std::vector<std::shared_ptr<Script>>	scripts	= {};
-	std::mutex								mutex	= std::mutex{};
+	std::vector<std::shared_ptr<Script>>    scripts = {};
+	std::mutex                              mutex   = std::mutex{};
 
 public: // ctor(s)/dtor(s)
 
@@ -34,17 +34,17 @@ private: // core
 
 public: // bindings
 
-	template <typename Derived, typename ... Args> Derived*	createScript(Args ... args);
-	std::size_t												getScriptCount() const;
-	Script*													getScript(std::size_t index);
-	Script*													getScript(const std::string& id);
-	Script*													getScriptFront();
-	Script*													getScriptBack();
-	std::vector<std::shared_ptr<Script>>&					getScriptData();
-	void													removeScript(std::size_t index);
-	void													removeScript(const std::string& id);
-	void													removeScripts(class Scene* scene = nullptr);
-	void													iterateScripts(const std::function<void(Script&)>& function, bool reversed = false);
+	template <typename Derived, typename ... Args> Derived* createScript(Args ... args);
+	std::size_t                                             getScriptCount() const;
+	Script*                                                 getScript(std::size_t index);
+	Script*                                                 getScript(const std::string& id);
+	Script*                                                 getScriptFront();
+	Script*                                                 getScriptBack();
+	std::vector<std::shared_ptr<Script>>&                   getScriptData();
+	void                                                    removeScript(std::size_t index);
+	void                                                    removeScript(const std::string& id);
+	void                                                    removeScripts(class Scene* scene = nullptr);
+	void                                                    iterateScripts(const std::function<void(Script&)>& function, bool reversed = false);
 
 private: // friend(s)
 

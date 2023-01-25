@@ -19,11 +19,11 @@ void EngineFooter::initialize()
 	////
 	//
 
-	auto& window	= *global::getWindow();
-	auto& cm		= *global::getClockManager();
-	auto& em		= *global::getEventManager();
-	auto& sm		= *global::getSceneManager();
-	auto& am		= *global::getAssetManager();
+	auto& window    = *global::getWindow();
+	auto& cm        = *global::getClockManager();
+	auto& em        = *global::getEventManager();
+	auto& sm        = *global::getSceneManager();
+	auto& am        = *global::getAssetManager();
 
 	/////////////////////////////////////
 	// create/reference window port(s) //

@@ -33,12 +33,12 @@ public: // utility
 
 public: // getter(s)
 
-	virtual ShapeType		getShapeType() const override final;
-	float					getWidth() const;
-	float					getHeight() const;
-	const sf::Vector2f&		getSize() const;
-	virtual std::size_t		getPointCount() const override final;
-	virtual sf::Vector2f	getPoint(std::size_t index) const override final;
+	virtual ShapeType       getShapeType() const override final;
+	float                   getWidth() const;
+	float                   getHeight() const;
+	const sf::Vector2f&     getSize() const;
+	virtual std::size_t     getPointCount() const override final;
+	virtual sf::Vector2f    getPoint(std::size_t index) const override final;
 
 public: // setter(s)
 

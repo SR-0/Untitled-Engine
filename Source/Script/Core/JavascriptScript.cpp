@@ -1,25 +1,39 @@
 #include "Script/Core/JavascriptScript.h"
 
 JavascriptScript::JavascriptScript()
+{
+}
+
+JavascriptScript::JavascriptScript(
+	const std::string&  id,
+	const std::string&  fileString,
+	bool                active,
+	bool                repeating,
+	const sf::Time&     runInterval,
+	class Scene*        parentScene)
 	:
-	Script()
+	Script(id, fileString, active, repeating, runInterval, parentScene)
 {
 }
 
-JavascriptScript::JavascriptScript(const std::string& id, bool active, Scene* parentScene)
+JavascriptScript::JavascriptScript(
+	const std::string&  id,
+	const std::string&  fileString,
+	bool                active,
+	bool                repeating,
+	float               runIntervalSeconds,
+	class Scene*        parentScene)
 	:
-	Script(id, active, parentScene)
+	Script(id, fileString, active, repeating, runIntervalSeconds, parentScene)
 {
 }
 
-bool JavascriptScript::loadFromFile(const std::string& fileString)
-{
-	this->setFileString(fileString);
-
-	return false;
-}
-
-void JavascriptScript::update(float deltaTime)
+void JavascriptScript::run(float deltaTime)
 {
 	return; // @TODO
+}
+
+ScriptLanguage JavascriptScript::getScriptLanguage() const
+{
+	return ScriptLanguage::Javascript;
 }

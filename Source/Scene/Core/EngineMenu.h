@@ -8,9 +8,9 @@ class EngineMenu : public Scene
 {
 private: // data
 
-	Port*		port				= nullptr;
-	Rectangle*	rectangleMenuClose	= nullptr;
-	Text*		textMenuClose		= nullptr;
+	Port*       port                = nullptr;
+	Rectangle*  rectangleMenuClose  = nullptr;
+	Text*       textMenuClose       = nullptr;
 
 public: // ctor(s)/dtor(s)
 

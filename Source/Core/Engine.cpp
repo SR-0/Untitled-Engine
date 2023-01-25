@@ -40,13 +40,13 @@ Engine::Engine()
 	////
 	//
 
-	auto& sceneEngineSystem		= *global::getSceneManager()->createScene<EngineSystem>();
-	auto& sceneEngineMenu		= *global::getSceneManager()->createScene<EngineMenu>();
-	auto& sceneEngineFooter		= *global::getSceneManager()->createScene<EngineFooter>();
-	auto& sceneEngineExplorer	= *global::getSceneManager()->createScene<EngineExplorer>();
-	auto& sceneEngineModifier	= *global::getSceneManager()->createScene<EngineModifier>();
-	auto& sceneEngineEditor		= *global::getSceneManager()->createScene<EngineEditor>();
-	auto& sceneEngineAuxiliary	= *global::getSceneManager()->createScene<EngineAuxiliary>();
+	auto& sceneEngineSystem     = *global::getSceneManager()->createScene<EngineSystem>();
+	auto& sceneEngineMenu       = *global::getSceneManager()->createScene<EngineMenu>();
+	auto& sceneEngineFooter     = *global::getSceneManager()->createScene<EngineFooter>();
+	auto& sceneEngineExplorer   = *global::getSceneManager()->createScene<EngineExplorer>();
+	auto& sceneEngineModifier   = *global::getSceneManager()->createScene<EngineModifier>();
+	auto& sceneEngineEditor     = *global::getSceneManager()->createScene<EngineEditor>();
+	auto& sceneEngineAuxiliary  = *global::getSceneManager()->createScene<EngineAuxiliary>();
 
 	/////////////////////////////
 	// global scene references //
@@ -88,8 +88,7 @@ Engine::Engine()
 	////
 	//
 
-	auto& luaScript = *global::getScriptManager()->createScript<LuaScript>("luaScriptTest");
-	luaScript.loadFromFile("Source/Script/Testing/test.lua");
+	auto& luaScript = *global::getScriptManager()->createScript<LuaScript>("luaScriptTest", "Source/Script/Testing/test.lua", true, true, 1.f , nullptr);
 }
 
 #pragma endregion CTOR(S)/DTOR(S)
@@ -107,8 +106,30 @@ bool Engine::isRunning()
 
 void Engine::update()
 {
+	///////////////////////////////////////////////////////
+	// always update global clock manager no matter what //
+	///////////////////////////////////////////////////////
+	//////
+	////
+	//
+
 	global::getClockManager()->update();
+
+	//////////////////////////////
+	// get time between updates //
+	//////////////////////////////
+	//////
+	////
+	//
+
 	global::setTimeSinceLastUpdate(global::getTimeSinceLastUpdate() + global::getClockManager()->getDeltaTime());
+
+	///////////////////////////////////////////////
+	// determine if updating based on tick limit //
+	///////////////////////////////////////////////
+	//////
+	////
+	//
 
 	switch (global::getMaxTicksPerSecond())
 	{
@@ -126,6 +147,13 @@ void Engine::update()
 		break;
 	}
 
+	////////////////////////////////////
+	// update and reset update checks //
+	////////////////////////////////////
+	//////
+	////
+	//
+
 	if (global::isUpdating())
 	{
 		global::getEventManager()->update(global::getTimeSinceLastUpdate().asSeconds());
@@ -139,7 +167,21 @@ void Engine::update()
 
 void Engine::render()
 {
+	//////////////////////////////
+	// get time between renders //
+	//////////////////////////////
+	//////
+	////
+	//
+
 	global::setTimeSinceLastRender(global::getTimeSinceLastRender() + global::getClockManager()->getDeltaTime());
+
+	/////////////////////////////////////////////////
+	// determine if rendering based on frame limit //
+	/////////////////////////////////////////////////
+	//////
+	////
+	//
 
 	switch (global::getMaxFramesPerSecond())
 	{
@@ -156,6 +198,13 @@ void Engine::render()
 		}
 		break;
 	}
+
+	////////////////////////////////////
+	// render and reset render checks //
+	////////////////////////////////////
+	//////
+	////
+	//
 
 	if (global::isRendering())
 	{

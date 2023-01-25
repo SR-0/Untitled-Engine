@@ -7,18 +7,18 @@ Timer::Timer(const std::string& id)
 
 Timer::Timer(const std::string& id, const sf::Time& time, bool paused)
 {
-	this->id			= id;
-	this->startingTime	= time;
-	this->remainingTime	= time;
-	this->paused		= paused;
+	this->id            = id;
+	this->startingTime  = time;
+	this->remainingTime = time;
+	this->paused        = paused;
 }
 
 Timer::Timer(const std::string& id, float seconds, bool paused)
 {
-	this->id			= id;
-	this->startingTime	= sf::Time(sf::seconds(seconds));
-	this->remainingTime	= sf::Time(sf::seconds(seconds));
-	this->paused		= paused;
+	this->id            = id;
+	this->startingTime  = sf::Time(sf::seconds(seconds));
+	this->remainingTime = sf::Time(sf::seconds(seconds));
+	this->paused        = paused;
 }
 
 void Timer::update(const sf::Time& deltaTime)

@@ -19,11 +19,11 @@ void EngineExplorer::initialize()
 	////
 	//
 
-	auto& window	= *global::getWindow();
-	auto& cm		= *global::getClockManager();
-	auto& em		= *global::getEventManager();
-	auto& sm		= *global::getSceneManager();
-	auto& am		= *global::getAssetManager();
+	auto& window    = *global::getWindow();
+	auto& cm        = *global::getClockManager();
+	auto& em        = *global::getEventManager();
+	auto& sm        = *global::getSceneManager();
+	auto& am        = *global::getAssetManager();
 
 	/////////////////////////////////////
 	// create/reference window port(s) //
@@ -41,10 +41,10 @@ void EngineExplorer::initialize()
 	////
 	//
 
-	this->rectangleExplorerEvents		= am.createShape<Rectangle>("this->rectangleExplorerEvents", sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 0.0f), 0.0f),																									this, &*this->port); // font at index 0 is system regular
-	this->rectangleExplorerScenes		= am.createShape<Rectangle>("this->rectangleExplorerScenes", sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 1.0f), 0.0f),																									this, &*this->port); // font at index 0 is system regular
-	this->rectangleExplorerAssets		= am.createShape<Rectangle>("this->rectangleExplorerAssets", sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),	sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 2.0f), 0.0f),																									this, &*this->port); // font at index 0 is system regular
-	this->rectangleExplorerTabConnector = am.createShape<Rectangle>("this->rectangleExplorerAssets", sf::Vector2f(this->rectangleExplorerEvents->getSize().x - 4, 4),																						sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 0.0f) + 2, this->rectangleExplorerEvents->getPosition().y + this->rectangleExplorerEvents->getSize().y - 2),	this, &*this->port); // font at index 0 is system regular
+	this->rectangleExplorerEvents       = am.createShape<Rectangle>("this->rectangleExplorerEvents", sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),  sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 0.0f), 0.0f),                                                                                                 this, &*this->port); // font at index 0 is system regular
+	this->rectangleExplorerScenes       = am.createShape<Rectangle>("this->rectangleExplorerScenes", sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),  sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 1.0f), 0.0f),                                                                                                 this, &*this->port); // font at index 0 is system regular
+	this->rectangleExplorerAssets       = am.createShape<Rectangle>("this->rectangleExplorerAssets", sf::Vector2f((static_cast<float>(window.getSize().x) * this->port->getViewport().width) * 0.333f, (static_cast<float>(window.getSize().y) * 0.025f)),  sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 2.0f), 0.0f),                                                                                                 this, &*this->port); // font at index 0 is system regular
+	this->rectangleExplorerTabConnector = am.createShape<Rectangle>("this->rectangleExplorerAssets", sf::Vector2f(this->rectangleExplorerEvents->getSize().x - 4, 4),                                                                                       sf::Vector2f(((static_cast<float>(window.getSize().x) * port->getViewport().width) * 0.333f * 0.0f) + 2, this->rectangleExplorerEvents->getPosition().y + this->rectangleExplorerEvents->getSize().y - 2),  this, &*this->port); // font at index 0 is system regular
 
 	//////////////////////////////
 	// create/reference text(s) //

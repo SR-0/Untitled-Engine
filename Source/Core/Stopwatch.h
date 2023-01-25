@@ -7,10 +7,10 @@ class Stopwatch
 {
 private: // data
 
-	std::string	uuid		= utility::get_uuid();
-	std::string	id			= std::string{};
-	sf::Time	elapsedTime	= sf::Time::Zero;
-	bool		paused		= false;
+	std::string uuid        = utility::get_uuid();
+	std::string id          = std::string{};
+	sf::Time    elapsedTime = sf::Time::Zero;
+	bool        paused      = false;
 
 public:
 
@@ -22,10 +22,10 @@ private: // core
 
 public: // getter(s)
 
-	const std::string&	getUuid() const;
-	const std::string&	getId() const;
-	const sf::Time&		getElapsedTime() const;
-	bool				isPaused() const;
+	const std::string&  getUuid() const;
+	const std::string&  getId() const;
+	const sf::Time&     getElapsedTime() const;
+	bool                isPaused() const;
 
 public: // setter(s)
 

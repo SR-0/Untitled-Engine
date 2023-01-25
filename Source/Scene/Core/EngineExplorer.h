@@ -8,15 +8,15 @@ class EngineExplorer : public Scene
 {
 private: // data
 
-	Port*		port							= nullptr;
-	Rectangle*	rectangleExplorerEvents			= nullptr;
-	Rectangle*	rectangleExplorerScenes			= nullptr;
-	Rectangle*	rectangleExplorerAssets			= nullptr;
-	Rectangle*	rectangleExplorerTabConnector	= nullptr;
-	Text*		textExplorerEvents				= nullptr;
-	Text*		textExplorerScenes				= nullptr;
-	Text*		textExplorerAssets				= nullptr;
-	ExplorerTab explorerTab						= ExplorerTab::Events;
+	Port*       port                            = nullptr;
+	Rectangle*  rectangleExplorerEvents         = nullptr;
+	Rectangle*  rectangleExplorerScenes         = nullptr;
+	Rectangle*  rectangleExplorerAssets         = nullptr;
+	Rectangle*  rectangleExplorerTabConnector   = nullptr;
+	Text*       textExplorerEvents              = nullptr;
+	Text*       textExplorerScenes              = nullptr;
+	Text*       textExplorerAssets              = nullptr;
+	ExplorerTab explorerTab                     = ExplorerTab::Events;
 
 public: // ctor(s)/dtor(s)
 

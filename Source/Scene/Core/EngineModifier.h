@@ -8,15 +8,15 @@ class EngineModifier : public Scene
 {
 private: // data
 
-	Port*		port							= nullptr;
-	Rectangle*	rectangleModifierTab1			= nullptr;
-	Rectangle*	rectangleModifierTab2			= nullptr;
-	Rectangle*	rectangleModifierTab3			= nullptr;
-	Rectangle*	rectangleModifierTabConnector	= nullptr;
-	Text*		textModifierTab1				= nullptr;
-	Text*		textModifierTab2				= nullptr;
-	Text*		textModifierTab3				= nullptr;
-	ModifierTab modiferTab						= ModifierTab::Tab1;
+	Port*       port                           = nullptr;
+	Rectangle*  rectangleModifierTab1          = nullptr;
+	Rectangle*  rectangleModifierTab2          = nullptr;
+	Rectangle*  rectangleModifierTab3          = nullptr;
+	Rectangle*  rectangleModifierTabConnector  = nullptr;
+	Text*       textModifierTab1               = nullptr;
+	Text*       textModifierTab2               = nullptr;
+	Text*       textModifierTab3               = nullptr;
+	ModifierTab modiferTab                     = ModifierTab::Tab1;
 
 public: // dtor(s)/ctor(s)
 

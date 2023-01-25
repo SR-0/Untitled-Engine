@@ -19,12 +19,11 @@ void EngineEditor::initialize()
 	////
 	//
 
-	auto& window	= *global::getWindow();
-	auto& cm		= *global::getClockManager();
-	auto& em		= *global::getEventManager();
-	auto& sm		= *global::getSceneManager();
-	auto& am		= *global::getAssetManager();
-
+	auto& window    = *global::getWindow();
+	auto& cm        = *global::getClockManager();
+	auto& em        = *global::getEventManager();
+	auto& sm        = *global::getSceneManager();
+	auto& am        = *global::getAssetManager();
 
 	/////////////////////////////////////
 	// create/reference window port(s) //
@@ -42,8 +41,8 @@ void EngineEditor::initialize()
 	////
 	//
 
-	this->soundEditorOk		= am.createSound<Sound>("soundEngineOk",		&*am.getSoundBuffer(0), this); // sound buffer index 0 is always system/engine ok
-	this->soundEditorCancel	= am.createSound<Sound>("soundEngineCancel",	&*am.getSoundBuffer(1), this); // sound buffer index 1 is always system/engine cancel
+	this->soundEditorOk     = am.createSound<Sound>("soundEngineOk",        &*am.getSoundBuffer(0), this); // sound buffer index 0 is always system/engine ok
+	this->soundEditorCancel = am.createSound<Sound>("soundEngineCancel",    &*am.getSoundBuffer(1), this); // sound buffer index 1 is always system/engine cancel
 
 	/////////////////////////////////
 	// create/reference texture(s) //
@@ -72,32 +71,32 @@ void EngineEditor::initialize()
 	////
 	//
 
-	const auto textureTilesColumnCount		= 6;
-	const auto textureTilesRowCount			= 6;
-	const auto textureTilesStartColumn		= 3;
-	const auto textureTilesStartRow			= 2;
-	const auto textureTilesSelectorColumn	= 0;
-	const auto textureTilesSelectorRow		= 2;
+	const auto textureTilesColumnCount      = 6;
+	const auto textureTilesRowCount         = 6;
+	const auto textureTilesStartColumn      = 3;
+	const auto textureTilesStartRow         = 2;
+	const auto textureTilesSelectorColumn   = 0;
+	const auto textureTilesSelectorRow      = 2;
 
 	auto& tilemapMain = *am.createTilemap<Tilemap>();
 
 	tilemapMain.setup
 	(
-		"tilemapMain",				// id 
-		50,							// columns
-		50,							// rows
-		5,							// layers
-		10 * 8,						// depth in pixels
-		sf::Vector2f(1.f, 1.f),		// scale
-		&*this->textureEditorTiles,	// texture
-		textureTilesColumnCount,	// texture columns
-		textureTilesRowCount,		// texture rows
-		textureTilesStartColumn,	// texture start column
-		textureTilesStartRow,		// texture start row
-		false,						// centered origin (left-top if false, centered after depth if true)
-		TileType::Isometric,		// type 
-		this,						// parent scene
-		&*this->port				// port
+		"tilemapMain",              // id 
+		50,                         // columns
+		50,                         // rows
+		5,                          // layers
+		10 * 8,                     // depth in pixels
+		sf::Vector2f(1.f, 1.f),     // scale
+		&*this->textureEditorTiles, // texture
+		textureTilesColumnCount,    // texture columns
+		textureTilesRowCount,       // texture rows
+		textureTilesStartColumn,    // texture start column
+		textureTilesStartRow,       // texture start row
+		false,                      // centered origin (left-top if false, centered after depth if true)
+		TileType::Isometric,        // type 
+		this,                       // parent scene
+		&*this->port                // port
 	);
 
 	#pragma endregion CREATE/REFERENCE
@@ -197,113 +196,113 @@ void EngineEditor::initialize()
 
 	#pragma region EVENT BINDING(S)
 
-	///////////////////
-	// save and quit //
-	///////////////////
-	//////
-	////
-	//
-													//////////////////
-	auto& bindingClose = *em.createBinding<Binding>	// explaination //
-	(												//////////////////
-													//
-													//	////////
-		"bindingClose",								//	// id //
-													//	////////
-													//	//
-													//	//	each binding has 'id' and 'uuid' -  
-													//	//	'id' can be a duplicate and is 
-													//	//	accessable via public member getter
-													//	//	and setter, 'uuid' is automatically
-													//	//	assigned umique id and is accessable
-													//	//	via public member getter
-													//
-													//	///////////
-		std::vector<int>{ sf::Event::KeyPressed },	//	// types //
-													//	///////////
-													//	//
-													//	//	containter of events types required
-													//	//	to trigger this binding's function
-													//	//	on every update/tick, assuming it
-													//	//	is active and parental restrictions
-													//	//	(or lack there of) allow it (e.g.
-													//	//	sf::Event::Closed, sf::Event::-
-													//	//	-KeyPressed, sf::Event::-
-													//	//	-MouseButtonReleased, etc...)
-													//
-													//	//////////
-		std::vector<int>{ sf::Keyboard::Escape },	//	// keys //
-													//	//////////
-													//	//
-													//	//	containter of keyboard keys required
-													//	//	to trigger this binding's function
-													//	//	on every update/tick, assuming it
-													//	//	is active and parental restrictions
-													//	//	(or lack there of) allow it (e.g.
-													//	//	sf::Keyboard::A, sf::Keyboard::-
-													//	//	-T, sf::Keyboard::D, etc...)
-													//
-													//	/////////////
-		std::vector<int>{},							//	// buttons //
-													//	/////////////
-													//	//
-													//	//	containter of mouse buttons required
-													//	//	to trigger this binding's function
-													//	//	on every update/tick, assuming it
-													//	//	is active and parental restrictions
-													//	//	(or lack there of) allow it (e.g.
-													//	//	sf::Mouse::Button::Left, sf::Mouse::-
-													//	//	-Button::Middle, sf::Mouse::Button::-
-													//	//	Right, etc...) "{}" for no inputs
-													//
-													//	///////////////
-		std::vector<int>{ sf::Keyboard::LShift },	//	// modifiers //
-													//	///////////////
-													//	//
-													//	//	containter of modifiers required
-													//	//	to trigger this binding's function
-													//	//	on every update/tick, assuming it
-													//	//	is active and parental restrictions
-													//	//	(or lack there of) allow it (e.g. sf::-
-													//	//	Keyboard::LShift, sf::Keyboard::-
-													//	//	RControl, sf::Keyboard::LAlt,
-													//	//  sf::Keyboard::Space etc...) - 
-													//	//	tradition modifiers are a smaller
-													//	//	subset, this will be fixed soon
-													//	//	@TODO
-													//
-													//	////////////
-		true,										//	// active //
-													//	////////////
-													//	//
-													//	//	if active, function will automatically
-													//	//	be called each update/tick
-													//
-													//	//////////////////
-		this,										//	// parent scene //
-													//	//////////////////
-													//	//
-													//	//	pointer to parent Scene object, in
-													//	//	which case parent scene needs to be
-													//	//	active in addition to this binding
-													//	//	being active in order to call function
-													//	//	automatically each update/tick, leave
-													//	//	as nullptr to avoid parental
-													//	//	restrictions
-													//
-													//	//////////////
-		[&](float){ window.close(); }				//	// function // @TODO (far from finished)
-													//	//////////////
-													//	//
-													//	//	any functionality/lambda here will do
-													//	//	as long as it returns 'void' and has 
-													//	//	no parameters (possible expansion in
-													//	//	the future but so far I haven't felt
-													//	//	a need) - this will get called every
-													//	//	update/tick cycle if active and parental
-													//	//	restrictions (or lack there of) allow
-													//	//	it
-	);
+    ///////////////////
+    // save and quit //
+    ///////////////////
+    //////
+    ////
+    //
+                                                    //////////////////
+    auto& bindingClose = *em.createBinding<Binding> // explaination //
+    (                                               //////////////////
+                                                    //
+                                                    //  ////////
+        "bindingClose",                             //  // id //
+                                                    //  ////////
+                                                    //  //
+                                                    //  //  each binding has 'id' and 'uuid' -  
+                                                    //  //  'id' can be a duplicate and is 
+                                                    //  //  accessable via public member getter
+                                                    //  //  and setter, 'uuid' is automatically
+                                                    //  //  assigned umique id and is accessable
+                                                    //  //  via public member getter
+                                                    //  
+                                                    //  ///////////
+        std::vector<int>{ sf::Event::KeyPressed },  //  // types //
+                                                    //  ///////////
+                                                    //  //
+                                                    //  //  containter of events types required
+                                                    //  //  to trigger this binding's function
+                                                    //  //  on every update/tick, assuming it
+                                                    //  //  is active and parental restrictions
+                                                    //  //  (or lack there of) allow it (e.g.
+                                                    //  //  sf::Event::Closed, sf::Event::-
+                                                    //  //  -KeyPressed, sf::Event::-
+                                                    //  //  -MouseButtonReleased, etc...)
+                                                    //  
+                                                    //  //////////
+        std::vector<int>{ sf::Keyboard::Escape },   //  // keys //
+                                                    //  //////////
+                                                    //  //
+                                                    //  //  containter of keyboard keys required
+                                                    //  //  to trigger this binding's function
+                                                    //  //  on every update/tick, assuming it
+                                                    //  //  is active and parental restrictions
+                                                    //  //  (or lack there of) allow it (e.g.
+                                                    //  //  sf::Keyboard::A, sf::Keyboard::-
+                                                    //  //  -T, sf::Keyboard::D, etc...)
+                                                    //  
+                                                    //  /////////////
+        std::vector<int>{},                         //  // buttons //
+                                                    //  /////////////
+                                                    //  //
+                                                    //  //  containter of mouse buttons required
+                                                    //  //  to trigger this binding's function
+                                                    //  //  on every update/tick, assuming it
+                                                    //  //  is active and parental restrictions
+                                                    //  //  (or lack there of) allow it (e.g.
+                                                    //  //  sf::Mouse::Button::Left, sf::Mouse::-
+                                                    //  //  -Button::Middle, sf::Mouse::Button::-
+                                                    //  //  Right, etc...) "{}" for no inputs
+                                                    //  
+                                                    //  ///////////////
+        std::vector<int>{ sf::Keyboard::LShift },   //  // modifiers //
+                                                    //  ///////////////
+                                                    //  //
+                                                    //  //  containter of modifiers required
+                                                    //  //  to trigger this binding's function
+                                                    //  //  on every update/tick, assuming it
+                                                    //  //  is active and parental restrictions
+                                                    //  //  (or lack there of) allow it (e.g. sf::-
+                                                    //  //  Keyboard::LShift, sf::Keyboard::-
+                                                    //  //  RControl, sf::Keyboard::LAlt,
+                                                    //  //  sf::Keyboard::Space etc...) - 
+                                                    //  //  tradition modifiers are a smaller
+                                                    //  //  subset, this will be fixed soon
+                                                    //  //  @TODO
+                                                    //  
+                                                    //  ////////////
+        true,                                       //  // active //
+                                                    //  ////////////
+                                                    //  //
+                                                    //  //  if active, function will automatically
+                                                    //  //  be called each update/tick
+                                                    //  
+                                                    //  //////////////////
+        this,                                       //  // parent scene //
+                                                    //  //////////////////
+                                                    //  //
+                                                    //  //  pointer to parent Scene object, in
+                                                    //  //  which case parent scene needs to be
+                                                    //  //  active in addition to this binding
+                                                    //  //  being active in order to call function
+                                                    //  //  automatically each update/tick, leave
+                                                    //  //  as nullptr to avoid parental
+                                                    //  //  restrictions
+                                                    //  
+                                                    //  //////////////
+        [&](float){ window.close(); }               //  // function // @TODO (far from finished)
+                                                    //  //////////////
+                                                    //  //
+                                                    //  //  any functionality/lambda here will do
+                                                    //  //  as long as it returns 'void' and has 
+                                                    //  //  no parameters (possible expansion in
+                                                    //  //  the future but so far I haven't felt
+                                                    //  //  a need) - this will get called every
+                                                    //  //  update/tick cycle if active and parental
+                                                    //  //  restrictions (or lack there of) allow
+                                                    //  //  it
+    );
 
 	/////////////////
 	// scroll/zoom //

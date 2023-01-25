@@ -15,21 +15,21 @@ Tilemap::Tilemap(const std::string& id, Scene* parentScene, Port* port)
 }
 
 Tilemap::Tilemap(
-	const std::string&	id,
-	std::size_t			columns,
-	std::size_t			rows,
-	std::size_t			layers,
-	float				depth,
+	const std::string&  id,
+	std::size_t         columns,
+	std::size_t         rows,
+	std::size_t         layers,
+	float               depth,
 	const sf::Vector2f&	scale,
-	Texture*			texture,
-	std::size_t			textureColumnCount,
-	std::size_t			textureRowCount,
-	std::size_t			textureStartColumn,
-	std::size_t			textureStartRow,
-	bool				centeredOrigin,
-	const TileType&		tileType,
-	Scene*				parentScene,
-	Port*				port)
+	Texture*            texture,
+	std::size_t         textureColumnCount,
+	std::size_t         textureRowCount,
+	std::size_t         textureStartColumn,
+	std::size_t         textureStartRow,
+	bool                centeredOrigin,
+	const TileType&     tileType,
+	Scene*              parentScene,
+	Port*               port)
 	:
 	Asset<Tilemap>(*this)
 {
@@ -54,21 +54,21 @@ Tilemap::Tilemap(
 }
 
 void Tilemap::setup(
-	const std::string&	id,
-	std::size_t			columns,
-	std::size_t			rows,
-	std::size_t			layers,
-	float				depth,
+	const std::string&  id,
+	std::size_t         columns,
+	std::size_t         rows,
+	std::size_t         layers,
+	float               depth,
 	const sf::Vector2f&	scale,
-	Texture*			texture,
-	std::size_t			textureColumnCount,
-	std::size_t			textureRowCount,
-	std::size_t			textureStartColumn,
-	std::size_t			textureStartRow,
-	bool				centeredOrigin,
-	const TileType&		tileType,
-	Scene*				parentScene,
-	Port*				port)
+	Texture*            texture,
+	std::size_t         textureColumnCount,
+	std::size_t         textureRowCount,
+	std::size_t         textureStartColumn,
+	std::size_t         textureStartRow,
+	bool                centeredOrigin,
+	const TileType&     tileType,
+	Scene*              parentScene,
+	Port*               port)
 {
 	if (texture == nullptr)
 	{
@@ -76,16 +76,16 @@ void Tilemap::setup(
 		return;
 	}
 
-	this->size					= (texture ? sf::Vector2f((texture->getSize().x / textureColumnCount), (texture->getSize().y / textureRowCount)) : sf::Vector2f(0, 0));
-	this->depth					= depth;
-	this->origin				= sf::Vector2f(centeredOrigin ? sf::Vector2f((texture->getSize().x / textureColumnCount) / 2, ((texture->getSize().y / textureRowCount) - depth) / 2) : sf::Vector2f(0, 0));
-	this->scale					= scale;
-	this->tileType				= tileType;
-	this->activeIndex			= sf::Vector3i(0, 0, 0);
-	this->textureColumnCount	= textureColumnCount;
-	this->textureRowCount		= textureRowCount;
-	this->textureSize			= (texture ? texture->getSize() : sf::Vector2u(0, 0));
-	this->centeredOrigin		= centeredOrigin;
+	this->size                  = (texture ? sf::Vector2f((texture->getSize().x / textureColumnCount), (texture->getSize().y / textureRowCount)) : sf::Vector2f(0, 0));
+	this->depth                 = depth;
+	this->origin                = sf::Vector2f(centeredOrigin ? sf::Vector2f((texture->getSize().x / textureColumnCount) / 2, ((texture->getSize().y / textureRowCount) - depth) / 2) : sf::Vector2f(0, 0));
+	this->scale                 = scale;
+	this->tileType              = tileType;
+	this->activeIndex           = sf::Vector3i(0, 0, 0);
+	this->textureColumnCount    = textureColumnCount;
+	this->textureRowCount       = textureRowCount;
+	this->textureSize           = (texture ? texture->getSize() : sf::Vector2u(0, 0));
+	this->centeredOrigin        = centeredOrigin;
 
 	if (this->tiles.size() > 0)
 	{
@@ -118,9 +118,9 @@ void Tilemap::setup(
 					tileType
 				)));
 
-				Tile&		tile	= *this->tiles[layer][row][column].get();
-				const float	width	= static_cast<float>(tile.getSize().x);
-				const float	height	= static_cast<float>(tile.getSize().y);
+				Tile&       tile    = *this->tiles[layer][row][column].get();
+				const float width   = static_cast<float>(tile.getSize().x);
+				const float height  = static_cast<float>(tile.getSize().y);
 
 				switch (tile.getTileType())
 				{
@@ -193,9 +193,9 @@ void Tilemap::updateTilesRenderEnabled() // @TODO complete shit, doesn't work, n
 		{
 			for (std::size_t xIndex = 0; xIndex < this->tiles[zIndex][yIndex].size(); xIndex++)
 			{
-				static Tile* above		= nullptr;
-				static Tile* frontLeft	= nullptr;
-				static Tile* frontRight	= nullptr;
+				static Tile* above      = nullptr;
+				static Tile* frontLeft  = nullptr;
+				static Tile* frontRight = nullptr;
 
 				auto& tile = *this->tiles[zIndex][yIndex][xIndex].get();
 
@@ -206,13 +206,13 @@ void Tilemap::updateTilesRenderEnabled() // @TODO complete shit, doesn't work, n
 				{
 					if ((tile.getRow() % 2 == 1) && xIndex > 0)
 					{
-						frontLeft	= this->tiles[zIndex][yIndex + 1][xIndex - 1].get();
-						frontRight	= this->tiles[zIndex][yIndex + 1][xIndex].get();
+						frontLeft   = this->tiles[zIndex][yIndex + 1][xIndex - 1].get();
+						frontRight  = this->tiles[zIndex][yIndex + 1][xIndex].get();
 					}
 					else if ((tile.getRow() % 2 == 0) && xIndex < (this->getColumnCount() - 1))
 					{
-						frontLeft	= this->tiles[zIndex][yIndex + 1][xIndex].get();
-						frontRight	= this->tiles[zIndex][yIndex + 1][xIndex + 1].get();
+						frontLeft   = this->tiles[zIndex][yIndex + 1][xIndex].get();
+						frontRight  = this->tiles[zIndex][yIndex + 1][xIndex + 1].get();
 					}
 				}
 
@@ -224,9 +224,9 @@ void Tilemap::updateTilesRenderEnabled() // @TODO complete shit, doesn't work, n
 					}
 				}
 
-				above		= nullptr;
-				frontLeft	= nullptr;
-				frontRight	= nullptr;
+				above       = nullptr;
+				frontLeft   = nullptr;
+				frontRight  = nullptr;
 			}
 		}
 	}

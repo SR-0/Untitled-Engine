@@ -1,4 +1,5 @@
 #include "ScriptManager.h"
+#include "Core/Global.h"
 
 
 
@@ -22,8 +23,69 @@ ScriptManager::~ScriptManager()
 void ScriptManager::update(float deltaTime)
 {
 	for (auto& script : this->scripts)
-		if (script->isActive())
-			script->update(deltaTime);
+	{
+		if (script->isActive() && (script->getTimeSinceLastRan() >= script->getRunInterval()))
+		{
+			#ifndef NDEBUG
+
+			if (debug::isReportingScriptUpdates())
+			{
+				std::string scriptLanguage;
+
+				switch (script->getScriptLanguage())
+				{
+					case ScriptLanguage::Chaiscript:    scriptLanguage = "Chaiscript";  break;
+					case ScriptLanguage::CSharp:        scriptLanguage = "CSharp";      break;
+					case ScriptLanguage::Javascript:    scriptLanguage = "Javascript";  break;
+					case ScriptLanguage::Lua:           scriptLanguage = "Lua";         break;
+					case ScriptLanguage::Python:        scriptLanguage = "Python";      break;
+				}
+
+				debug::print
+				(
+					"//////\n"
+					"////\n"
+					"//\n"
+					"\n"
+					"script id              = " + script->getId()                                       + "\n"
+					"script source          = " + script->getFileString()                               + "\n"
+					"script language        = " + scriptLanguage                                        + "\n"
+					"script update interval = " + std::to_string(script->getRunInterval().asSeconds())  + " seconds\n"
+					"\n"
+				);
+
+				script->run(deltaTime);
+
+				debug::print
+				(
+					"\n"
+					"//\n"
+					"////\n"
+					"//////\n"
+					"\n"
+				);
+			}
+			else
+			{
+				script->run(deltaTime);
+			}
+
+			#else
+
+			script->run(deltaTime);
+
+			#endif
+			
+			script->setTimeSinceLastRan(sf::Time::Zero);
+
+			if (!script->isRepeating())
+				script->setActive(false);
+		}
+		else if (script->isActive() && (script->getTimeSinceLastRan() < script->getRunInterval()))
+		{
+			script->setTimeSinceLastRan(script->getTimeSinceLastRan().asSeconds() + deltaTime);
+		}
+	}
 }
 
 #pragma endregion CORE

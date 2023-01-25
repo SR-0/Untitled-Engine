@@ -189,9 +189,9 @@ bool Rectangle::intersects(const sf::Vector2f& point) const
 {
 	return bool
 	(
-		point.x >= this->getPosition().x - this->getOrigin().x						&&
-		point.y >= this->getPosition().y - this->getOrigin().y						&&
-		point.x <= this->getPosition().x - this->getOrigin().x + this->getSize().x	&&
+		point.x >= this->getPosition().x - this->getOrigin().x                      &&
+		point.y >= this->getPosition().y - this->getOrigin().y                      &&
+		point.x <= this->getPosition().x - this->getOrigin().x + this->getSize().x  &&
 		point.y <= this->getPosition().y - this->getOrigin().y + this->getSize().y
 	);
 }
@@ -200,9 +200,9 @@ bool Rectangle::intersects(const sf::Vector2i& point) const
 {
 	return bool
 	(
-		point.x >= this->getPosition().x - this->getOrigin().x						&&
-		point.y >= this->getPosition().y - this->getOrigin().y						&&
-		point.x <= this->getPosition().x - this->getOrigin().x + this->getSize().x	&&
+		point.x >= this->getPosition().x - this->getOrigin().x                      &&
+		point.y >= this->getPosition().y - this->getOrigin().y                      &&
+		point.x <= this->getPosition().x - this->getOrigin().x + this->getSize().x  &&
 		point.y <= this->getPosition().y - this->getOrigin().y + this->getSize().y
 	);
 }

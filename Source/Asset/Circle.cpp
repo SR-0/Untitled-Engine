@@ -51,9 +51,9 @@ sf::Vector2f Circle::getPoint(std::size_t index) const
 {
 	static constexpr float pi = 3.141592654f;
 
-	float angle	= index * 2 * pi / pointCount - pi / 2;
-	float x		= std::cos(angle) * radius;
-	float y		= std::sin(angle) * radius;
+	float angle = index * 2 * pi / pointCount - pi / 2;
+	float x     = std::cos(angle) * radius;
+	float y     = std::sin(angle) * radius;
 
 	return sf::Vector2f(radius + x, radius + y);
 }

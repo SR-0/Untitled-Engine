@@ -9,13 +9,13 @@ class Port
 {
 private: // data
 
-	std::string			uuid				= utility::get_uuid();
-	std::string			id					= "unidentified";
-	bool				active				= true;
-	sf::View			view				= sf::View{};
-	std::size_t			renderLayerCount	= 1;
-	class Rectangle*	background			= nullptr;
-	class Rectangle*	border				= nullptr; // @TODO implement port border
+	std::string         uuid                = utility::get_uuid();
+	std::string         id                  = "unidentified";
+	bool                active              = true;
+	sf::View            view                = sf::View{};
+	std::size_t         renderLayerCount    = 1;
+	class Rectangle*    background          = nullptr;
+	class Rectangle*    border              = nullptr; // @TODO implement port border
 
 public: // ctor(s)/dtor(s)
 
@@ -29,19 +29,19 @@ public: // utility
 
 public: // getters(s)
 
-	const std::string&	getUuid() const;
-	const std::string&	getId() const;
-	bool				isActive() const;
-	std::size_t			getRenderLayerCount() const;
-	sf::View			getView() const;
-	sf::FloatRect		getViewport() const;
-	sf::Vector2f		getSize() const;
-	sf::Vector2f		getCenter() const;
-	sf::Vector2f		getZoom() const;
-	sf::Vector2f		getScroll() const;
-	float				getRotation() const;
-	class Rectangle*	getBackground() const;
-	class Rectangle*	getBorder() const;
+	const std::string&  getUuid() const;
+	const std::string&  getId() const;
+	bool                isActive() const;
+	std::size_t         getRenderLayerCount() const;
+	sf::View            getView() const;
+	sf::FloatRect       getViewport() const;
+	sf::Vector2f        getSize() const;
+	sf::Vector2f        getCenter() const;
+	sf::Vector2f        getZoom() const;
+	sf::Vector2f        getScroll() const;
+	float               getRotation() const;
+	class Rectangle*    getBackground() const;
+	class Rectangle*    getBorder() const;
 
 public: // setter(s)
 

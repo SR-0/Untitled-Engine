@@ -2,8 +2,8 @@
 
 Stopwatch::Stopwatch(const std::string& id, bool paused)
 {
-	this->id		= id;
-	this->paused	= paused;
+	this->id        = id;
+	this->paused    = paused;
 }
 
 void Stopwatch::update(const sf::Time& deltaTime)

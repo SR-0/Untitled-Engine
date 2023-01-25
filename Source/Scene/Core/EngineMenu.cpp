@@ -19,11 +19,11 @@ void EngineMenu::initialize()
 	////
 	//
 
-	auto& window	= *global::getWindow();
-	auto& cm		= *global::getClockManager();
-	auto& em		= *global::getEventManager();
-	auto& sm		= *global::getSceneManager();
-	auto& am		= *global::getAssetManager();
+	auto& window    = *global::getWindow();
+	auto& cm        = *global::getClockManager();
+	auto& em        = *global::getEventManager();
+	auto& sm        = *global::getSceneManager();
+	auto& am        = *global::getAssetManager();
 
 	/////////////////////////////////////
 	// create/reference window port(s) //
@@ -112,9 +112,9 @@ void EngineMenu::initialize()
 	// move window
 	this->port->getBackground()->setUpdate([&](float)
 	{
-		static bool			started		= false;
-		static bool			set			= false;
-		static sf::Vector2i previous	= sf::Vector2i(0, 0);
+		static bool         started     = false;
+		static bool         set         = false;
+		static sf::Vector2i previous    = sf::Vector2i(0, 0);
 
 		if (this->port->getBackground()->isLeftClicked())
 			started = true;

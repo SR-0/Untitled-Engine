@@ -8,11 +8,11 @@ Binding::Binding()
 }
 
 Binding::Binding(
-	const std::string&				id,
-	const std::vector<int>&			types,
-	bool							active,
-	Scene*							parentScene,
-	std::function<void(float)>&&	function)
+	const std::string&              id,
+	const std::vector<int>&         types,
+	bool                            active,
+	Scene*                          parentScene,
+	std::function<void(float)>&&    function)
 {
 	this->set
 	(
@@ -25,14 +25,14 @@ Binding::Binding(
 }
 
 Binding::Binding(
-	const std::string&				id,
-	const std::vector<int>&			types,
-	const std::vector<int>&			keys,
-	const std::vector<int>&			buttons,
-	const std::vector<int>&			modifiers,
-	bool							active,
-	Scene*							parentScene,
-	std::function<void(float)>&&	function)
+	const std::string&              id,
+	const std::vector<int>&         types,
+	const std::vector<int>&         keys,
+	const std::vector<int>&         buttons,
+	const std::vector<int>&         modifiers,
+	bool                            active,
+	Scene*                          parentScene,
+	std::function<void(float)>&&    function)
 {
 	this->set
 	(
@@ -56,9 +56,9 @@ bool operator == (const Binding& first, const Binding& second)
 {
 	return bool
 	(
-		first.types		== second.types		&&
-		first.keys		== second.keys		&&
-		first.buttons	== second.buttons	&&
+		first.types     == second.types     &&
+		first.keys      == second.keys      &&
+		first.buttons   == second.buttons   &&
 		first.modifiers == second.modifiers
 	);
 }
@@ -285,35 +285,35 @@ void Binding::setParentScene(Scene* parentScene)
 }
 
 void Binding::set(
-	const std::string&				id,
-	const std::vector<int>&			types,
-	bool							active,
-	Scene*							parentScene,
-	std::function<void(float)>&&	functionUpdate)
+	const std::string&              id,
+	const std::vector<int>&         types,
+	bool                            active,
+	Scene*                          parentScene,
+	std::function<void(float)>&&    functionUpdate)
 {
-	this->id				= id;
-	this->types				= types;
-	this->active			= active;
-	this->parentScene		= parentScene;
-	this->functionUpdate	= std::move(functionUpdate);
+	this->id                = id;
+	this->types             = types;
+	this->active            = active;
+	this->parentScene       = parentScene;
+	this->functionUpdate    = std::move(functionUpdate);
 }
 
 void Binding::set(
-	const std::string&				id,
-	const std::vector<int>&			types,
-	const std::vector<int>&			keys,
-	const std::vector<int>&			buttons,
-	const std::vector<int>&			modifiers,
-	bool							active,
-	Scene*							parentScene,
-	std::function<void(float)>&&	functionUpdate)
+	const std::string&              id,
+	const std::vector<int>&         types,
+	const std::vector<int>&         keys,
+	const std::vector<int>&         buttons,
+	const std::vector<int>&         modifiers,
+	bool                            active,
+	Scene*                          parentScene,
+	std::function<void(float)>&&    functionUpdate)
 {
-	this->id				= id;
-	this->types				= types;
-	this->keys				= keys;
-	this->buttons			= buttons;
-	this->modifiers			= modifiers;
-	this->active			= active;
-	this->parentScene		= parentScene;
-	this->functionUpdate	= std::move(functionUpdate);
+	this->id                = id;
+	this->types             = types;
+	this->keys              = keys;
+	this->buttons           = buttons;
+	this->modifiers         = modifiers;
+	this->active            = active;
+	this->parentScene       = parentScene;
+	this->functionUpdate    = std::move(functionUpdate);
 }

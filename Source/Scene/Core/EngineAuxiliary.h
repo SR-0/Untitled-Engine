@@ -10,16 +10,16 @@ class EngineAuxiliary : public Scene
 {
 private: // data
 
-	Port*			port							= nullptr;
-	Rectangle*		rectangleAuxiliaryConsole		= nullptr;
-	Rectangle*		rectangleAuxiliaryWarnings		= nullptr;
-	Rectangle*		rectangleAuxiliaryErrors		= nullptr;
-	Rectangle*		rectangleAuxiliaryTabConnector	= nullptr;
-	Rectangle*		rectangleConsoleCursor			= nullptr;
-	Text*			textAuxiliaryConsole			= nullptr;
-	Text*			textAuxiliaryWarnings			= nullptr;
-	Text*			textAuxiliaryErrors				= nullptr;
-	AuxiliaryTab	auxiliaryTab					= AuxiliaryTab::Console;
+	Port*           port                            = nullptr;
+	Rectangle*      rectangleAuxiliaryConsole       = nullptr;
+	Rectangle*      rectangleAuxiliaryWarnings      = nullptr;
+	Rectangle*      rectangleAuxiliaryErrors        = nullptr;
+	Rectangle*      rectangleAuxiliaryTabConnector  = nullptr;
+	Rectangle*      rectangleConsoleCursor          = nullptr;
+	Text*           textAuxiliaryConsole            = nullptr;
+	Text*           textAuxiliaryWarnings           = nullptr;
+	Text*           textAuxiliaryErrors             = nullptr;
+	AuxiliaryTab    auxiliaryTab                    = AuxiliaryTab::Console;
 
 public: // ctor(s)/dtor(s)
 

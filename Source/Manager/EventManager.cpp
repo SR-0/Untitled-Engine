@@ -23,9 +23,9 @@ EventManager::~EventManager()
 
 void EventManager::update(float deltaTime)
 {
-	auto&	window	= *global::getWindow();
-	auto	event	= sf::Event{};
-	auto	local	= Binding{};
+	auto&   window  = *global::getWindow();
+	auto    event   = sf::Event{};
+	auto    local   = Binding{};
 
 	while (window.pollEvent(event))
 

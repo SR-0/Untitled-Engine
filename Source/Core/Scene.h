@@ -11,21 +11,21 @@ class Scene // @TODO Scene class needs to have Scene parent and Scene children p
 {
 private: // data
 
-	std::string					uuid					= utility::get_uuid();
-	std::string					id						= std::string{};
-	bool						active					= false;
-	bool						focusRequired			= false;
-	bool						mouseEnteredRequired	= false;
-	SceneState					sceneState				= SceneState::Initialize;
-	CodeUtilization				codeUtilization			= CodeUtilization::Combination;
-	CodeUtilization				priorityCodeUtilization	= CodeUtilization::VirtualOverride;
-	sf::Vector2f				position				= sf::Vector2f(0.0f, 0.0f);
-	sf::Vector2f				size					= sf::Vector2f(0.0f, 0.0f);
-	std::size_t					renderLayer				= 0;
-	bool						renderEnabled			= true;
-	std::function<void()>		functionInitialize		= []{};
-	std::function<void(float)>	functionUpdate			= [](float){};
-	std::function<void()>		functionTerminate		= []{};
+	std::string                 uuid                    = utility::get_uuid();
+	std::string                 id                      = std::string{};
+	bool                        active                  = false;
+	bool                        focusRequired           = false;
+	bool                        mouseEnteredRequired    = false;
+	SceneState                  sceneState              = SceneState::Initialize;
+	CodeUtilization             codeUtilization         = CodeUtilization::Combination;
+	CodeUtilization             priorityCodeUtilization = CodeUtilization::VirtualOverride;
+	sf::Vector2f                position                = sf::Vector2f(0.0f, 0.0f);
+	sf::Vector2f                size                    = sf::Vector2f(0.0f, 0.0f);
+	std::size_t                 renderLayer             = 0;
+	bool                        renderEnabled           = true;
+	std::function<void()>       functionInitialize      = []{};
+	std::function<void(float)>  functionUpdate          = [](float){};
+	std::function<void()>       functionTerminate       = []{};
 
 public: // ctor(s)/dtor(s)
 
@@ -35,9 +35,9 @@ public: // ctor(s)/dtor(s)
 
 public: // core
 
-	virtual void initialize();				// only used with code utilization of "VirtualOverride/Combination"
-	virtual void update(float deltaTime);	// only used with code utilization of "VirtualOverride/Combination"
-	virtual void terminate();				// only used with code utilization of "VirtualOverride/Combination"
+	virtual void initialize();              // only used with code utilization of "VirtualOverride/Combination"
+	virtual void update(float deltaTime);   // only used with code utilization of "VirtualOverride/Combination"
+	virtual void terminate();               // only used with code utilization of "VirtualOverride/Combination"
 
 private: // core
 
@@ -47,17 +47,17 @@ private: // core
 
 public: // getter(s)
 
-	const std::string&		getUuid() const;
-	const std::string&		getId() const;
-	bool					isActive() const;
-	bool					isFocusRequired() const;
-	bool					isMouseEnteredRequired() const;
-	const SceneState&		getSceneState() const;
-	const CodeUtilization&	getCodeUtilization() const;
-	const CodeUtilization&	getPriorityCodeUtilization() const;
-	const sf::Vector2f&		getPosition() const;
-	std::size_t				getRenderLayer() const;
-	bool					isRenderEnabled() const;
+	const std::string&      getUuid() const;
+	const std::string&      getId() const;
+	bool                    isActive() const;
+	bool                    isFocusRequired() const;
+	bool                    isMouseEnteredRequired() const;
+	const SceneState&       getSceneState() const;
+	const CodeUtilization&  getCodeUtilization() const;
+	const CodeUtilization&  getPriorityCodeUtilization() const;
+	const sf::Vector2f&     getPosition() const;
+	std::size_t             getRenderLayer() const;
+	bool                    isRenderEnabled() const;
 
 public: // setter(s)
 
