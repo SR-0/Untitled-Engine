@@ -27,7 +27,6 @@ private: // data
 	sf::Vector2u    textureSize         = sf::Vector2u(0, 0);
 	sf::Vector3i    activeIndex         = sf::Vector3i(0, 0, 0);
 	Container       tiles               = Container{};
-	class Port*     port                = nullptr;
 	bool            centeredOrigin      = false;
 
 public: // ctor(s)/dtor(s)
@@ -48,8 +47,8 @@ public: // ctor(s)/dtor(s)
 		std::size_t         textureStartRow,
 		bool                centeredOrigin,
 		const TileType&     tileType,
-		class Scene*        parentScene         = nullptr,
-		class Port*         port                = nullptr);
+		class Scene*  parentScene         = nullptr,
+		class Port*   port                = nullptr);
 
 public: // core
 
@@ -67,8 +66,8 @@ public: // core
 		std::size_t         textureStartRow,
 		bool                centeredOrigin,
 		const TileType&     tileType,
-		class Scene*        parentScene         = nullptr,
-		class Port*         port                = nullptr);
+		class Scene*  parentScene         = nullptr,
+		class Port*   port                = nullptr);
 
 public: // utility
 
@@ -76,7 +75,6 @@ public: // utility
 
 public: // getter(s)
 
-	Port*               getPort() const;
 	Tile*               getTile(const sf::Vector3i& index);
 	Tile*               getTile(std::size_t column, std::size_t row, std::size_t layer);
 	Tile*               getActiveTile();
@@ -107,7 +105,8 @@ public: // getter(s)
 
 public: // setter(s)
 
-	void setPort(class Port& port);
+
+	void setPort(Port* port);
 	void setActiveIndex(const sf::Vector3i& activeIndex);
 	void setActiveIndex(std::size_t column, std::size_t row, std::size_t layer);
 	void setActiveColumn(std::size_t column);

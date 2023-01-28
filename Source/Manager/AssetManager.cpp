@@ -68,11 +68,11 @@ SoundBuffer* AssetManager::getSoundBuffer(std::size_t index)
 	return this->soundBuffers[index].get();
 }
 
-SoundBuffer* AssetManager::getSoundBuffer(const std::string& id)
+SoundBuffer* AssetManager::getSoundBuffer(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->soundBuffers.size(); index++)
 	{
-		if (this->soundBuffers[index]->getId() == id)
+		if ((!uuid ? this->soundBuffers[index]->getId() : this->soundBuffers[index]->getUuid()) == id)
 		{
 			return this->soundBuffers[index].get();
 		}
@@ -101,11 +101,11 @@ void AssetManager::removeSoundBuffer(std::size_t index)
 	this->soundBuffers.erase(this->soundBuffers.begin() + index);
 }
 
-void AssetManager::removeSoundBuffer(const std::string& id)
+void AssetManager::removeSoundBuffer(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->soundBuffers.size(); index++)
 	{
-		if (this->soundBuffers[index]->getId() == id)
+		if ((!uuid ? this->soundBuffers[index]->getId() : this->soundBuffers[index]->getUuid()) == id)
 		{
 			this->soundBuffers.erase(this->soundBuffers.begin() + index);
 			index--;
@@ -173,11 +173,11 @@ Sound* AssetManager::getSound(std::size_t index)
 	return this->sounds[index].get();
 }
 
-Sound* AssetManager::getSound(const std::string& id)
+Sound* AssetManager::getSound(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->sounds.size(); index++)
 	{
-		if (this->sounds[index]->getId() == id)
+		if ((!uuid ? this->sounds[index]->getId() : this->sounds[index]->getUuid()) == id)
 		{
 			return this->sounds[index].get();
 		}
@@ -206,14 +206,26 @@ void AssetManager::removeSound(std::size_t index)
 	this->sounds.erase(this->sounds.begin() + index);
 }
 
-void AssetManager::removeSound(const std::string& id)
+void AssetManager::removeSound(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->sounds.size(); index++)
 	{
-		if (this->sounds[index]->getId() == id)
+		if ((!uuid ? this->sounds[index]->getId() : this->sounds[index]->getUuid()) == id)
 		{
 			this->sounds.erase(this->sounds.begin() + index);
 			index--;
+		}
+	}
+}
+
+void AssetManager::removeSound(Sound* sound)
+{
+	for (std::size_t i = 0; i < this->sounds.size(); i++)
+	{
+		if (this->sounds[i].get() == sound)
+		{
+			this->sounds.erase(this->sounds.begin() + i);
+			break;
 		}
 	}
 }
@@ -266,11 +278,11 @@ Music* AssetManager::getMusic(std::size_t index)
 	return this->music[index].get();
 }
 
-Music* AssetManager::getMusic(const std::string& id)
+Music* AssetManager::getMusic(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->music.size(); index++)
 	{
-		if (this->music[index]->getId() == id)
+		if ((!uuid ? this->music[index]->getId() : this->music[index]->getUuid()) == id)
 		{
 			return this->music[index].get();
 		}
@@ -299,14 +311,26 @@ void AssetManager::removeMusic(std::size_t index)
 	this->music.erase(this->music.begin() + index);
 }
 
-void AssetManager::removeMusic(const std::string& id)
+void AssetManager::removeMusic(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->music.size(); index++)
 	{
-		if (this->music[index]->getId() == id)
+		if ((!uuid ? this->music[index]->getId() : this->music[index]->getUuid()) == id)
 		{
 			this->music.erase(this->music.begin() + index);
 			index--;
+		}
+	}
+}
+
+void AssetManager::removeMusic(Music* music)
+{
+	for (std::size_t i = 0; i < this->music.size(); i++)
+	{
+		if (this->music[i].get() == music)
+		{
+			this->music.erase(this->music.begin() + i);
+			break;
 		}
 	}
 }
@@ -359,11 +383,11 @@ Font* AssetManager::getFont(std::size_t index)
 	return this->fonts[index].get();
 }
 
-Font* AssetManager::getFont(const std::string& id)
+Font* AssetManager::getFont(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->fonts.size(); index++)
 	{
-		if (this->fonts[index]->getId() == id)
+		if ((!uuid ? this->fonts[index]->getId() : this->fonts[index]->getUuid()) == id)
 		{
 			return this->fonts[index].get();
 		}
@@ -392,14 +416,26 @@ void AssetManager::removeFont(std::size_t index)
 	this->fonts.erase(this->fonts.begin() + index);
 }
 
-void AssetManager::removeFont(const std::string& id)
+void AssetManager::removeFont(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->fonts.size(); index++)
 	{
-		if (this->fonts[index]->getId() == id)
+		if ((!uuid ? this->fonts[index]->getId() : this->fonts[index]->getUuid()) == id)
 		{
 			this->fonts.erase(this->fonts.begin() + index);
 			index--;
+		}
+	}
+}
+
+void AssetManager::removeFont(Font* font)
+{
+	for (std::size_t i = 0; i < this->fonts.size(); i++)
+	{
+		if (this->fonts[i].get() == font)
+		{
+			this->fonts.erase(this->fonts.begin() + i);
+			break;
 		}
 	}
 }
@@ -452,11 +488,11 @@ Text* AssetManager::getText(std::size_t index)
 	return this->texts[index].get();
 }
 
-Text* AssetManager::getText(const std::string& id)
+Text* AssetManager::getText(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->texts.size(); index++)
 	{
-		if (this->texts[index]->getId() == id)
+		if ((!uuid ? this->texts[index]->getId() : this->texts[index]->getUuid()) == id)
 		{
 			return this->texts[index].get();
 		}
@@ -485,14 +521,26 @@ void AssetManager::removeText(std::size_t index)
 	this->texts.erase(this->texts.begin() + index);
 }
 
-void AssetManager::removeText(const std::string& id)
+void AssetManager::removeText(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->texts.size(); index++)
 	{
-		if (this->texts[index]->getId() == id)
+		if ((!uuid ? this->texts[index]->getId() : this->texts[index]->getUuid()) == id)
 		{
 			this->texts.erase(this->texts.begin() + index);
 			index--;
+		}
+	}
+}
+
+void AssetManager::removeText(Text* text)
+{
+	for (std::size_t i = 0; i < this->texts.size(); i++)
+	{
+		if (this->texts[i].get() == text)
+		{
+			this->texts.erase(this->texts.begin() + i);
+			break;
 		}
 	}
 }
@@ -545,11 +593,11 @@ Texture* AssetManager::getTexture(std::size_t index)
 	return this->textures[index].get();
 }
 
-Texture* AssetManager::getTexture(const std::string& id)
+Texture* AssetManager::getTexture(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->textures.size(); index++)
 	{
-		if (this->textures[index]->getId() == id)
+		if ((!uuid ? this->textures[index]->getId() : this->textures[index]->getUuid()) == id)
 		{
 			return this->textures[index].get();
 		}
@@ -578,14 +626,26 @@ void AssetManager::removeTexture(std::size_t index)
 	this->textures.erase(this->textures.begin() + index);
 }
 
-void AssetManager::removeTexture(const std::string& id)
+void AssetManager::removeTexture(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->textures.size(); index++)
 	{
-		if (this->textures[index]->getId() == id)
+		if ((!uuid ? this->textures[index]->getId() : this->textures[index]->getUuid()) == id)
 		{
 			this->textures.erase(this->textures.begin() + index);
 			index--;
+		}
+	}
+}
+
+void AssetManager::removeTexture(Texture* texture)
+{
+	for (std::size_t i = 0; i < this->textures.size(); i++)
+	{
+		if (this->textures[i].get() == texture)
+		{
+			this->textures.erase(this->textures.begin() + i);
+			break;
 		}
 	}
 }
@@ -638,11 +698,11 @@ Shape* AssetManager::getShape(std::size_t index)
 	return this->shapes[index].get();
 }
 
-Shape* AssetManager::getShape(const std::string& id)
+Shape* AssetManager::getShape(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->shapes.size(); index++)
 	{
-		if (this->shapes[index]->getId() == id)
+		if ((!uuid ? this->shapes[index]->getId() : this->shapes[index]->getUuid()) == id)
 		{
 			return this->shapes[index].get();
 		}
@@ -671,14 +731,26 @@ void AssetManager::removeShape(std::size_t index)
 	this->shapes.erase(this->shapes.begin() + index);
 }
 
-void AssetManager::removeShape(const std::string& id)
+void AssetManager::removeShape(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->shapes.size(); index++)
 	{
-		if (this->shapes[index]->getId() == id)
+		if ((!uuid ? this->shapes[index]->getId() : this->shapes[index]->getUuid()) == id)
 		{
 			this->shapes.erase(this->shapes.begin() + index);
 			index--;
+		}
+	}
+}
+
+void AssetManager::removeShape(Shape* shape)
+{
+	for (std::size_t i = 0; i < this->shapes.size(); i++)
+	{
+		if (this->shapes[i].get() == shape)
+		{
+			this->shapes.erase(this->shapes.begin() + i);
+			break;
 		}
 	}
 }
@@ -731,11 +803,11 @@ Tilemap* AssetManager::getTilemap(std::size_t index)
 	return this->tilemaps[index].get();
 }
 
-Tilemap* AssetManager::getTilemap(const std::string& id)
+Tilemap* AssetManager::getTilemap(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->tilemaps.size(); index++)
 	{
-		if (this->tilemaps[index]->getId() == id)
+		if ((!uuid ? this->tilemaps[index]->getId() : this->tilemaps[index]->getUuid()) == id)
 		{
 			return this->tilemaps[index].get();
 		}
@@ -764,14 +836,26 @@ void AssetManager::removeTilemap(std::size_t index)
 	this->tilemaps.erase(this->tilemaps.begin() + index);
 }
 
-void AssetManager::removeTilemap(const std::string& id)
+void AssetManager::removeTilemap(const std::string& id, bool uuid)
 {
 	for (std::size_t index = 0; index < this->tilemaps.size(); index++)
 	{
-		if (this->tilemaps[index]->getId() == id)
+		if ((!uuid ? this->tilemaps[index]->getId() : this->tilemaps[index]->getUuid()) == id)
 		{
 			this->tilemaps.erase(this->tilemaps.begin() + index);
 			index--;
+		}
+	}
+}
+
+void AssetManager::removeTilemap(Tilemap* tilemap)
+{
+	for (std::size_t i = 0; i < this->tilemaps.size(); i++)
+	{
+		if (this->tilemaps[i].get() == tilemap)
+		{
+			this->tilemaps.erase(this->tilemaps.begin() + i);
+			break;
 		}
 	}
 }

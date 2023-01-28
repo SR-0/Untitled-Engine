@@ -61,8 +61,8 @@ void EngineEditor::initialize()
 	////
 	//
 	
-	//auto& rectangleEditorTileSelector	= *am.createShape<Rectangle>("rectangleEditorTileSelector", sf::Vector2f(textureTiles.getSize().x / textureTilesColumnCount, textureTiles.getSize().y / textureTilesRowCount),	sf::Vector2f(0, 0),	this, &*this->port);
-	this->rectangleEditorTileCuller		= am.createShape<Rectangle>("rectangleEditorTileCuller",	sf::Vector2f(),																										sf::Vector2f(0, 0),	this, &*this->port);
+	//auto& rectangleEditorTileSelector	= *am.createShape<Rectangle>("rectangleEditorTileSelector", sf::Vector2f(textureTiles.getSize().x / textureTilesColumnCount, textureTiles.getSize().y / textureTilesRowCount),	sf::Vector2f(0, 0),	this, this->port);
+	this->rectangleEditorTileCuller		= am.createShape<Rectangle>("rectangleEditorTileCuller",	sf::Vector2f(),																										sf::Vector2f(0, 0),	this, this->port);
 	
 	///////////////////////////////
 	// create/reference tilemaps // @TODO temp for testing
@@ -96,7 +96,7 @@ void EngineEditor::initialize()
 		false,                      // centered origin (left-top if false, centered after depth if true)
 		TileType::Isometric,        // type 
 		this,                       // parent scene
-		&*this->port                // port
+		this->port                // port
 	);
 
 	#pragma endregion CREATE/REFERENCE

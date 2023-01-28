@@ -11,7 +11,7 @@ Text::Text(const std::string& id, Scene* parentScene, Port* port)
 	this->setId(id);
 	this->setString(id);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 	this->setFillColor(sf::Color::Black);
 }
 
@@ -25,7 +25,7 @@ Text::Text(const Font* font, Scene* parentScene, Port* port)
 	this->setFillColor(sf::Color::Black);
 }
 
-Text::Text(const std::string& id, const Font* font, Scene* parentScene, Port* port)
+Text::Text(const std::string& id, Font* font, Scene* parentScene, Port* port)
 	:
 	sf::Text(),
 	Asset<Text>(*this)
@@ -34,7 +34,7 @@ Text::Text(const std::string& id, const Font* font, Scene* parentScene, Port* po
 	this->setString(id);
 	this->setFont(*font);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 	this->setFillColor(sf::Color::Black);
 }
 
@@ -50,11 +50,6 @@ const std::size_t& Text::getRenderLayer() const
 bool Text::isRenderEnabled() const
 {
 	return this->renderEnabled && (static_cast<bool>(this->getParentScene()) ? this->getParentScene()->isRenderEnabled() : true);
-}
-
-Port* Text::getPort() const
-{
-	return this->port;
 }
 
 sf::Uint8 Text::getOpacity() const
@@ -90,11 +85,6 @@ void Text::setRenderLayerBack()
 void Text::setRenderEnabled(bool renderEnabled)
 {
 	this->renderEnabled = renderEnabled;
-}
-
-void Text::setPort(Port& port)
-{
-	this->port = &port;
 }
 
 void Text::setOpacity(float opacity)

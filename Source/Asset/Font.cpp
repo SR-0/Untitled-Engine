@@ -1,7 +1,7 @@
 #include "Asset/Font.h"
 #include "Utility/Debug.h"
 
-Font::Font(const std::string& id, class Scene* parentScene)
+Font::Font(const std::string& id, Scene* parentScene)
 	:
 	sf::Font(),
 	Asset<Font>(*this)
@@ -10,7 +10,7 @@ Font::Font(const std::string& id, class Scene* parentScene)
 	this->setParentScene(parentScene);
 }
 
-Font::Font(const std::string& id, const std::string& path, class Scene* parentScene)
+Font::Font(const std::string& id, const std::string& path, Scene* parentScene)
 	:
 	sf::Font(),
 	Asset<Font>(*this)

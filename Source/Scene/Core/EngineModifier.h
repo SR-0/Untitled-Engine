@@ -13,6 +13,7 @@ private: // data
 	Rectangle*  rectangleModifierTab2          = nullptr;
 	Rectangle*  rectangleModifierTab3          = nullptr;
 	Rectangle*  rectangleModifierTabConnector  = nullptr;
+	Rectangle*  rectangleModifierHighlighter   = nullptr;
 	Text*       textModifierTab1               = nullptr;
 	Text*       textModifierTab2               = nullptr;
 	Text*       textModifierTab3               = nullptr;

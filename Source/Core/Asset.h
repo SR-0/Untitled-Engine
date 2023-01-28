@@ -77,7 +77,7 @@ public: // setter(s)
 	void setCodeUtilization(const CodeUtilization& codeUtilization);
 	void setPriorityCodeUtilization(const CodeUtilization& priorityCodeUtilization);
 	void setParentScene(Scene* parentScene);
-	void setPort(Port& port);
+	void setPort(Port* port);
 	void setUpdate(std::function<void(float deltaTime)>&& functionUpdate);
 
 private: // friend(s)
@@ -291,9 +291,9 @@ inline void Asset<Base>::setParentScene(Scene* parentScene)
 }
 
 template<typename Base>
-inline void Asset<Base>::setPort(Port& port)
+inline void Asset<Base>::setPort(Port* port)
 {
-	this->port = &port;
+	this->port = port;
 }
 
 template<typename Base>

@@ -9,20 +9,18 @@ private: // data
 
 	std::size_t renderLayer     = 0;
 	bool        renderEnabled   = true;
-	class Port* port            = nullptr;
 
 public: // ctor(s)/dtor(s)
 
 	Text(const std::string& id = "unidentified", class Scene* parentScene = nullptr, class Port* port = nullptr);
 	Text(const Font* font, class Scene* parentScene = nullptr, class Port* port = nullptr);
-	Text(const std::string& id, const Font* font, class Scene* parentScene = nullptr, class Port* port = nullptr);
+	Text(const std::string& id, Font* font, class Scene* parentScene = nullptr, class Port* port = nullptr);
 	virtual ~Text();
 
 public: // getter(s)
 
 	const std::size_t&  getRenderLayer() const;
 	bool                isRenderEnabled() const;
-	class Port*         getPort() const;
 	sf::Uint8           getOpacity() const;
 	bool                isTransparent() const;
 	bool                isOpaque() const;
@@ -33,7 +31,6 @@ public: // setter(s)
 	void setRenderLayerFront();
 	void setRenderLayerBack();
 	void setRenderEnabled(bool renderEnabled);
-	void setPort(class Port& port);
 	void setOpacity(float opacity);
 	void setOpaque();
 	void setTransparent();

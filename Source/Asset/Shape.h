@@ -11,7 +11,6 @@ private: // data
 	Animation   animation       = Animation{};
 	std::size_t renderLayer     = 0;
 	bool        renderEnabled   = true;
-	class Port* port            = nullptr;
 
 public: // ctor(s)/dtor(s)
 
@@ -29,7 +28,6 @@ public: // getter(s)
 	virtual ShapeType   getShapeType() const = 0;
 	const std::size_t&  getRenderLayer() const;
 	bool                isRenderEnabled() const;
-	class Port*         getPort() const;
 	bool                isAnimated() const;
 	bool                isHoveredOver() const;
 	bool                isLeftClicked() const;
@@ -45,7 +43,6 @@ public: // setter(s)
 	void setRenderLayerFront();
 	void setRenderLayerBack();
 	void setRenderEnabled(bool renderEnabled);
-	void setPort(class Port& port);
 	void setAnimated(bool animated);
 	void setAnimation(sf::Vector2u imageCount, float switchTime, std::size_t activeRow = 0);
 	void setAnimation(const Texture* texture, sf::Vector2u imageCount, float switchTime, std::size_t activeRow = 0);

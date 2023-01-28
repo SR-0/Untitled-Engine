@@ -14,7 +14,7 @@ private: // data
 	Port*           portEngineExplorer      = nullptr; // global port for engine explorer
 	Port*           portEngineModifier      = nullptr; // global port for engine modifier
 	Port*           portEngineEditor        = nullptr; // global port for engine editor
-	Port*           portEngineAuxiliary     = nullptr; // global port for engine console
+	Port*           portEngineAuxiliary     = nullptr; // global port for engine auxiliary
 	SoundBuffer*    soundBufferEngineOk     = nullptr; // default global sound buffer for ok/good/accepted
 	SoundBuffer*    soundBufferEngineCancel = nullptr; // default global sound buffer for cancel/bad/unaccepted
 	Font*           fontEngineRegular       = nullptr; // default global font for style type regular

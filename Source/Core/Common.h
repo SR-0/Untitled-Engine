@@ -59,6 +59,14 @@ enum class AnchorPosition
 	Bottom,
 };
 
+enum class PortSideAnchor
+{
+	Left,
+	Top,
+	Width,
+	Height
+};
+
 enum class ExplorerTab
 {
 	Events,

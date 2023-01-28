@@ -88,7 +88,8 @@ Engine::Engine()
 	////
 	//
 
-	auto& luaScript = *global::getScriptManager()->createScript<LuaScript>("luaScriptTest", "Source/Script/Testing/test.lua", true, true, 1.f , nullptr);
+	auto& luaScript1 = *global::getScriptManager()->createScript<LuaScript>("luaScriptTest1", "Source/Script/Testing/test1.lua", true, true, 3.f , nullptr);
+	auto& luaScript2 = *global::getScriptManager()->createScript<LuaScript>("luaScriptTest2", "Source/Script/Testing/test2.lua", true, true, 1.f , nullptr);
 }
 
 #pragma endregion CTOR(S)/DTOR(S)

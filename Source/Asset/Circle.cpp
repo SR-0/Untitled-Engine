@@ -11,7 +11,7 @@ Circle::Circle(const std::string& id, float radius, std::size_t pointCount, Scen
 	this->setRadius(radius);
 	this->setPointCount(pointCount);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -24,7 +24,7 @@ Circle::Circle(float radius, std::size_t pointCount, Scene* parentScene, Port* p
 	this->setRadius(radius);
 	this->setPointCount(pointCount);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 	sf::Shape::update();
 }
 

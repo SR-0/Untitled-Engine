@@ -1,7 +1,7 @@
 #include "Asset/Texture.h"
 #include "Utility/Debug.h"
 
-Texture::Texture(const std::string& id, class Scene* parentScene)
+Texture::Texture(const std::string& id, Scene* parentScene)
 	:
 	sf::Texture(),
 	Asset<Texture>(*this)
@@ -10,7 +10,7 @@ Texture::Texture(const std::string& id, class Scene* parentScene)
 	this->setParentScene(parentScene);
 }
 
-Texture::Texture(const std::string& id, const std::string& path, class Scene* parentScene)
+Texture::Texture(const std::string& id, const std::string& path, Scene* parentScene)
 	:
 	sf::Texture(),
 	Asset<Texture>(*this)

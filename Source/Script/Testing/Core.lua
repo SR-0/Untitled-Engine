@@ -1,0 +1,7 @@
+--function getRunInterval()
+--	return _getRunInterval()
+--end
+--
+--function setRuntInterval(_runInterval)
+--	_setRunInterval(_runInterval)
+--end

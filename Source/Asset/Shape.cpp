@@ -13,7 +13,7 @@ Shape::Shape(const std::string& id, Scene* parent, Port* port)
 {
 	this->setId(id);
 	this->setParentScene(parent);
-	this->setPort(*port);
+	this->setPort(port);
 	if (parent)
 		this->setPosition(parent->getPosition());
 }
@@ -26,7 +26,7 @@ Shape::Shape(const std::string& id, const Texture* texture, Scene* parent, Port*
 	this->setId(id);
 	this->setTexture(texture);
 	this->setParentScene(parent);
-	this->setPort(*port);
+	this->setPort(port);
 	if (parent)
 		this->setPosition(parent->getPosition());
 }
@@ -39,11 +39,6 @@ const std::size_t& Shape::getRenderLayer() const
 bool Shape::isRenderEnabled() const
 {
 	return this->renderEnabled && (static_cast<bool>(this->getParentScene()) ? this->getParentScene()->isRenderEnabled() : true);
-}
-
-Port* Shape::getPort() const
-{
-	return this->port;
 }
 
 bool Shape::isAnimated() const
@@ -131,11 +126,6 @@ void Shape::setRenderLayerBack()
 void Shape::setRenderEnabled(bool renderEnabled)
 {
 	this->renderEnabled = renderEnabled;
-}
-
-void Shape::setPort(Port& port)
-{	
-	this->port = &port;
 }
 
 void Shape::setAnimated(bool animated)

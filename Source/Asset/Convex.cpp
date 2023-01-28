@@ -8,7 +8,7 @@ Convex::Convex(const std::string& id, std::size_t pointCount, Scene* parentScene
 {
 	this->setPointCount(pointCount);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -18,7 +18,7 @@ Convex::Convex(std::size_t pointCount, Scene* parentScene, Port* port)
 {
 	this->setPointCount(pointCount);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 	sf::Shape::update();
 }
 

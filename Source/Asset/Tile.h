@@ -22,7 +22,7 @@ private: // data - @TODO orient some data into v2s and v3s
 
 public: // ctor(s)/dtor(s)
 
-	Tile(class Scene* parentScene = nullptr, class Port* port = nullptr);
+	Tile();
 
 	Tile(
 		std::size_t         column,
@@ -37,8 +37,8 @@ public: // ctor(s)/dtor(s)
 		std::size_t         textureStartRow,
 		bool                centeredOrigin,
 		const TileType&     tileType,
-		class Scene*        parentScene         = nullptr,
-		class Port*         port                = nullptr);
+		class Scene*  parentScene         = nullptr,
+		class Port*   port                = nullptr);
 
 public: // core
 
@@ -55,8 +55,8 @@ public: // core
 		std::size_t         textureStartRow,
 		bool                centeredOrigin,
 		const TileType&     tileType,
-		class Scene*        parentScene         = nullptr,
-		class Port*         port                = nullptr);
+		class Scene*  parentScene         = nullptr,
+		class Port*   port                = nullptr);
 
 public: // getter(s)
 

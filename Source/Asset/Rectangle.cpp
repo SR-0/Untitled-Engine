@@ -12,8 +12,7 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, Scene* parentScene, Port* p
 	this->setOutlineColor(sf::Color::Red);
 	this->setOutlineThickness(-1.f);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -27,7 +26,7 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, const sf::Color& outlineCol
 	this->setOutlineColor(outlineColor);
 	this->setOutlineThickness(-1.f);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -41,8 +40,7 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, const sf::Color& outlineCol
 	this->setOutlineColor(outlineColor);
 	this->setOutlineThickness(outlineThickness);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -57,8 +55,7 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, const sf::Vector2f& scale, 
 	this->setOutlineColor(outlineColor);
 	this->setOutlineThickness(-1.f);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -73,8 +70,7 @@ Rectangle::Rectangle(const sf::FloatRect& floatRect, const sf::Vector2f& scale, 
 	this->setOutlineColor(outlineColor);
 	this->setOutlineThickness(outlineThickness);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -85,8 +81,7 @@ Rectangle::Rectangle(const std::string& id, const sf::Vector2f& size, const sf::
 	this->setSize(size);
 	this->setPosition(position);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -96,8 +91,7 @@ Rectangle::Rectangle(const std::string& id, const Texture* texture, Scene* paren
 {
 	this->setSize(sf::Vector2f(static_cast<float>(texture->getSize().x), static_cast<float>(texture->getSize().y)));
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -108,8 +102,7 @@ Rectangle::Rectangle::Rectangle(const std::string& id, const Texture* texture, c
 	this->setSize(sf::Vector2f(texture->getSize().x, texture->getSize().y));
 	this->setPosition(position);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -119,8 +112,7 @@ Rectangle::Rectangle(const std::string& id, const Texture* texture, const sf::Ve
 {
 	this->setSize(sf::Vector2f(static_cast<float>(texture->getSize().x / imageCount.x), static_cast<float>(texture->getSize().y / imageCount.y)));
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	this->setAnimated(animated);
 	this->setAnimation(texture, imageCount, switchTime, activeRow);
 	sf::Shape::update();
@@ -132,9 +124,8 @@ Rectangle::Rectangle(const std::string& id, const Texture* texture, const sf::Ve
 {
 	this->setSize(sf::Vector2f(static_cast<float>(texture->getSize().x / imageCount.x), static_cast<float>(texture->getSize().y / imageCount.y)));
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 	this->setPosition(position);
-	this->setActive(true);
 	this->setAnimated(animated);
 	this->setAnimation(texture, imageCount, switchTime, activeRow);
 	sf::Shape::update();
@@ -148,8 +139,7 @@ Rectangle::Rectangle(const sf::Vector2f& size, const sf::Vector2f& position, Sce
 	this->setSize(size);
 	this->setPosition(position);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -159,8 +149,7 @@ Rectangle::Rectangle::Rectangle::Rectangle(Texture* texture, Scene* parentScene,
 {
 	this->setSize(sf::Vector2f(static_cast<float>(texture->getSize().x), static_cast<float>(texture->getSize().y)));
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 
@@ -170,8 +159,7 @@ Rectangle::Rectangle(Texture* texture, const sf::Vector2f& size, Scene* parentSc
 {
 	this->setSize(size);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
-	this->setActive(true);
+	this->setPort(port);
 	sf::Shape::update();
 }
 

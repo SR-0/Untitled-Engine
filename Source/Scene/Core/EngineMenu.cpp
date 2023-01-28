@@ -20,10 +20,11 @@ void EngineMenu::initialize()
 	//
 
 	auto& window    = *global::getWindow();
-	auto& cm        = *global::getClockManager();
-	auto& em        = *global::getEventManager();
-	auto& sm        = *global::getSceneManager();
-	auto& am        = *global::getAssetManager();
+	auto& clocks    = *global::getClockManager();
+	auto& events    = *global::getEventManager();
+	auto& scenes    = *global::getSceneManager();
+	auto& assets    = *global::getAssetManager();
+	auto& scripts   = *global::getAssetManager();
 
 	/////////////////////////////////////
 	// create/reference window port(s) //
@@ -32,7 +33,7 @@ void EngineMenu::initialize()
 	////
 	//
 	
-	this->port = sm.getScene(0)->as<EngineSystem>()->getPortEngineMenu();
+	this->port = scenes.getScene(0)->as<EngineSystem>()->getPortEngineMenu();
 
 	///////////////////////////////
 	// create/reference shape(s) //
@@ -41,7 +42,7 @@ void EngineMenu::initialize()
 	////
 	//
 	
-	this->rectangleMenuClose = am.createShape<Rectangle>("rectangleMenuClose", sf::Vector2f(window.getHeight() * port->getViewport().height * 0.65f, window.getHeight() * port->getViewport().height * 0.65f), sf::Vector2f(0, 0), this, &*this->port);
+	this->rectangleMenuClose = assets.createShape<Rectangle>("rectangleMenuClose", sf::Vector2f(window.getHeight() * port->getViewport().height * 0.65f, window.getHeight() * port->getViewport().height * 0.65f), sf::Vector2f(0, 0), this, this->port);
 	
 	//////////////////////////////
 	// create/reference text(s) //
@@ -50,7 +51,7 @@ void EngineMenu::initialize()
 	////
 	//
 
-	this->textMenuClose = am.createText<Text>("textMenuClose", &*am.getFont(0), this, &*this->port); // font at index 2 is system bold
+	this->textMenuClose = assets.createText<Text>("textMenuClose", assets.getFont(0), this, this->port); // font at index 0 is system "regular"
 
 	#pragma endregion CREATE/REFERENCE
 
@@ -61,7 +62,7 @@ void EngineMenu::initialize()
 	#pragma region SETUP
 
 	// scene
-	//this->setFocusRequired(true);
+	this->setFocusRequired(true);
 	this->setCodeUtilization(CodeUtilization::VirtualOverride);
 
 	/////////////
@@ -85,8 +86,36 @@ void EngineMenu::initialize()
 	this->rectangleMenuClose->setPosition(window.getSize().x - this->rectangleMenuClose->getSize().x - (((window.getSize().y * port->getViewport().height) - this->rectangleMenuClose->getSize().y) / 2), ((window.getSize().y * port->getViewport().height) - this->rectangleMenuClose->getSize().y) / 2);
 	this->rectangleMenuClose->setRenderLayer(1);
 
-	// menu close update functionality
-	this->rectangleMenuClose->setUpdate([&](float)
+	/////////////
+	// text(s) //
+	/////////////
+	//////
+	////
+	//
+
+	// menu close
+	this->textMenuClose->setString("X");
+	this->textMenuClose->setCharacterSize(global::getFontSize() * global::getUiScale());
+	this->textMenuClose->setFillColor(sf::Color::White);
+	this->textMenuClose->setPosition(rectangleMenuClose->getPosition().x + ((rectangleMenuClose->getSize().x  - this->textMenuClose->getGlobalBounds().width) / 2), this->rectangleMenuClose->getPosition().y - rectangleMenuClose->getOrigin().y + ((this->rectangleMenuClose->getSize().y - this->textMenuClose->getGlobalBounds().height) / 2) - (this->textMenuClose->getGlobalBounds().height / 8));
+	this->textMenuClose->setRenderLayer(1);
+
+	#pragma endregion SETUP
+}
+
+void EngineMenu::update(float deltaTime)
+{
+	#pragma region REFERENCE
+
+	auto& window = *global::getWindow();
+
+	#pragma endregion REFERENCE
+
+
+
+
+
+	#pragma endregion WINDOW CLOSE
 	{
 		if (this->rectangleMenuClose->isLeftClicked())
 		{
@@ -100,18 +129,22 @@ void EngineMenu::initialize()
 		{
 			this->rectangleMenuClose->setFillColor(sf::Color(35, 35, 35));
 		}
-	});
+	}
+	#pragma endregion WINDOW CLOSE
 
-	/////////////
-	// text(s) //
-	/////////////
-	//////
-	////
-	//
 
-	// move window
-	this->port->getBackground()->setUpdate([&](float)
+
+
+
+	#pragma region WINDOW MOVE
 	{
+		//////////////////////////////////////////////////////////////////
+		// @TODO refactor so this section doesn't have to be on the end //
+		//////////////////////////////////////////////////////////////////
+		//////
+		////
+		//
+
 		static bool         started     = false;
 		static bool         set         = false;
 		static sf::Vector2i previous    = sf::Vector2i(0, 0);
@@ -135,21 +168,8 @@ void EngineMenu::initialize()
 
 		started	= false;
 		set		= false;
-	});
-
-	// menu close
-	this->textMenuClose->setString("X");
-	this->textMenuClose->setCharacterSize(global::getFontSize() * global::getUiScale());
-	this->textMenuClose->setFillColor(sf::Color::White);
-	this->textMenuClose->setPosition(rectangleMenuClose->getPosition().x + ((rectangleMenuClose->getSize().x  - this->textMenuClose->getGlobalBounds().width) / 2), this->rectangleMenuClose->getPosition().y - rectangleMenuClose->getOrigin().y + ((this->rectangleMenuClose->getSize().y - this->textMenuClose->getGlobalBounds().height) / 2) - (this->textMenuClose->getGlobalBounds().height / 8));
-	this->textMenuClose->setRenderLayer(1);
-
-	#pragma endregion SETUP
-}
-
-void EngineMenu::update(float deltaTime)
-{
-	return;
+	}
+	#pragma endregion WINDOW MOVE
 }
 
 void EngineMenu::terminate()

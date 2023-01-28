@@ -11,7 +11,7 @@ Tilemap::Tilemap(const std::string& id, Scene* parentScene, Port* port)
 {
 	this->setId(id);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 }
 
 Tilemap::Tilemap(
@@ -157,7 +157,7 @@ void Tilemap::setup(
 
 	this->setId(id);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 	this->setActive(true);
 
 	if (layers > (global::getWindow()->getRenderLayerCount() - 1)) // @TODO move to global and tailored debug/unit test class/source
@@ -230,11 +230,6 @@ void Tilemap::updateTilesRenderEnabled() // @TODO complete shit, doesn't work, n
 			}
 		}
 	}
-}
-
-Port* Tilemap::getPort() const
-{
-	return this->port;
 }
 
 Tile* Tilemap::getTile(const sf::Vector3i& index)
@@ -401,9 +396,9 @@ void Tilemap::iterateTiles(const std::function<void(Tile& tile)>& function, bool
 				function(*xIter->get());
 }
 
-void Tilemap::setPort(Port& port)
+void Tilemap::setPort(Port* port)
 {
-	this->port = &port;
+	Asset<Tilemap>::setPort(port);
 	this->iterateTiles([&](Tile& tile){ tile.setPort(port); });
 }
 

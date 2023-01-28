@@ -118,7 +118,9 @@
     <Text Include="Source\Script\User\placeholder.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Source\Script\Testing\test.lua" />
+    <None Include="Source\Script\Testing\test1.lua" />
+    <None Include="Source\Script\Testing\test2.lua" />
+    <None Include="Source\Script\Testing\Core.lua" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

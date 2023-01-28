@@ -35,6 +35,7 @@ private: // data
 	static EngineModifier*          engineModifier;
 	static EngineEditor*            engineEditor;
 	static EngineAuxiliary*         engineAuxiliary;
+	static int                      positiveOutlineThickness;
 	static constexpr std::size_t    minFontSize = 10;
 	static std::size_t              fontSize;
 	static constexpr float          minUiScale = 1.000000f;
@@ -98,6 +99,7 @@ public: // getter(s)
 	static EngineModifier*          getEngineModifier();
 	static EngineEditor*            getEngineEditor();
 	static EngineAuxiliary*         getEngineAuxiliary();
+	static int                      getPositiveOutlineThickness();
 	static constexpr std::size_t    getMinFontSize();
 	static std::size_t              getFontSize();
 	static constexpr std::size_t    getMinUiScale();
@@ -113,6 +115,7 @@ public: // getter(s)
 
 public: // setter(s)
 
+	static void setPositiveOutlineThickness(int positiveOutlineThickness);
 	static void setFontSize(std::size_t fontSize);
 	static void setUiScale(float uiScale);
 	static void setMaxTicksPerSecond(std::size_t maxTicksPerSecond);

@@ -15,8 +15,8 @@ class LuaScript : public Script
 {
 private: // data
 
-	lua_State*	luaState	= nullptr;
-	bool		newState	= false;
+	lua_State*   luaState;
+	bool         newState;
 
 public: // ctor(s)/dtor(s)
 

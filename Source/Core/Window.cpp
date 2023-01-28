@@ -246,6 +246,21 @@ void Window::display()
 
 #pragma region GETTER(S)
 
+constexpr std::size_t Window::getMinimumWidth()
+{
+	return Window::minimumWidth;
+}
+
+constexpr std::size_t Window::getMinimumHeight()
+{
+	return Window::minimumHeight;
+}
+
+constexpr std::size_t Window::getMinimumRenderLayerCount()
+{
+	return Window::minimumRenderLayerCount;
+}
+
 sf::RenderWindow* Window::getInstance() const
 {
 	return this->instance.get();
@@ -406,51 +421,6 @@ void Window::set(
 
 void Window::setResolution(const sf::Vector2u& resolution)
 {
-	//bool		validWidth	= false;
-	//bool		validHeight	= false;
-	//const auto	w			= (validWidth	= (resolution.x >= Window::minimumWidth) ? resolution.x : Window::minimumWidth);
-	//const auto	h			= (validHeight	= (resolution.y >= Window::minimumHeight) ? resolution.y : Window::minimumHeight);
-	//
-	//if (!validWidth)
-	//{
-	//	debug::print
-	//	(
-	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
-	//		"#\n"
-	//		"#   [ WARNING ]\n"
-	//		"#\n"
-	//		"#   attempt to set resolution width below minimum resolution\n"
-	//		"#   width failed - defaulting to minimum resolution width\n"
-	//		"#   value of ", Window::minimumWidth, "\n"
-	//		"#\n"
-	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
-	//	);
-	//}
-	//
-	//if (!validHeight)
-	//{
-	//	debug::print
-	//	(
-	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
-	//		"#\n"
-	//		"#   [ WARNING ]\n"
-	//		"#\n"
-	//		"#   attempt to set resolution height below minimum resolution\n"
-	//		"#   height failed - defaulting to minimum resolution height\n"
-	//		"#   value of ", Window::minimumHeight, "\n"
-	//		"#\n"
-	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
-	//	);
-	//}
-	//
-	//this->set
-	//(
-	//	sf::Vector2u(w, h),
-	//	this->getTitle(),
-	//	this->getStyle(),
-	//	this->getSettings()
-	//);
-
 	this->set
 	(
 		resolution,
@@ -462,7 +432,26 @@ void Window::setResolution(const sf::Vector2u& resolution)
 
 void Window::setResolution(std::size_t width, std::size_t height)
 {
-	this->setResolution(sf::Vector2u(width, height));
+	std::size_t fixedWidth  = width;
+	std::size_t fixedHeight = height;
+
+	if (fixedWidth < Window::minimumWidth)
+		fixedWidth = Window::minimumWidth;
+
+	#ifndef NDEBUG
+	if (fixedWidth != width)
+		debug::print("window resolution width must be at least a value of ", Window::minimumWidth, " or higher\n");
+	#endif//NDEBUG
+
+	if (fixedHeight < Window::minimumHeight)
+		fixedHeight = Window::minimumHeight;
+
+	#ifndef NDEBUG
+	if (fixedHeight != height)
+		debug::print("window resolution height must be at least a value of ", Window::minimumHeight, " or higher\n");
+	#endif//NDEBUG
+
+	this->setResolution(sf::Vector2u(fixedWidth, fixedHeight));
 }
 
 void Window::setTitle(const sf::String& title)
@@ -495,7 +484,17 @@ void Window::setSettings(const sf::ContextSettings& settings)
 
 void Window::setRenderLayerCount(std::size_t renderLayerCount)
 {
-	this->renderLayerCount = renderLayerCount;
+	std::size_t fixedRenderLayerCount = renderLayerCount;
+
+	if (fixedRenderLayerCount < Window::minimumRenderLayerCount)
+		fixedRenderLayerCount = Window::minimumRenderLayerCount;
+
+	#ifndef NDEBUG
+	if (fixedRenderLayerCount != renderLayerCount)
+		debug::print("reder layer count must be at least a value of ", Window::minimumRenderLayerCount, " or higher\n");
+	#endif//NDEBUG
+
+	this->renderLayerCount = fixedRenderLayerCount;
 }
 
 void Window::setPosition(const sf::Vector2i& position)
@@ -515,46 +514,26 @@ void Window::setSize(const sf::Vector2u& size)
 
 void Window::setSize(std::size_t width, std::size_t height)
 {
-	//bool		validWidth	= false;
-	//bool		validHeight	= false;
-	//const auto	w			= (validWidth	= (width >= Window::minimumWidth) ? width : Window::minimumWidth);
-	//const auto	h			= (validHeight	= (height >= Window::minimumHeight) ? height : Window::minimumHeight);
-	//
-	//if (!validWidth)
-	//{
-	//	debug::print
-	//	(
-	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
-	//		"#\n"
-	//		"#   [ WARNING ]\n"
-	//		"#\n"
-	//		"#   attempt to set resolution width below minimum resolution\n"
-	//		"#   width failed - defaulting to minimum resolution width\n"
-	//		"#   value of ", Window::minimumWidth, "\n"
-	//		"#\n"
-	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
-	//	);
-	//}
-	//
-	//if (!validHeight)
-	//{
-	//	debug::print
-	//	(
-	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
-	//		"#\n"
-	//		"#   [ WARNING ]\n"
-	//		"#\n"
-	//		"#   attempt to set resolution height below minimum resolution\n"
-	//		"#   height failed - defaulting to minimum resolution height\n"
-	//		"#   value of ", Window::minimumHeight, "\n"
-	//		"#\n"
-	//		"# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #\n"
-	//	);
-	//}
-	//
-	//this->instance->setSize(sf::Vector2u(w, h));
+	std::size_t fixedWidth  = width;
+	std::size_t fixedHeight = height;
 
-	this->instance->setSize(sf::Vector2u(width, height));
+	if (fixedWidth < Window::minimumWidth)
+		fixedWidth = Window::minimumWidth;
+
+	#ifndef NDEBUG
+	if (fixedWidth != width)
+		debug::print("window width must be at least a value of ", Window::minimumWidth, " or higher\n");
+	#endif//NDEBUG
+
+	if (fixedHeight < Window::minimumHeight)
+		fixedHeight = Window::minimumHeight;
+
+	#ifndef NDEBUG
+	if (fixedHeight != height)
+		debug::print("window height must be at least a value of ", Window::minimumHeight, " or higher\n");
+	#endif//NDEBUG
+
+	this->instance->setSize(sf::Vector2u(fixedWidth, fixedHeight));
 }
 
 void Window::setWidth(std::size_t width)

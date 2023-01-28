@@ -4,7 +4,7 @@
 
 std::size_t Tile::count = 0;
 
-Tile::Tile(Scene* scene, Port* port)
+Tile::Tile()
 {
 	count++;
 }
@@ -83,7 +83,7 @@ void Tile::setup(
 	this->setTextureIndex(textureStartColumn, textureStartRow);
 	this->setTileType(tileType);
 	this->setParentScene(parentScene);
-	this->setPort(*port);
+	this->setPort(port);
 }
 
 std::size_t Tile::getCount()

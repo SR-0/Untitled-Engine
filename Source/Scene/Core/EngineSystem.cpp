@@ -80,6 +80,7 @@ void EngineSystem::initialize()
 	#pragma region SETUP
 
 	// global
+	global::setPositiveOutlineThickness(2);
 	global::setUiScale(1.f);
 	global::setMaxTicksPerSecond(200);
 	global::setMaxFramesPerSecond(30);
@@ -87,7 +88,7 @@ void EngineSystem::initialize()
 	// debug
 	debug::setReportingEventFocus(true);
 	debug::setReportingEventMouseEntered(true);
-	debug::setReportingScriptUpdates(true);
+	//debug::setReportingScriptUpdates(true);
 
 	// scene
 	this->setCodeUtilization(CodeUtilization::VirtualOverride);
@@ -145,8 +146,7 @@ void EngineSystem::initialize()
 		////
 		//
 
-		if (
-			mousePosition.x >= 0                    &&
+		if (mousePosition.x >= 0                    &&
 			mousePosition.y >= 0                    &&
 			mousePosition.x <= marginOfError        &&
 			mousePosition.y <= window.getSize().y   )

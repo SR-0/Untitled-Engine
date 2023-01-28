@@ -42,7 +42,7 @@ void EngineFooter::initialize()
 	////
 	//
 
-	this->textTicksPerSecond = am.createText<Text>("textTicksPerSecond", &*am.getFont(0), nullptr, &*this->port);
+	this->textTicksPerSecond = am.createText<Text>("textTicksPerSecond", am.getFont(0), nullptr, this->port);
 
 	#pragma endregion CREATE/REFERENCE
 
